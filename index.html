@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Cozy Cup Café Engagement App</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 1rem; background: #f9f9f9; }
+  .container { max-width: 600px; margin: auto; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  h1 { color: #6b4c3b; }
+  input, button, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; }
+  button { background-color: #6b4c3b; color: white; border: none; cursor: pointer; }
+  button:hover { background-color: #8c6a4d; }
+  @media (max-width: 600px) {
+    .container { padding: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to The Cozy Cup Café</h1>
+    <div id="registrationSection">
+      <p>Register to receive updates and rewards:</p>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <button id="registerBtn">Register</button>
+    </div>
+
+    <div id="promoSection" style="display:none;">
+      <h2>Current Promotions</h2>
+      <ul id="promoList"></ul>
+      <h2>Your Loyalty Progress</h2>
+      <p id="loyaltyStatus"></p>
+      <h2>Feedback</h2>
+      <textarea id="feedbackInput" placeholder="Share your feedback"></textarea>
+      <button id="submitFeedbackBtn">Submit Feedback</button>
+    </div>
+  </div>
+
+  <script>
+    const promotions = [
+      "Buy 1 Get 1 Free on Cappuccinos",
+      "Free Cookie with Every 5th Visit",
+      "Introducing New Vegan Options!"
+    ];
+
+    const registerBtn = document.getElementById('registerBtn');
+    const promoSection = document.getElementById('promoSection');
+    const registrationSection = document.getElementById('registrationSection');
+    const promoList = document.getElementById('promoList');
+    const loyaltyStatus = document.getElementById('loyaltyStatus');
+    const feedbackInput = document.getElementById('feedbackInput');
+    const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+
+    function loadPromotions() {
+      promoList.innerHTML = '';
+      promotions.forEach(promo => {
+        const li = document.createElement('li');
+        li.textContent = promo;
+        promoList.appendChild(li);
+      });
+    }
+
+    function updateLoyalty() {
+      let visits = parseInt(localStorage.getItem('visits') || '0');
+      loyaltyStatus.textContent = `You have visited us ${visits} time(s). Visit 5 times to earn a free treat!`;
+    }
+
+    registerBtn.onclick = () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (name && email) {
+        localStorage.setItem('customerName', name);
+        localStorage.setItem('customerEmail', email);
+        localStorage.setItem('visits', '1'); // Starting visits count
+        registrationSection.style.display = 'none';
+        promoSection.style.display = 'block';
+        loadPromotions();
+        updateLoyalty();
+      } else {
+        alert('Please enter both name and email.');
+      }
+    };
+
+    submitFeedbackBtn.onclick = () => {
+      const feedback = feedbackInput.value.trim();
+      if (feedback) {
+        let feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        feedbacks.push({ name: localStorage.getItem('customerName'), feedback, date: new Date().toISOString() });
+        localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+        alert('Thank you for your feedback!');
+        feedbackInput.value = '';
+      } else {
+        alert('Please enter your feedback before submitting.');
+      }
+    };
+
+    // Auto-load if already registered
+    if (localStorage.getItem('customerName')) {
+      registrationSection.style.display = 'none';
+      promoSection.style.display = 'block';
+      loadPromotions();
+      updateLoyalty();
+    }
+  </script>
+</body>
+</html>
