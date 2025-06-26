@@ -1147,18 +1147,18 @@
       // Remove old arrow if present
       let oldArrow = document.getElementById('spinArrow');
       if (oldArrow) oldArrow.remove();
-      // Draw arrow outside the wheel using a positioned div
-      const wheelRect = canvas.getBoundingClientRect();
+      // Draw arrow just above the wheel, close to its edge
       const arrow = document.createElement('div');
       arrow.id = 'spinArrow';
       arrow.style.position = 'absolute';
-      arrow.style.left = (canvas.offsetLeft + canvas.width/2 - 32) + 'px';
-      arrow.style.top = (canvas.offsetTop - 54) + 'px';
+      // Position: horizontally centered, just above the wheel edge
+      arrow.style.left = (canvas.offsetLeft + canvas.width/2 - 16) + 'px';
+      arrow.style.top = (canvas.offsetTop - 18) + 'px';
       arrow.style.width = '0';
       arrow.style.height = '0';
-      arrow.style.borderLeft = '32px solid transparent';
-      arrow.style.borderRight = '32px solid transparent';
-      arrow.style.borderBottom = '54px solid #e67e22';
+      arrow.style.borderLeft = '16px solid transparent';
+      arrow.style.borderRight = '16px solid transparent';
+      arrow.style.borderBottom = '18px solid #e67e22';
       arrow.style.zIndex = '20';
       arrow.style.pointerEvents = 'none';
       arrow.setAttribute('aria-hidden','true');
