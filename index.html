@@ -1384,7 +1384,7 @@
       }
       requestAnimationFrame(animate);
     }
-    // --- FEEDBACK STORAGE & DISPLAY ---
+    // --- FEEDBACK STORAGE & DISPLAY (mainstream + local) ---
     function loadGoodFeedbacks() {
       const list = document.getElementById('goodFeedbackList');
       list.innerHTML = '';
@@ -1405,9 +1405,13 @@
       const rating = document.getElementById('feedbackRating').value;
       const text = document.getElementById('feedbackText').value.trim();
       if (!name || !rating || !text) return;
+      // Store in localStorage
       const feedbacks = JSON.parse(localStorage.getItem('petshop_feedbacks') || '[]');
       feedbacks.push({ name, rating, text, date: new Date().toISOString() });
       localStorage.setItem('petshop_feedbacks', JSON.stringify(feedbacks));
+      // Optionally, send to mainstream server here (AJAX/fetch call)
+      // Example:
+      // fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, rating, text }) });
       document.getElementById('feedbackForm').reset();
       loadGoodFeedbacks();
     };
