@@ -901,6 +901,30 @@
   </div>
   <!-- Animated Paw Prints (fixed) -->
   <canvas id="pawCanvas"></canvas>
+  <!-- Survey & Feedback Section -->
+  <section id="survey-section" style="margin: 3rem auto; max-width: 480px; background: #fffbe7; border-radius: 18px; box-shadow: 0 2px 12px #ffe082; padding: 2rem;">
+    <h2 style="text-align:center;">We Value Your Feedback!</h2>
+    <form id="feedbackForm">
+      <label for="feedbackName">Your Name</label>
+      <input type="text" id="feedbackName" name="feedbackName" required>
+      <label for="feedbackRating">Rating</label>
+      <select id="feedbackRating" name="feedbackRating" required>
+        <option value="">Select</option>
+        <option value="5">5 - Excellent</option>
+        <option value="4">4 - Good</option>
+        <option value="3">3 - Average</option>
+        <option value="2">2 - Poor</option>
+        <option value="1">1 - Terrible</option>
+      </select>
+      <label for="feedbackText">Feedback</label>
+      <textarea id="feedbackText" name="feedbackText" rows="3" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+    <div id="goodFeedbacks" style="margin-top:2rem;">
+      <h3 style="text-align:center;">What Our Happy Customers Say</h3>
+      <ul id="goodFeedbackList" style="list-style:none;padding:0;"></ul>
+    </div>
+  </section>
   <script>
     const promotions = [
       { text: "10% off on all dog food!", emoji: "🐶" },
@@ -1360,6 +1384,34 @@
       }
       requestAnimationFrame(animate);
     }
+    // --- FEEDBACK STORAGE & DISPLAY ---
+    function loadGoodFeedbacks() {
+      const list = document.getElementById('goodFeedbackList');
+      list.innerHTML = '';
+      const feedbacks = JSON.parse(localStorage.getItem('petshop_feedbacks') || '[]');
+      feedbacks.filter(fb => Number(fb.rating) >= 4).forEach(fb => {
+        const li = document.createElement('li');
+        li.style.marginBottom = '1.2rem';
+        li.style.background = '#e3f2fd';
+        li.style.borderRadius = '12px';
+        li.style.padding = '1rem';
+        li.innerHTML = `<strong>${fb.name}</strong> <span style='color:#ffb347;'>&#9733;${fb.rating}</span><br>${fb.text}`;
+        list.appendChild(li);
+      });
+    }
+    document.getElementById('feedbackForm').onsubmit = function(e) {
+      e.preventDefault();
+      const name = document.getElementById('feedbackName').value.trim();
+      const rating = document.getElementById('feedbackRating').value;
+      const text = document.getElementById('feedbackText').value.trim();
+      if (!name || !rating || !text) return;
+      const feedbacks = JSON.parse(localStorage.getItem('petshop_feedbacks') || '[]');
+      feedbacks.push({ name, rating, text, date: new Date().toISOString() });
+      localStorage.setItem('petshop_feedbacks', JSON.stringify(feedbacks));
+      document.getElementById('feedbackForm').reset();
+      loadGoodFeedbacks();
+    };
+    window.addEventListener('DOMContentLoaded', loadGoodFeedbacks);
   </script>
 </body>
 </html>
