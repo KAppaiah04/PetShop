@@ -277,7 +277,7 @@
       top: 22px;
       right: 22px;
       z-index: 100;
-      background: linear-gradient(90deg,#23272f 60%,#444 100%);
+      background: #fffbe7;
       border-radius: 30px;
       box-shadow: 0 2px 8px #ffe082;
       padding: 0.5rem 1.2rem 0.5rem 0.8rem;
@@ -291,23 +291,43 @@
       transition: background 0.3s, border 0.3s;
     }
     .dark-toggle input[type="checkbox"] {
-      width: 1.7em;
-      height: 1.7em;
+      width: 2.2em;
+      height: 2.2em;
       accent-color: #ffe082;
       margin-right: 0.5em;
       cursor: pointer;
       border-radius: 50%;
       box-shadow: 0 1px 4px #ffe082;
+      border: 2px solid #ffb347;
+      background: #fffbe7;
+      transition: background 0.3s, border 0.3s;
     }
     .dark-toggle span {
-      color: #ffb347;
-      font-size: 1.25em;
+      color: #ff9800;
+      font-size: 1.35em;
       font-weight: 700;
       letter-spacing: 1px;
+      transition: color 0.3s;
     }
     .dark-toggle:hover {
-      background: linear-gradient(90deg,#444 60%,#23272f 100%);
+      background: #ffe082;
+      border: 2px solid #ff9800;
+    }
+    .dark-mode .dark-toggle {
+      background: #23272f !important;
+      color: #ffe082 !important;
+      border: 2px solid #ffe082 !important;
+    }
+    .dark-mode .dark-toggle input[type="checkbox"] {
+      background: #23272f;
       border: 2px solid #ffe082;
+    }
+    .dark-mode .dark-toggle span {
+      color: #ffe082;
+    }
+    .dark-mode .dark-toggle:hover {
+      background: #444 !important;
+      border: 2px solid #ffb347 !important;
     }
     /* Modal for spin result */
     .modal {
@@ -661,37 +681,37 @@
 
     // --- JS for all features ---
     // HERO CAROUSEL DATA & LOGIC
-    // Use random, contextually relevant images for each service
+    // Use highly relevant, visually clear images for each service
     const heroSlides = [
       {
-        bg: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=1400&q=80',
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Grooming & Spa',
         desc: 'Pamper your pets with our professional grooming and spa treatments. Our experts ensure your furry friends look and feel their best.',
-        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
+        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80' // Dog being groomed
       },
       {
         bg: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1400&q=80',
         title: 'Health Checkups',
         desc: 'Regular checkups and vaccination clinics by certified vets. Keep your pets healthy and happy with our caring team.',
-        img: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=600&q=80'
+        img: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=400&q=80' // Vet with dog
       },
       {
         bg: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1400&q=80',
         title: 'Premium Pet Foods',
         desc: 'Wide selection of nutritious foods and treats for all pets. Only the best for your companions!',
-        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
+        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80' // Dog eating food
       },
       {
         bg: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1400&q=80',
         title: 'Fun Events',
         desc: 'Pet birthday parties, training workshops, and adoption drives. Join our community and celebrate your pets!',
-        img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80'
+        img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80' // Dog party
       },
       {
         bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Accessories & Toys',
         desc: 'Toys, beds, leashes, and more for every pet personality. Shop our curated collection!',
-        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
+        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80' // Dog with toy
       }
     ];
     const heroCarousel = document.getElementById('heroCarousel');
@@ -701,7 +721,7 @@
         const div = document.createElement('div');
         div.className = 'hero-slide' + (i===0?' active':'');
         div.style.backgroundImage = `url('${slide.bg}')`;
-        div.innerHTML = `<div class='hero-overlay'><img class='hero-service-img' src='${slide.img}' alt='${slide.title}'><div><div class='hero-title'>${slide.title}</div><div class='hero-desc'>${slide.desc}</div></div></div>`;
+        div.innerHTML = `<div class='hero-overlay'><img class='hero-service-img' src='${slide.img}' alt='${slide.title}' onerror="this.style.display='none'"/><div><div class='hero-title'>${slide.title}</div><div class='hero-desc'>${slide.desc}</div></div></div>`;
         heroCarousel.insertBefore(div, heroCarousel.querySelector('.hero-carousel-controls'));
       });
     }
