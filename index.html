@@ -789,7 +789,10 @@
         <div style="margin:1.5rem 0;text-align:center;">
           <h2 style="color:#e67e22;font-size:1.3rem;">🎰 Spin-the-Wheel Discount</h2>
           <canvas id="spinWheel" width="260" height="260" style="margin-bottom:0.5rem;background:#fffbe7;border-radius:50%;box-shadow:0 2px 8px #ffe082;"></canvas><br>
-          <button id="spinBtn">Spin the Wheel!</button>
+          <div style="position:relative;">
+            <button id="spinBtn">Spin the Wheel!</button>
+            <!-- Arrow will be drawn by JS -->
+          </div>
           <div id="spinResult" style="margin-top:0.7rem;font-weight:700;color:#388e3c;"></div>
         </div>
         <!-- Loyalty, Mood, Badges -->
@@ -1147,13 +1150,20 @@
       // Remove old arrow if present
       let oldArrow = document.getElementById('spinArrow');
       if (oldArrow) oldArrow.remove();
-      // Draw a small arrow just above the wheel, perfectly centered
+      // Draw a small arrow between the spin button and the wheel, centered
       const arrow = document.createElement('div');
       arrow.id = 'spinArrow';
       arrow.style.position = 'absolute';
-      // Center horizontally above the canvas, just above the edge
-      arrow.style.left = (canvas.offsetLeft + canvas.width/2 - 10) + 'px';
-      arrow.style.top = (canvas.offsetTop - 22) + 'px';
+      // Find the spin button and canvas positions
+      const btn = document.getElementById('spinBtn');
+      const btnRect = btn.getBoundingClientRect();
+      const canvasRect = canvas.getBoundingClientRect();
+      // Place arrow halfway between button bottom and wheel top
+      const parentRect = canvas.parentElement.getBoundingClientRect();
+      const arrowCenterX = canvas.offsetLeft + canvas.width/2 - 10;
+      const arrowY = btn.offsetTop + btn.offsetHeight + ((canvas.offsetTop - (btn.offsetTop + btn.offsetHeight)) / 2) - 10;
+      arrow.style.left = arrowCenterX + 'px';
+      arrow.style.top = arrowY + 'px';
       arrow.style.width = '0';
       arrow.style.height = '0';
       arrow.style.borderLeft = '10px solid transparent';
