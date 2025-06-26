@@ -83,8 +83,8 @@
     /* HERO CAROUSEL Netflix/Amazon style */
     .hero-carousel {
       width: 100vw;
-      min-height: 420px;
-      max-height: 540px;
+      min-height: 480px;
+      max-height: 600px;
       position: relative;
       margin: 0 0 2.5rem 0;
       overflow: hidden;
@@ -93,6 +93,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: flex-start;
+      background: #222;
     }
     .hero-slide {
       position: absolute;
@@ -105,7 +106,8 @@
       transition: opacity 1s;
       z-index: 1;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: flex-start;
     }
     .hero-slide.active {
       opacity: 1;
@@ -122,6 +124,28 @@
       box-shadow: 0 2px 12px rgba(44,62,80,0.10);
       position: relative;
       font-size: 1.25rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 2.5rem;
+      background-blend-mode: lighten;
+    }
+    .hero-service-img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px #ffe082;
+      border: 6px solid #fffbe7;
+      background: #fffbe7;
+      flex-shrink: 0;
+      margin-right: 2.5rem;
+      transition: border 0.3s;
+    }
+    .dark-mode .hero-service-img {
+      border: 6px solid #23272f;
+      background: #23272f;
+      box-shadow: 0 4px 24px #ffe082;
     }
     .hero-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.1rem; }
     .hero-desc { font-size: 1.25rem; line-height: 1.6; }
@@ -137,15 +161,68 @@
       background: rgba(255,255,255,0.7);
       border: none;
       border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      font-size: 1.7rem;
+      width: 54px;
+      height: 54px;
+      font-size: 2.1rem;
       color: #ff9800;
       box-shadow: 0 2px 8px #ffe082;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, color 0.2s;
     }
-    .hero-carousel-btn:hover { background: #ffe082; }
+    .hero-carousel-btn:hover { background: #ffe082; color: #23272f; }
+    .dark-mode .hero-carousel-btn { background: #23272f; color: #ffe082; border: 2px solid #ffe082; }
+    .dark-mode .hero-carousel-btn:hover { background: #ffe082; color: #23272f; }
+    /* SPIN WHEEL ENHANCED */
+    #spinWheel {
+      margin-bottom: 0.5rem;
+      background: #fffbe7;
+      border-radius: 50%;
+      box-shadow: 0 4px 24px #ffe082;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 340px !important;
+      height: 340px !important;
+      max-width: 90vw;
+      max-height: 90vw;
+      border: 8px solid #ffb347;
+      transition: border 0.3s;
+    }
+    .dark-mode #spinWheel {
+      background: #23272f;
+      border: 8px solid #ffe082;
+      box-shadow: 0 4px 24px #ffe082;
+    }
+    #spinBtn {
+      width: 320px;
+      max-width: 90vw;
+      padding: 1.3rem 0;
+      font-size: 1.6rem;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #ffb347 0%, #ffcc80 100%);
+      color: #3b2e2a;
+      font-weight: 900;
+      margin: 1.2rem auto 0 auto;
+      display: block;
+      box-shadow: 0 4px 24px #ffe082;
+      border: 2.5px solid #ffb347;
+      transition: background 0.3s, color 0.3s, border 0.3s;
+    }
+    #spinBtn:hover {
+      background: linear-gradient(90deg, #ffcc80 0%, #ffb347 100%);
+      color: #23272f;
+      border: 2.5px solid #ffe082;
+    }
+    .dark-mode #spinBtn {
+      background: linear-gradient(90deg, #23272f 0%, #444 100%);
+      color: #ffe082;
+      border: 2.5px solid #ffe082;
+    }
+    .dark-mode #spinBtn:hover {
+      background: linear-gradient(90deg, #ffe082 0%, #ffb347 100%);
+      color: #23272f;
+      border: 2.5px solid #ffb347;
+    }
     label {
       font-weight: 700;
       color: #5a463a;
@@ -581,31 +658,31 @@
         bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Grooming & Spa',
         desc: 'Pamper your pets with our professional grooming and spa treatments. Our experts ensure your furry friends look and feel their best.',
-        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=900&q=80'
+        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
       },
       {
         bg: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1400&q=80',
         title: 'Health Checkups',
         desc: 'Regular checkups and vaccination clinics by certified vets. Keep your pets healthy and happy with our caring team.',
-        img: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=900&q=80'
+        img: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=600&q=80'
       },
       {
         bg: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1400&q=80',
         title: 'Premium Pet Foods',
         desc: 'Wide selection of nutritious foods and treats for all pets. Only the best for your companions!',
-        img: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=900&q=80'
+        img: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80'
       },
       {
         bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Fun Events',
         desc: 'Pet birthday parties, training workshops, and adoption drives. Join our community and celebrate your pets!',
-        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=900&q=80'
+        img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80'
       },
       {
         bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Accessories & Toys',
         desc: 'Toys, beds, leashes, and more for every pet personality. Shop our curated collection!',
-        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=900&q=80'
+        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
       }
     ];
     const heroCarousel = document.getElementById('heroCarousel');
@@ -616,7 +693,7 @@
         const div = document.createElement('div');
         div.className = 'hero-slide' + (i===0?' active':'');
         div.style.backgroundImage = `url('${slide.bg}')`;
-        div.innerHTML = `<div class='hero-overlay'><div class='hero-title'>${slide.title}</div><div class='hero-desc'>${slide.desc}</div><img src='${slide.img}' alt='' style='width:120px;height:120px;object-fit:cover;border-radius:18px;margin-top:1.5rem;box-shadow:0 2px 8px #ffe082;'></div>`;
+        div.innerHTML = `<div class='hero-overlay'><img class='hero-service-img' src='${slide.img}' alt='${slide.title}'><div><div class='hero-title'>${slide.title}</div><div class='hero-desc'>${slide.desc}</div></div></div>`;
         heroCarousel.insertBefore(div, heroCarousel.querySelector('.hero-carousel-controls'));
       });
     }
@@ -650,21 +727,22 @@
     ];
     // Draw wheel on load and after dark mode toggle
     function drawWheel(angle=0) {
-      const ctx = document.getElementById('spinWheel').getContext('2d');
-      ctx.clearRect(0,0,260,260);
+      const canvas = document.getElementById('spinWheel');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,canvas.width,canvas.height);
       const n = spinRewards.length;
       const isDark = document.body.classList.contains('dark-mode');
       for(let i=0;i<n;i++){
         ctx.save();
         ctx.beginPath();
-        ctx.moveTo(130,130);
-        ctx.arc(130,130,120,2*Math.PI*i/n+angle,2*Math.PI*(i+1)/n+angle);
+        ctx.moveTo(canvas.width/2,canvas.height/2);
+        ctx.arc(canvas.width/2,canvas.height/2,canvas.width/2-10,2*Math.PI*i/n+angle,2*Math.PI*(i+1)/n+angle);
         ctx.closePath();
         ctx.fillStyle = spinRewards[i].color;
         ctx.fill();
-        ctx.translate(130,130);
+        ctx.translate(canvas.width/2,canvas.height/2);
         ctx.rotate(2*Math.PI*(i+0.5)/n+angle);
-        ctx.textAlign='center';ctx.font='bold 17px Quicksand';
+        ctx.textAlign='center';ctx.font='bold 20px Quicksand';
         ctx.fillStyle = isDark ? '#ffe082' : '#3b2e2a';
         let label = spinRewards[i].label;
         // Wrap text for better fit
@@ -677,11 +755,11 @@
           else line=test;
         }
         if(line) lines.push(line);
-        lines.forEach((line,li)=>ctx.fillText(line,70,li*20-10));
+        lines.forEach((line,li)=>ctx.fillText(line,canvas.width/2.8,li*22-10));
         ctx.restore();
       }
       // Arrow
-      ctx.beginPath();ctx.moveTo(130,20);ctx.lineTo(120,50);ctx.lineTo(140,50);ctx.closePath();ctx.fillStyle="#e67e22";ctx.fill();
+      ctx.beginPath();ctx.moveTo(canvas.width/2,24);ctx.lineTo(canvas.width/2-18,60);ctx.lineTo(canvas.width/2+18,60);ctx.closePath();ctx.fillStyle="#e67e22";ctx.fill();
     }
     // Fallback for setDarkMode
     if (typeof setDarkMode !== 'function') {
