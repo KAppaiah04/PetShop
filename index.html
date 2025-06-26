@@ -1144,8 +1144,26 @@
         ctx.stroke();
         ctx.restore();
       }
-      // Arrow
-      ctx.beginPath();ctx.moveTo(canvas.width/2,24);ctx.lineTo(canvas.width/2-18,60);ctx.lineTo(canvas.width/2+18,60);ctx.closePath();ctx.fillStyle="#e67e22";ctx.fill();
+      // Remove old arrow if present
+      let oldArrow = document.getElementById('spinArrow');
+      if (oldArrow) oldArrow.remove();
+      // Draw arrow outside the wheel using a positioned div
+      const wheelRect = canvas.getBoundingClientRect();
+      const arrow = document.createElement('div');
+      arrow.id = 'spinArrow';
+      arrow.style.position = 'absolute';
+      arrow.style.left = (canvas.offsetLeft + canvas.width/2 - 32) + 'px';
+      arrow.style.top = (canvas.offsetTop - 54) + 'px';
+      arrow.style.width = '0';
+      arrow.style.height = '0';
+      arrow.style.borderLeft = '32px solid transparent';
+      arrow.style.borderRight = '32px solid transparent';
+      arrow.style.borderBottom = '54px solid #e67e22';
+      arrow.style.zIndex = '20';
+      arrow.style.pointerEvents = 'none';
+      arrow.setAttribute('aria-hidden','true');
+      canvas.parentElement.style.position = 'relative';
+      canvas.parentElement.appendChild(arrow);
     }
     // Fallback for setDarkMode
     if (typeof setDarkMode !== 'function') {
@@ -1217,6 +1235,45 @@
       }
       startX = null;
     });
+    // --- PET OF THE MONTH RANDOM DOG ---
+    function setRandomPetOfTheMonth() {
+      const dogNames = [
+        'Buddy', 'Bella', 'Charlie', 'Lucy', 'Max', 'Daisy', 'Bailey', 'Luna', 'Cooper', 'Sadie',
+        'Rocky', 'Molly', 'Duke', 'Maggie', 'Bear', 'Sophie', 'Toby', 'Chloe', 'Jack', 'Rosie'
+      ];
+      const dogImages = [
+        'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4587997/pexels-photo-4587997.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/1108097/pexels-photo-1108097.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4587977/pexels-photo-4587977.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4587975/pexels-photo-4587975.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4587973/pexels-photo-4587973.jpeg?auto=compress&w=400&h=400&fit=crop',
+        'https://images.pexels.com/photos/4587971/pexels-photo-4587971.jpeg?auto=compress&w=400&h=400&fit=crop'
+      ];
+      const idx = Math.floor(Math.random() * dogNames.length);
+      const imgIdx = Math.floor(Math.random() * dogImages.length);
+      const name = dogNames[idx];
+      const img = dogImages[imgIdx];
+      const descs = [
+        `Say hello to ${name}, our playful and loving companion!`,
+        `${name} brightens our days with endless tail wags.`,
+        `Meet ${name}, always ready for a treat and a cuddle!`,
+        `${name} is this month's star for being a loyal friend.`,
+        `With a heart of gold, ${name} is everyone's favorite!`
+      ];
+      const desc = descs[Math.floor(Math.random()*descs.length)];
+      const petOfTheMonth = { name, img, desc };
+      localStorage.setItem('petOfTheMonth', JSON.stringify(petOfTheMonth));
+      petMonthImg.src = img;
+      petMonthName.innerText = name;
+      petMonthDesc.innerText = desc;
+      petMonthSection.style.display = 'block';
+    }
+    // On every load, set a new random pet of the month
+    setRandomPetOfTheMonth();
   </script>
 </body>
 </html>
