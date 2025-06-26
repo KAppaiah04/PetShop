@@ -140,27 +140,77 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <span class="pet-emoji">🐶🐱🐾</span>
-    <h1>Welcome to Pet Paradise</h1>
-    <div id="registrationSection" class="section">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" placeholder="Enter your name" required />
-      <label for="email">Your Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required />
-      <button id="registerBtn">Register</button>
+    <div id="darkModeToggle" style="position:fixed;top:18px;right:18px;z-index:10;">
+      <label style="cursor:pointer;display:flex;align-items:center;gap:0.5rem;font-weight:700;">
+        <input type="checkbox" id="toggleDark" style="accent-color:#ffb347;transform:scale(1.3);">🌙 Dark Mode
+      </label>
     </div>
-    <div id="promoSection" class="section" style="display:none;">
-      <h2 style="text-align:center; color:#ff9800;">Current Promotions</h2>
-      <ul id="promoList" class="promo-list"></ul>
-      <div class="loyalty" id="loyaltyStatus"></div>
-      <h2 style="text-align:center; color:#ff9800;">Feedback</h2>
-      <textarea id="feedbackInput" placeholder="Share your feedback or pet story!"></textarea>
-      <button id="submitFeedbackBtn">Submit Feedback</button>
-      <div class="feedback-success" id="feedbackSuccess">Thank you for your feedback! 🐾</div>
+    <div class="container">
+      <span class="pet-emoji">🐶🐱🐾</span>
+      <h1 id="welcomeTitle">Welcome to Pet Paradise</h1>
+      <div id="welcomeBackMsg" style="display:none;text-align:center;font-size:1.1rem;margin-bottom:1rem;"></div>
+      <!-- Pet of the Month -->
+      <div id="petMonthSection" class="section" style="background:#f3f8ff;border-radius:12px;padding:1rem 0 1.2rem 0;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(44,62,80,0.06);text-align:center;">
+        <h2 style="color:#4a90e2;font-size:1.2rem;margin-bottom:0.7rem;">🐾 Pet of the Month</h2>
+        <img id="petMonthImg" src="" alt="Pet of the Month" style="width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #b3e5fc;margin-bottom:0.5rem;">
+        <div style="font-weight:700;font-size:1.1rem;" id="petMonthName"></div>
+        <div style="font-size:0.98rem;color:#555;" id="petMonthDesc"></div>
+      </div>
+      <!-- Registration -->
+      <div id="registrationSection" class="section">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <label for="petName">Your Pet's Name</label>
+        <input type="text" id="petName" placeholder="Pet's name (optional)" />
+        <label for="petBirthday">Pet's Birthday</label>
+        <input type="date" id="petBirthday" />
+        <button id="registerBtn">Register</button>
+      </div>
+      <!-- Promotions, Loyalty, Badges, Spin Wheel, Survey, Feedback -->
+      <div id="promoSection" class="section" style="display:none;">
+        <h2 style="text-align:center; color:#ff9800;">Current Promotions</h2>
+        <ul id="promoList" class="promo-list"></ul>
+        <!-- Spin the Wheel -->
+        <div style="margin:1.5rem 0;text-align:center;">
+          <h2 style="color:#e67e22;font-size:1.1rem;">🎰 Spin-the-Wheel Discount</h2>
+          <canvas id="spinWheel" width="180" height="180" style="margin-bottom:0.5rem;"></canvas><br>
+          <button id="spinBtn">Spin the Wheel!</button>
+          <div id="spinResult" style="margin-top:0.7rem;font-weight:700;color:#388e3c;"></div>
+        </div>
+        <!-- Loyalty, Mood, Badges -->
+        <div class="loyalty" id="loyaltyStatus"></div>
+        <div id="badgesSection" style="text-align:center;margin-bottom:1.2rem;"></div>
+        <!-- Pet Birthday Reminder -->
+        <div id="petBirthdayMsg" style="text-align:center;color:#e67e22;font-weight:700;margin-bottom:1rem;"></div>
+        <!-- Fun Fact Generator -->
+        <div id="petFactSection" style="background:#fffbe7;border-radius:10px;padding:0.7rem 1rem;margin-bottom:1.2rem;text-align:center;font-size:1.05rem;color:#7c5c3b;">
+          <span style="font-weight:700;">🐕 Did you know?</span> <span id="petFact"></span>
+          <button id="newFactBtn" style="margin-left:0.7rem;padding:0.2rem 0.7rem;font-size:0.9rem;width:auto;">🔄</button>
+        </div>
+        <!-- Mini Survey -->
+        <div id="surveySection" style="background:#f3f8ff;border-radius:10px;padding:1rem 1rem 0.5rem 1rem;margin-bottom:1.2rem;">
+          <div style="font-weight:700;margin-bottom:0.5rem;">Mini Survey: What's your pet's favorite?</div>
+          <form id="surveyForm">
+            <label><input type="radio" name="fav" value="Food" required> Food</label><br>
+            <label><input type="radio" name="fav" value="Toys"> Toys</label><br>
+            <label><input type="radio" name="fav" value="Grooming"> Grooming</label><br>
+            <label><input type="radio" name="fav" value="Walks"> Walks</label><br>
+            <button type="submit" style="margin-top:0.7rem;">Submit Survey</button>
+          </form>
+          <div id="surveyMsg" style="color:#388e3c;font-weight:700;margin-top:0.5rem;display:none;">You're a true pet lover! 🐾</div>
+        </div>
+        <!-- Feedback -->
+        <h2 style="text-align:center; color:#ff9800;">Feedback</h2>
+        <textarea id="feedbackInput" placeholder="Share your feedback or pet story!"></textarea>
+        <button id="submitFeedbackBtn">Submit Feedback</button>
+        <div class="feedback-success" id="feedbackSuccess">Thank you for your feedback! 🐾</div>
+      </div>
     </div>
-  </div>
-  <script>
+    <!-- Animated Paw Prints -->
+    <canvas id="pawCanvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;"></canvas>
+    <script>
     const promotions = [
       { text: "10% off on all dog food!", emoji: "🐶" },
       { text: "Buy 1 Get 1 Free on Cat Toys", emoji: "🐱" },
@@ -176,6 +226,24 @@
     const feedbackInput = document.getElementById('feedbackInput');
     const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
     const feedbackSuccess = document.getElementById('feedbackSuccess');
+    const spinBtn = document.getElementById('spinBtn');
+    const spinResult = document.getElementById('spinResult');
+    const petMonthSection = document.getElementById('petMonthSection');
+    const petMonthImg = document.getElementById('petMonthImg');
+    const petMonthName = document.getElementById('petMonthName');
+    const petMonthDesc = document.getElementById('petMonthDesc');
+    const newFactBtn = document.getElementById('newFactBtn');
+    const petFact = document.getElementById('petFact');
+    const surveyForm = document.getElementById('surveyForm');
+    const surveyMsg = document.getElementById('surveyMsg');
+    const toggleDark = document.getElementById('toggleDark');
+    const welcomeBackMsg = document.getElementById('welcomeBackMsg');
+
+    // Dark mode toggle
+    toggleDark.onchange = () => {
+      document.body.classList.toggle('dark-mode', toggleDark.checked);
+      localStorage.setItem('darkMode', toggleDark.checked);
+    };
 
     function loadPromotions() {
       promoList.innerHTML = '';
@@ -197,18 +265,35 @@
       }
     }
 
+    function showPetOfTheMonth() {
+      const petOfTheMonth = JSON.parse(localStorage.getItem('petOfTheMonth'));
+      if (petOfTheMonth) {
+        petMonthImg.src = petOfTheMonth.img;
+        petMonthName.innerText = petOfTheMonth.name;
+        petMonthDesc.innerText = petOfTheMonth.desc;
+        petMonthSection.style.display = 'block';
+      }
+    }
+
     registerBtn.onclick = () => {
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
+      const petName = document.getElementById('petName').value.trim();
+      const petBirthday = document.getElementById('petBirthday').value.trim();
       if (name && email) {
         localStorage.setItem('customerName', name);
         localStorage.setItem('customerEmail', email);
+        if (petName) localStorage.setItem('petName', petName);
+        if (petBirthday) localStorage.setItem('petBirthday', petBirthday);
         let visits = parseInt(localStorage.getItem('visits') || '0');
         if (!visits) localStorage.setItem('visits', '1');
         registrationSection.style.display = 'none';
         promoSection.style.display = 'block';
         loadPromotions();
         updateLoyalty();
+        showPetOfTheMonth();
+        welcomeBackMsg.style.display = 'block';
+        welcomeBackMsg.innerText = `Welcome back, ${name}!`;
       } else {
         alert('Please enter both name and email.');
       }
@@ -228,6 +313,49 @@
       }
     };
 
+    // Spin the Wheel functionality
+    spinBtn.onclick = () => {
+      const randomDegree = Math.floor(Math.random() * 360 + 720);
+      const wheel = document.getElementById('spinWheel');
+      wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
+      wheel.style.transform = `rotate(${randomDegree}deg)`;
+      const rewardIndex = Math.floor((randomDegree % 360) / (360 / promotions.length));
+      setTimeout(() => {
+        spinResult.innerText = `You won: ${promotions[rewardIndex].text}`;
+        let visits = parseInt(localStorage.getItem('visits') || '0');
+        localStorage.setItem('visits', (visits + 1).toString());
+        updateLoyalty();
+      }, 4000);
+    };
+
+    // Fun Fact Generator
+    newFactBtn.onclick = () => {
+      const facts = [
+        "Dogs' sense of smell is about 40 times better than humans'.",
+        "Cats can make over 100 different sounds.",
+        "Goldfish can remember things for up to five months.",
+        "Parrots are known to be great at mimicking human speech.",
+        "Hamsters can run up to 8 miles on a wheel in one night!",
+        "Rabbits' teeth never stop growing.",
+        "Guinea pigs are social animals and enjoy the company of their kind.",
+        "Chinchillas have the softest fur of any land mammal.",
+        "Ferrets are known for their playful and curious nature.",
+        "Turtles can breathe through their butts (cloacal respiration)."
+      ];
+      const randomFact = facts[Math.floor(Math.random() * facts.length)];
+      petFact.innerText = randomFact;
+    };
+
+    // Mini Survey submission
+    surveyForm.onsubmit = (e) => {
+      e.preventDefault();
+      const formData = new FormData(surveyForm);
+      const favorite = formData.get('fav');
+      localStorage.setItem('petFavorite', favorite);
+      surveyMsg.style.display = 'block';
+      setTimeout(() => { surveyMsg.style.display = 'none'; }, 2000);
+    };
+
     // Simulate a visit every time the user loads the app after registration
     function incrementVisit() {
       if (localStorage.getItem('customerName')) {
@@ -243,7 +371,44 @@
       incrementVisit();
       loadPromotions();
       updateLoyalty();
+      showPetOfTheMonth();
+      const registeredName = localStorage.getItem('customerName');
+      welcomeBackMsg.style.display = 'block';
+      welcomeBackMsg.innerText = `Welcome back, ${registeredName}!`;
     }
-  </script>
+
+    // Load dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      toggleDark.checked = true;
+      document.body.classList.add('dark-mode');
+    }
+
+    // Animated Paw Prints Background
+    const canvas = document.getElementById('pawCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function createPawPrint(x, y) {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.closePath();
+    }
+
+    function animatePawPrints() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      createPawPrint(x, y);
+      setTimeout(animatePawPrints, 500);
+    }
+
+    animatePawPrints();
+    </script>
 </body>
 </html>
