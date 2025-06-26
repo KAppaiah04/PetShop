@@ -152,13 +152,14 @@
     .hero-carousel-controls {
       position: absolute;
       bottom: 2.5rem;
-      left: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       display: flex;
       gap: 1.2rem;
     }
     .hero-carousel-btn {
-      background: rgba(255,255,255,0.7);
+      background: #fffbe7;
       border: none;
       border-radius: 50%;
       width: 54px;
@@ -167,7 +168,14 @@
       color: #ff9800;
       box-shadow: 0 2px 8px #ffe082;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+    }
+    .hero-carousel-btn:active {
+      box-shadow: 0 1px 2px #ffe082;
     }
     .hero-carousel-btn:hover { background: #ffe082; color: #23272f; }
     .dark-mode .hero-carousel-btn { background: #23272f; color: #ffe082; border: 2px solid #ffe082; }
@@ -653,9 +661,10 @@
 
     // --- JS for all features ---
     // HERO CAROUSEL DATA & LOGIC
+    // Use random, contextually relevant images for each service
     const heroSlides = [
       {
-        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
+        bg: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=1400&q=80',
         title: 'Grooming & Spa',
         desc: 'Pamper your pets with our professional grooming and spa treatments. Our experts ensure your furry friends look and feel their best.',
         img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
@@ -670,10 +679,10 @@
         bg: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1400&q=80',
         title: 'Premium Pet Foods',
         desc: 'Wide selection of nutritious foods and treats for all pets. Only the best for your companions!',
-        img: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80'
+        img: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80'
       },
       {
-        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
+        bg: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1400&q=80',
         title: 'Fun Events',
         desc: 'Pet birthday parties, training workshops, and adoption drives. Join our community and celebrate your pets!',
         img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80'
@@ -687,7 +696,6 @@
     ];
     const heroCarousel = document.getElementById('heroCarousel');
     let heroIdx = 0;
-    // Refactored: create slides once, toggle active class
     function createHeroSlides() {
       heroSlides.forEach((slide, i) => {
         const div = document.createElement('div');
