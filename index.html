@@ -901,30 +901,6 @@
   </div>
   <!-- Animated Paw Prints (fixed) -->
   <canvas id="pawCanvas"></canvas>
-  <!-- Survey & Feedback Section -->
-  <section id="survey-section" style="margin: 3rem auto; max-width: 480px; background: #fffbe7; border-radius: 18px; box-shadow: 0 2px 12px #ffe082; padding: 2rem;">
-    <h2 style="text-align:center;">We Value Your Feedback!</h2>
-    <form id="feedbackForm">
-      <label for="feedbackName">Your Name</label>
-      <input type="text" id="feedbackName" name="feedbackName" required>
-      <label for="feedbackRating">Rating</label>
-      <select id="feedbackRating" name="feedbackRating" required>
-        <option value="">Select</option>
-        <option value="5">5 - Excellent</option>
-        <option value="4">4 - Good</option>
-        <option value="3">3 - Average</option>
-        <option value="2">2 - Poor</option>
-        <option value="1">1 - Terrible</option>
-      </select>
-      <label for="feedbackText">Feedback</label>
-      <textarea id="feedbackText" name="feedbackText" rows="3" required></textarea>
-      <button type="submit">Submit Feedback</button>
-    </form>
-    <div id="goodFeedbacks" style="margin-top:2rem;">
-      <h3 style="text-align:center;">What Our Happy Customers Say</h3>
-      <ul id="goodFeedbackList" style="list-style:none;padding:0;"></ul>
-    </div>
-  </section>
   <script>
     const promotions = [
       { text: "10% off on all dog food!", emoji: "🐶" },
