@@ -83,8 +83,8 @@
     /* HERO CAROUSEL Netflix/Amazon style */
     .hero-carousel {
       width: 100vw;
-      min-height: 340px;
-      max-height: 420px;
+      min-height: 420px;
+      max-height: 540px;
       position: relative;
       margin: 0 0 2.5rem 0;
       overflow: hidden;
@@ -112,18 +112,19 @@
       z-index: 2;
     }
     .hero-overlay {
-      background: linear-gradient(90deg,rgba(30,30,30,0.82) 0%,rgba(30,30,30,0.25) 80%);
+      background: linear-gradient(90deg,rgba(30,30,30,0.88) 0%,rgba(30,30,30,0.18) 80%);
       color: #fff;
-      padding: 2.5rem 3.5rem 2.5rem 2.5rem;
-      border-radius: 0 0 32px 0;
-      max-width: 540px;
-      min-width: 260px;
+      padding: 3.2rem 4.2rem 3.2rem 2.8rem;
+      border-radius: 0 0 38px 0;
+      max-width: 700px;
+      min-width: 320px;
       margin: 0 0 2.5rem 2.5rem;
       box-shadow: 0 2px 12px rgba(44,62,80,0.10);
       position: relative;
+      font-size: 1.25rem;
     }
-    .hero-title { font-size: 2.1rem; font-weight: 700; margin-bottom: 0.7rem; }
-    .hero-desc { font-size: 1.18rem; line-height: 1.5; }
+    .hero-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.1rem; }
+    .hero-desc { font-size: 1.25rem; line-height: 1.6; }
     .hero-carousel-controls {
       position: absolute;
       bottom: 2.5rem;
@@ -247,10 +248,10 @@
     }
     /* Spin wheel text fix */
     .spin-label {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       text-align: center;
-      width: 80px;
+      width: 90px;
       word-break: break-word;
       line-height: 1.2;
       color: #3b2e2a;
@@ -269,11 +270,18 @@
       color: #ffe082 !important;
     }
     .dark-mode .hero-overlay {
-      background: linear-gradient(90deg,rgba(30,30,30,0.95) 0%,rgba(30,30,30,0.45) 80%);
+      background: linear-gradient(90deg,rgba(30,30,30,0.98) 0%,rgba(30,30,30,0.55) 80%);
       color: #ffe082 !important;
     }
     .dark-mode .modal-content {
       background: #23272f !important;
+      color: #ffe082 !important;
+    }
+    .dark-mode .promo-list li, .dark-mode .loyalty, .dark-mode #petFactSection, .dark-mode #surveySection {
+      background: #23272f !important;
+      color: #ffe082 !important;
+    }
+    .dark-mode .carousel-slide .desc {
       color: #ffe082 !important;
     }
     .dark-toggle {
@@ -562,27 +570,27 @@
     // HERO CAROUSEL DATA & LOGIC
     const heroSlides = [
       {
-        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Grooming & Spa',
         desc: 'Pamper your pets with our professional grooming and spa treatments. Our experts ensure your furry friends look and feel their best.'
       },
       {
-        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Health Checkups',
         desc: 'Regular checkups and vaccination clinics by certified vets. Keep your pets healthy and happy with our caring team.'
       },
       {
-        bg: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1200&q=80',
+        bg: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1400&q=80',
         title: 'Premium Pet Foods',
         desc: 'Wide selection of nutritious foods and treats for all pets. Only the best for your companions!'
       },
       {
-        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        bg: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1400&q=80',
         title: 'Fun Events',
         desc: 'Pet birthday parties, training workshops, and adoption drives. Join our community and celebrate your pets!'
       },
       {
-        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1400&q=80',
         title: 'Accessories & Toys',
         desc: 'Toys, beds, leashes, and more for every pet personality. Shop our curated collection!'
       }
@@ -614,11 +622,12 @@
     setInterval(()=>{ heroIdx=(heroIdx+1)%heroSlides.length; showHero(heroIdx); }, 4000);
     renderHeroSlides();
 
-    // Spin-the-Wheel (text always inside wheel)
+    // Spin-the-Wheel (text always visible, color contrast)
     function drawWheel(angle=0) {
       const ctx = document.getElementById('spinWheel').getContext('2d');
       ctx.clearRect(0,0,260,260);
       const n = spinRewards.length;
+      const isDark = document.body.classList.contains('dark-mode');
       for(let i=0;i<n;i++){
         ctx.save();
         ctx.beginPath();
@@ -629,8 +638,8 @@
         ctx.fill();
         ctx.translate(130,130);
         ctx.rotate(2*Math.PI*(i+0.5)/n+angle);
-        ctx.textAlign='center';ctx.font='bold 16px Quicksand';ctx.fillStyle='#3b2e2a';
-        // Draw text in a box inside the segment
+        ctx.textAlign='center';ctx.font='bold 17px Quicksand';
+        ctx.fillStyle = isDark ? '#ffe082' : '#3b2e2a';
         let label = spinRewards[i].label;
         let lines = label.length > 16 ? [label.slice(0,16), label.slice(16)] : [label];
         lines.forEach((line,li)=>ctx.fillText(line,70,li*20-5));
@@ -639,7 +648,13 @@
       // Arrow
       ctx.beginPath();ctx.moveTo(130,20);ctx.lineTo(120,50);ctx.lineTo(140,50);ctx.closePath();ctx.fillStyle="#e67e22";ctx.fill();
     }
-    drawWheel();
+    // Redraw wheel on dark mode toggle
+    const origSetDarkMode = setDarkMode;
+    setDarkMode = function(on) {
+      origSetDarkMode(on);
+      drawWheel();
+    };
+
     document.getElementById('spinBtn').onclick = function(){
       if(spinning) return;
       spinning=true;document.getElementById('spinResult').textContent='';
@@ -652,7 +667,6 @@
           let reward = spinRewards[idx].label;
           localStorage.setItem('spinReward',reward);
           document.getElementById('spinResult').textContent = '';
-          // Show modal popup
           document.getElementById('spinModalText').textContent = 'You won: '+reward;
           document.getElementById('spinModal').style.display = 'flex';
           spinning=false;
