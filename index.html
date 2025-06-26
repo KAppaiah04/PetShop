@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pet Paradise - Pet Store Engagement App</title>
+  <title>Paws & Whiskers - Pet Store Engagement App</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
     html, body {
@@ -12,29 +12,50 @@
       margin: 0;
       padding: 0;
       font-size: 18px;
-      background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-        url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat fixed;
-      transition: background 1s;
+      background: #f5f5f5;
       color: #2d2d2d;
+      box-sizing: border-box;
     }
     body {
       min-height: 100vh;
       width: 100vw;
-      display: block;
       font-family: 'Quicksand', Arial, sans-serif;
-      box-sizing: border-box;
       overflow-x: hidden;
+      background: #f5f5f5;
+    }
+    .main-layout {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100vw;
+      min-height: 100vh;
+      gap: 2.5rem;
+      padding: 0 0 2rem 0;
+    }
+    .side-space {
+      flex: 1 1 0;
+      min-width: 40px;
+      max-width: 120px;
+      height: 100%;
+      background: transparent;
     }
     .container {
+      flex: 2 1 700px;
       max-width: 900px;
-      width: 98vw;
-      margin: 2.5rem auto 2rem auto;
+      width: 100%;
+      margin: 2.5rem 0 2rem 0;
       background: rgba(255,255,255,0.97);
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.18);
       padding: 2.5rem 2.5rem 2rem 2.5rem;
       backdrop-filter: blur(6px);
       animation: fadeIn 1.2s;
+    }
+    @media (max-width: 1100px) {
+      .main-layout { flex-direction: column; gap: 0; }
+      .side-space { display: none; }
+      .container { margin: 1.5rem auto; }
     }
     @media (max-width: 700px) {
       .container { padding: 1rem; }
@@ -59,6 +80,71 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(-10px); }
     }
+    /* HERO CAROUSEL Netflix/Amazon style */
+    .hero-carousel {
+      width: 100vw;
+      min-height: 340px;
+      max-height: 420px;
+      position: relative;
+      margin: 0 0 2.5rem 0;
+      overflow: hidden;
+      border-radius: 0 0 32px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+    .hero-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .hero-overlay {
+      background: linear-gradient(90deg,rgba(30,30,30,0.82) 0%,rgba(30,30,30,0.25) 80%);
+      color: #fff;
+      padding: 2.5rem 3.5rem 2.5rem 2.5rem;
+      border-radius: 0 0 32px 0;
+      max-width: 540px;
+      min-width: 260px;
+      margin: 0 0 2.5rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+      position: relative;
+    }
+    .hero-title { font-size: 2.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+    .hero-desc { font-size: 1.18rem; line-height: 1.5; }
+    .hero-carousel-controls {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.5rem;
+      z-index: 10;
+      display: flex;
+      gap: 1.2rem;
+    }
+    .hero-carousel-btn {
+      background: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.7rem;
+      color: #ff9800;
+      box-shadow: 0 2px 8px #ffe082;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .hero-carousel-btn:hover { background: #ffe082; }
     label {
       font-weight: 700;
       color: #5a463a;
@@ -129,71 +215,6 @@
       background: #ffe082;
       border: 2px solid #ff9800;
     }
-    .carousel {
-      width: 100%;
-      max-width: 700px;
-      margin: 1.5rem auto 2rem auto;
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(44,62,80,0.10);
-      background: #fff;
-    }
-    .carousel-slide {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 260px;
-      transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
-      position: absolute;
-      top: 0; left: 0;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .carousel-slide.active {
-      opacity: 1;
-      pointer-events: auto;
-      position: relative;
-      z-index: 2;
-      transform: scale(1.04);
-    }
-    .carousel-slide img {
-      height: 180px;
-      width: 260px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-right: 2rem;
-      box-shadow: 0 2px 8px #ffe082;
-    }
-    .carousel-slide .desc {
-      font-size: 1.15rem;
-      color: #4a3427;
-      max-width: 320px;
-    }
-    .carousel-controls {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      left: 0;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      z-index: 3;
-    }
-    .carousel-btn {
-      background: #fffbe7;
-      border: none;
-      border-radius: 50%;
-      width: 38px;
-      height: 38px;
-      font-size: 1.5rem;
-      color: #ff9800;
-      box-shadow: 0 2px 8px #ffe082;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .carousel-btn:hover { background: #ffe082; }
     /* Modal for spin result */
     .modal {
       display: none;
@@ -224,22 +245,31 @@
       padding: 0.7rem 2.2rem;
       font-size: 1.1rem;
     }
+    /* Spin wheel text fix */
+    .spin-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+      width: 80px;
+      word-break: break-word;
+      line-height: 1.2;
+      color: #3b2e2a;
+    }
+    .dark-mode .spin-label { color: #ffe082; }
     /* Dark mode overrides */
     body.dark-mode, .dark-mode body {
-      background: linear-gradient(rgba(40,40,40,0.92),rgba(40,40,40,0.92)),url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat fixed !important;
-      color: #f5f5f5 !important;
+      background: #181a1b !important;
+      color: #ffe082 !important;
     }
     .dark-mode .container {
-      background: rgba(40,40,40,0.97) !important;
-      color: #f5f5f5 !important;
+      background: #23272f !important;
+      color: #ffe082 !important;
     }
     .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5 {
       color: #ffe082 !important;
     }
-    .dark-mode .carousel {
-      background: #23272f !important;
-    }
-    .dark-mode .carousel-slide .desc {
+    .dark-mode .hero-overlay {
+      background: linear-gradient(90deg,rgba(30,30,30,0.95) 0%,rgba(30,30,30,0.45) 80%);
       color: #ffe082 !important;
     }
     .dark-mode .modal-content {
@@ -255,6 +285,16 @@
       background: #444 !important;
       border: 2px solid #ffb347 !important;
     }
+    /* Animated Paw Prints (fixed) */
+    #pawCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
@@ -262,98 +302,79 @@
     <input type="checkbox" id="toggleDark" />
     <span>🌙 Dark Mode</span>
   </div>
-  <div class="container">
-    <span class="pet-emoji">🐶🐱🐾</span>
-    <h1 id="welcomeTitle">Welcome to Pet Paradise</h1>
-    <div id="welcomeBackMsg" style="display:none;text-align:center;font-size:1.2rem;margin-bottom:1.2rem;"></div>
-    <!-- About Section -->
-    <div id="aboutSection" class="section">
-      <h2>About Pet Paradise</h2>
-      <div class="carousel" id="serviceCarousel">
-        <div class="carousel-slide active">
-          <img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80" alt="Grooming" />
-          <div class="desc"><b>Grooming & Spa</b><br>Pamper your pets with our professional grooming and spa treatments.</div>
+  <div class="hero-carousel" id="heroCarousel">
+    <!-- Slides will be injected by JS -->
+    <div class="hero-carousel-controls">
+      <button class="hero-carousel-btn" id="heroPrev">&#8592;</button>
+      <button class="hero-carousel-btn" id="heroNext">&#8594;</button>
+    </div>
+  </div>
+  <div class="main-layout">
+    <div class="side-space"></div>
+    <div class="container">
+      <span class="pet-emoji">🐶🐱🐾</span>
+      <h1 id="welcomeTitle">Welcome to Paws & Whiskers</h1>
+      <div id="welcomeBackMsg" style="display:none;text-align:center;font-size:1.2rem;margin-bottom:1.2rem;"></div>
+      <!-- Pet of the Month -->
+      <div id="petMonthSection" class="section" style="background:#f3f8ff;border-radius:12px;padding:1rem 0 1.2rem 0;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(44,62,80,0.06);text-align:center;">
+        <h2 style="color:#4a90e2;font-size:1.2rem;margin-bottom:0.7rem;">🐾 Pet of the Month</h2>
+        <img id="petMonthImg" src="" alt="Pet of the Month" style="width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #b3e5fc;margin-bottom:0.5rem;">
+        <div style="font-weight:700;font-size:1.1rem;" id="petMonthName"></div>
+        <div style="font-size:0.98rem;color:#555;" id="petMonthDesc"></div>
+      </div>
+      <!-- Registration -->
+      <div id="registrationSection" class="section">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <label for="petName">Your Pet's Name</label>
+        <input type="text" id="petName" placeholder="Pet's name (optional)" />
+        <label for="petBirthday">Pet's Birthday</label>
+        <input type="date" id="petBirthday" />
+        <button id="registerBtn">Register</button>
+      </div>
+      <!-- Promotions, Loyalty, Badges, Spin Wheel, Survey, Feedback -->
+      <div id="promoSection" class="section" style="display:none;">
+        <h2 style="text-align:center; color:#ff9800;">Current Promotions</h2>
+        <ul id="promoList" class="promo-list"></ul>
+        <!-- Spin the Wheel (fixed) -->
+        <div style="margin:1.5rem 0;text-align:center;">
+          <h2 style="color:#e67e22;font-size:1.3rem;">🎰 Spin-the-Wheel Discount</h2>
+          <canvas id="spinWheel" width="260" height="260" style="margin-bottom:0.5rem;background:#fffbe7;border-radius:50%;box-shadow:0 2px 8px #ffe082;"></canvas><br>
+          <button id="spinBtn">Spin the Wheel!</button>
+          <div id="spinResult" style="margin-top:0.7rem;font-weight:700;color:#388e3c;"></div>
         </div>
-        <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80" alt="Checkups" />
-          <div class="desc"><b>Health Checkups</b><br>Regular checkups and vaccination clinics by certified vets.</div>
+        <!-- Loyalty, Mood, Badges -->
+        <div class="loyalty" id="loyaltyStatus"></div>
+        <div id="badgesSection" style="text-align:center;margin-bottom:1.2rem;"></div>
+        <!-- Pet Birthday Reminder -->
+        <div id="petBirthdayMsg" style="text-align:center;color:#e67e22;font-weight:700;margin-bottom:1rem;"></div>
+        <!-- Fun Fact Generator -->
+        <div id="petFactSection" style="background:#fffbe7;border-radius:10px;padding:0.7rem 1rem;margin-bottom:1.2rem;text-align:center;font-size:1.05rem;color:#7c5c3b;">
+          <span style="font-weight:700;">🐕 Did you know?</span> <span id="petFact"></span>
+          <button id="newFactBtn" style="margin-left:0.7rem;padding:0.2rem 0.7rem;font-size:0.9rem;width:auto;">🔄</button>
         </div>
-        <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80" alt="Pet Food" />
-          <div class="desc"><b>Premium Pet Foods</b><br>Wide selection of nutritious foods and treats for all pets.</div>
+        <!-- Mini Survey -->
+        <div id="surveySection" style="background:#f3f8ff;border-radius:10px;padding:1rem 1rem 0.5rem 1rem;margin-bottom:1.2rem;">
+          <div style="font-weight:700;margin-bottom:0.5rem;">Mini Survey: What's your pet's favorite?</div>
+          <form id="surveyForm">
+            <label><input type="radio" name="fav" value="Food" required> Food</label><br>
+            <label><input type="radio" name="fav" value="Toys"> Toys</label><br>
+            <label><input type="radio" name="fav" value="Grooming"> Grooming</label><br>
+            <label><input type="radio" name="fav" value="Walks"> Walks</label><br>
+            <button type="submit" style="margin-top:0.7rem;">Submit Survey</button>
+          </form>
+          <div id="surveyMsg" style="color:#388e3c;font-weight:700;margin-top:0.5rem;display:none;">You're a true pet lover! 🐾</div>
         </div>
-        <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80" alt="Events" />
-          <div class="desc"><b>Fun Events</b><br>Pet birthday parties, training workshops, and adoption drives.</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=600&q=80" alt="Accessories" />
-          <div class="desc"><b>Accessories & Toys</b><br>Toys, beds, leashes, and more for every pet personality.</div>
-        </div>
-        <div class="carousel-controls">
-          <button class="carousel-btn" id="carouselPrev">&#8592;</button>
-          <button class="carousel-btn" id="carouselNext">&#8594;</button>
-        </div>
+        <!-- Feedback -->
+        <h2 style="text-align:center; color:#ff9800;">Feedback</h2>
+        <textarea id="feedbackInput" placeholder="Share your feedback or pet story!"></textarea>
+        <button id="submitFeedbackBtn">Submit Feedback</button>
+        <div class="feedback-success" id="feedbackSuccess">Thank you for your feedback! 🐾</div>
       </div>
     </div>
-    <!-- Pet of the Month -->
-    <div id="petMonthSection" class="section" style="background:#f3f8ff;border-radius:12px;padding:1rem 0 1.2rem 0;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(44,62,80,0.06);text-align:center;">
-      <h2 style="color:#4a90e2;font-size:1.2rem;margin-bottom:0.7rem;">🐾 Pet of the Month</h2>
-      <img id="petMonthImg" src="" alt="Pet of the Month" style="width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #b3e5fc;margin-bottom:0.5rem;">
-      <div style="font-weight:700;font-size:1.1rem;" id="petMonthName"></div>
-      <div style="font-size:0.98rem;color:#555;" id="petMonthDesc"></div>
-    </div>
-    <!-- Registration -->
-    <div id="registrationSection" class="section">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" placeholder="Enter your name" required />
-      <label for="email">Your Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required />
-      <label for="petName">Your Pet's Name</label>
-      <input type="text" id="petName" placeholder="Pet's name (optional)" />
-      <label for="petBirthday">Pet's Birthday</label>
-      <input type="date" id="petBirthday" />
-      <button id="registerBtn">Register</button>
-    </div>
-    <!-- Promotions, Loyalty, Badges, Spin Wheel, Survey, Feedback -->
-    <div id="promoSection" class="section" style="display:none;">
-      <h2 style="text-align:center; color:#ff9800;">Current Promotions</h2>
-      <ul id="promoList" class="promo-list"></ul>
-      <!-- Spin the Wheel (fixed) -->
-      <div style="margin:1.5rem 0;text-align:center;">
-        <h2 style="color:#e67e22;font-size:1.3rem;">🎰 Spin-the-Wheel Discount</h2>
-        <canvas id="spinWheel" width="260" height="260" style="margin-bottom:0.5rem;background:#fffbe7;border-radius:50%;box-shadow:0 2px 8px #ffe082;"></canvas><br>
-        <button id="spinBtn">Spin the Wheel!</button>
-        <div id="spinResult" style="margin-top:0.7rem;font-weight:700;color:#388e3c;"></div>
-      </div>
-      <!-- Loyalty, Mood, Badges -->
-      <div class="loyalty" id="loyaltyStatus"></div>
-      <div id="badgesSection" style="text-align:center;margin-bottom:1.2rem;"></div>
-      <!-- Pet Birthday Reminder -->
-      <div id="petBirthdayMsg" style="text-align:center;color:#e67e22;font-weight:700;margin-bottom:1rem;"></div>
-      <!-- Fun Fact Generator -->
-      <div id="petFactSection" style="background:#fffbe7;border-radius:10px;padding:0.7rem 1rem;margin-bottom:1.2rem;text-align:center;font-size:1.05rem;color:#7c5c3b;">
-        <span style="font-weight:700;">🐕 Did you know?</span> <span id="petFact"></span>
-        <button id="newFactBtn" style="margin-left:0.7rem;padding:0.2rem 0.7rem;font-size:0.9rem;width:auto;">🔄</button>
-      </div>
-      <!-- Mini Survey -->
-      <div id="surveySection" style="background:#f3f8ff;border-radius:10px;padding:1rem 1rem 0.5rem 1rem;margin-bottom:1.2rem;">
-        <div style="font-weight:700;margin-bottom:0.5rem;">Mini Survey: What's your pet's favorite?</div>
-        <form id="surveyForm">
-          <label><input type="radio" name="fav" value="Food" required> Food</label><br>
-          <label><input type="radio" name="fav" value="Toys"> Toys</label><br>
-          <label><input type="radio" name="fav" value="Grooming"> Grooming</label><br>
-          <label><input type="radio" name="fav" value="Walks"> Walks</label><br>
-          <button type="submit" style="margin-top:0.7rem;">Submit Survey</button>
-        </form>
-        <div id="surveyMsg" style="color:#388e3c;font-weight:700;margin-top:0.5rem;display:none;">You're a true pet lover! 🐾</div>
-      </div>
-      <!-- Feedback -->
-      <h2 style="text-align:center; color:#ff9800;">Feedback</h2>
-      <textarea id="feedbackInput" placeholder="Share your feedback or pet story!"></textarea>
-      <button id="submitFeedbackBtn">Submit Feedback</button>
-      <div class="feedback-success" id="feedbackSuccess">Thank you for your feedback! 🐾</div>
-    </div>
+    <div class="side-space"></div>
   </div>
   <!-- Modal for spin result -->
   <div class="modal" id="spinModal">
@@ -363,7 +384,7 @@
     </div>
   </div>
   <!-- Animated Paw Prints (fixed) -->
-  <canvas id="pawCanvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;"></canvas>
+  <canvas id="pawCanvas"></canvas>
   <script>
     const promotions = [
       { text: "10% off on all dog food!", emoji: "🐶" },
@@ -538,105 +559,81 @@
     }
 
     // --- JS for all features ---
-    // 1. Animated Paw Prints (falling from top, fade out)
-    const pawCanvas = document.getElementById('pawCanvas');
-    const pawCtx = pawCanvas.getContext('2d');
-    function resizePawCanvas() {
-      pawCanvas.width = window.innerWidth;
-      pawCanvas.height = window.innerHeight;
-    }
-    resizePawCanvas();
-    window.addEventListener('resize', resizePawCanvas);
-    const pawImgs = [
-      'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="%23b388ff" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="20" rx="5" ry="3"/><ellipse cx="5" cy="14" rx="2" ry="3"/><ellipse cx="19" cy="14" rx="2" ry="3"/><ellipse cx="8" cy="8" rx="2" ry="2.5"/><ellipse cx="16" cy="8" rx="2" ry="2.5"/></svg>',
-      'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="%23ffb347" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="20" rx="5" ry="3"/><ellipse cx="5" cy="14" rx="2" ry="3"/><ellipse cx="19" cy="14" rx="2" ry="3"/><ellipse cx="8" cy="8" rx="2" ry="2.5"/><ellipse cx="16" cy="8" rx="2" ry="2.5"/></svg>'
-    ];
-    let pawParticles = [];
-    function spawnPawParticle() {
-      const x = Math.random() * window.innerWidth;
-      const y = -24;
-      const speed = 1 + Math.random() * 1.5;
-      const img = new window.Image();
-      img.src = pawImgs[Math.floor(Math.random()*pawImgs.length)];
-      pawParticles.push({x, y, speed, img, alpha: 1, rot: Math.random()*2*Math.PI});
-    }
-    function animatePawParticles() {
-      pawCtx.clearRect(0, 0, pawCanvas.width, pawCanvas.height);
-      for (let i = 0; i < pawParticles.length; i++) {
-        const p = pawParticles[i];
-        pawCtx.save();
-        pawCtx.globalAlpha = p.alpha;
-        pawCtx.translate(p.x, p.y);
-        pawCtx.rotate(p.rot);
-        pawCtx.drawImage(p.img, -12, -12, 24, 24);
-        pawCtx.restore();
-        p.y += p.speed;
-        p.alpha -= 0.0025;
-        p.rot += 0.01;
+    // HERO CAROUSEL DATA & LOGIC
+    const heroSlides = [
+      {
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        title: 'Grooming & Spa',
+        desc: 'Pamper your pets with our professional grooming and spa treatments. Our experts ensure your furry friends look and feel their best.'
+      },
+      {
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        title: 'Health Checkups',
+        desc: 'Regular checkups and vaccination clinics by certified vets. Keep your pets healthy and happy with our caring team.'
+      },
+      {
+        bg: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1200&q=80',
+        title: 'Premium Pet Foods',
+        desc: 'Wide selection of nutritious foods and treats for all pets. Only the best for your companions!'
+      },
+      {
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        title: 'Fun Events',
+        desc: 'Pet birthday parties, training workshops, and adoption drives. Join our community and celebrate your pets!'
+      },
+      {
+        bg: 'https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=1200&q=80',
+        title: 'Accessories & Toys',
+        desc: 'Toys, beds, leashes, and more for every pet personality. Shop our curated collection!'
       }
-      pawParticles = pawParticles.filter(p => p.y < window.innerHeight + 24 && p.alpha > 0);
-      if (Math.random() < 0.13) spawnPawParticle();
-      requestAnimationFrame(animatePawParticles);
-    }
-    animatePawParticles();
-
-    // 2. Dark Mode (fix)
-    function setDarkMode(on) {
-      document.body.style.background = on ?
-        "linear-gradient(rgba(40,40,40,0.92),rgba(40,40,40,0.92)),url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat fixed"
-        :
-        "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat fixed";
-      document.body.style.color = on ? '#f5f5f5' : '';
-      document.querySelector('.container').style.background = on ? 'rgba(40,40,40,0.97)' : 'rgba(255,255,255,0.95)';
-      document.querySelector('.container').style.boxShadow = on ? '0 8px 32px rgba(0,0,0,0.38)' : '0 8px 32px rgba(0,0,0,0.18)';
-      // About section
-      document.getElementById('aboutSection').style.background = on ? '#23272f' : '#f3f8ff';
-      document.getElementById('aboutSection').style.color = on ? '#e0e0e0' : '#555';
-      // Pet of the Month
-      document.getElementById('petMonthSection').style.background = on ? '#23272f' : '#f3f8ff';
-      document.getElementById('petMonthSection').style.color = on ? '#e0e0e0' : '#555';
-      // Fun Fact
-      document.getElementById('petFactSection').style.background = on ? '#23272f' : '#fffbe7';
-      document.getElementById('petFactSection').style.color = on ? '#e0e0e0' : '#7c5c3b';
-      // Survey
-      document.getElementById('surveySection').style.background = on ? '#23272f' : '#f3f8ff';
-      document.getElementById('surveySection').style.color = on ? '#e0e0e0' : '#555';
-      // Loyalty
-      document.getElementById('loyaltyStatus').style.background = on ? '#2d3a3a' : '#e1f7fa';
-      document.getElementById('loyaltyStatus').style.color = on ? '#ffe082' : '#2d5a5c';
-      // Spin wheel
-      document.getElementById('spinWheel').style.background = on ? '#23272f' : '#fffbe7';
-      localStorage.setItem('darkMode', on ? '1' : '0');
-    }
-    document.getElementById('toggleDark').onchange = function() { setDarkMode(this.checked); };
-    if(localStorage.getItem('darkMode')==='1') { document.getElementById('toggleDark').checked=true; setDarkMode(true); }
-
-    // 3. Spin-the-Wheel (real wheel, rewards)
-    const spinRewards = [
-      { label: "5% off next visit", color: "#ffe082" },
-      { label: "Free dog treat", color: "#b2dfdb" },
-      { label: "+1 Loyalty Point", color: "#ffccbc" },
-      { label: "10% off toys", color: "#c5e1a5" },
-      { label: "Free catnip sample", color: "#f8bbd0" },
-      { label: "Better luck next time!", color: "#e0e0e0" }
     ];
-    let spinning = false;
+    const heroCarousel = document.getElementById('heroCarousel');
+    let heroIdx = 0;
+    function renderHeroSlides() {
+      heroCarousel.querySelectorAll('.hero-slide').forEach(e=>e.remove());
+      heroSlides.forEach((slide, i) => {
+        const div = document.createElement('div');
+        div.className = 'hero-slide' + (i===heroIdx?' active':'');
+        div.style.backgroundImage = `url('${slide.bg}')`;
+        div.innerHTML = `<div class='hero-overlay'><div class='hero-title'>${slide.title}</div><div class='hero-desc'>${slide.desc}</div></div>`;
+        heroCarousel.insertBefore(div, heroCarousel.querySelector('.hero-carousel-controls'));
+      });
+    }
+    function showHero(idx) {
+      heroIdx = idx;
+      renderHeroSlides();
+    }
+    document.getElementById('heroPrev').onclick = function() {
+      heroIdx = (heroIdx-1+heroSlides.length)%heroSlides.length;
+      showHero(heroIdx);
+    };
+    document.getElementById('heroNext').onclick = function() {
+      heroIdx = (heroIdx+1)%heroSlides.length;
+      showHero(heroIdx);
+    };
+    setInterval(()=>{ heroIdx=(heroIdx+1)%heroSlides.length; showHero(heroIdx); }, 4000);
+    renderHeroSlides();
+
+    // Spin-the-Wheel (text always inside wheel)
     function drawWheel(angle=0) {
       const ctx = document.getElementById('spinWheel').getContext('2d');
       ctx.clearRect(0,0,260,260);
       const n = spinRewards.length;
       for(let i=0;i<n;i++){
+        ctx.save();
         ctx.beginPath();
         ctx.moveTo(130,130);
         ctx.arc(130,130,120,2*Math.PI*i/n+angle,2*Math.PI*(i+1)/n+angle);
         ctx.closePath();
         ctx.fillStyle = spinRewards[i].color;
         ctx.fill();
-        ctx.save();
         ctx.translate(130,130);
         ctx.rotate(2*Math.PI*(i+0.5)/n+angle);
-        ctx.textAlign='center';ctx.font='bold 18px Quicksand';ctx.fillStyle='#444';
-        ctx.fillText(spinRewards[i].label,70,8);
+        ctx.textAlign='center';ctx.font='bold 16px Quicksand';ctx.fillStyle='#3b2e2a';
+        // Draw text in a box inside the segment
+        let label = spinRewards[i].label;
+        let lines = label.length > 16 ? [label.slice(0,16), label.slice(16)] : [label];
+        lines.forEach((line,li)=>ctx.fillText(line,70,li*20-5));
         ctx.restore();
       }
       // Arrow
