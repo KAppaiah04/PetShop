@@ -1147,18 +1147,18 @@
       // Remove old arrow if present
       let oldArrow = document.getElementById('spinArrow');
       if (oldArrow) oldArrow.remove();
-      // Draw arrow just above the wheel, close to its edge
+      // Draw a small arrow just above the wheel, perfectly centered
       const arrow = document.createElement('div');
       arrow.id = 'spinArrow';
       arrow.style.position = 'absolute';
-      // Position: horizontally centered, just above the wheel edge
-      arrow.style.left = (canvas.offsetLeft + canvas.width/2 - 16) + 'px';
-      arrow.style.top = (canvas.offsetTop - 18) + 'px';
+      // Center horizontally above the canvas, just above the edge
+      arrow.style.left = (canvas.offsetLeft + canvas.width/2 - 10) + 'px';
+      arrow.style.top = (canvas.offsetTop - 22) + 'px';
       arrow.style.width = '0';
       arrow.style.height = '0';
-      arrow.style.borderLeft = '16px solid transparent';
-      arrow.style.borderRight = '16px solid transparent';
-      arrow.style.borderBottom = '18px solid #e67e22';
+      arrow.style.borderLeft = '10px solid transparent';
+      arrow.style.borderRight = '10px solid transparent';
+      arrow.style.borderBottom = '20px solid #e67e22';
       arrow.style.zIndex = '20';
       arrow.style.pointerEvents = 'none';
       arrow.setAttribute('aria-hidden','true');
@@ -1274,6 +1274,43 @@
     }
     // On every load, set a new random pet of the month
     setRandomPetOfTheMonth();
+    // --- SPIN LOGIC: ensure correct offer is shown ---
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+      spinBtn.disabled = true;
+      let n = spinRewards.length;
+      let randomIndex = Math.floor(Math.random() * n);
+      let anglePerSegment = 2 * Math.PI / n;
+      // The wheel's 0 angle is at 3 o'clock, so to align the selected segment to the top (12 o'clock),
+      // rotate so that the selected index is at -Math.PI/2
+      let finalAngle = (3 * Math.PI / 2) - (randomIndex * anglePerSegment) - (anglePerSegment / 2);
+      let extraSpins = 5 * 2 * Math.PI; // 5 full spins for effect
+      let totalAngle = extraSpins + finalAngle;
+      let currentAngle = 0;
+      let duration = 3500;
+      let start = null;
+      function animate(ts) {
+        if (!start) start = ts;
+        let elapsed = ts - start;
+        let progress = Math.min(elapsed / duration, 1);
+        // Ease out
+        let ease = 1 - Math.pow(1 - progress, 3);
+        let angle = ease * totalAngle;
+        drawWheel(angle);
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          drawWheel(totalAngle);
+          // Show the correct reward
+          let reward = spinRewards[randomIndex].label;
+          spinResult.innerText = `You won: ${reward}!`;
+          isSpinning = false;
+          spinBtn.disabled = false;
+        }
+      }
+      requestAnimationFrame(animate);
+    }
   </script>
 </body>
 </html>
