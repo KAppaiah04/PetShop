@@ -1,126 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Cozy Cup Café Engagement App</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 2rem;
-    background: url('https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?auto=format&fit=crop&w=2000') center/cover fixed,
-                url('https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=2000') center/cover fixed;
-    background-blend-mode: overlay;
-    background-color: rgba(255, 255, 255, 0.9);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-  .container {
-    max-width: 700px;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    backdrop-filter: blur(8px);
-  }
-  h1, h2 {
-    color: #4a3427;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-  }
-  h1 {
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, #6b4c3b, #8c6a4d);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  input, button, textarea {
-    width: 100%;
-    padding: 1rem;
-    margin: 0.75rem 0;
-    border: 2px solid #e0d5cf;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-  }
-  input:focus, textarea:focus {
-    outline: none;
-    border-color: #6b4c3b;
-    box-shadow: 0 0 0 3px rgba(107, 76, 59, 0.2);
-  }
-  button {
-    background: linear-gradient(45deg, #6b4c3b, #8c6a4d);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(107, 76, 59, 0.2);
-  }
-  #promoList {
-    list-style: none;
-    padding: 0;
-  }
-  #promoList li {
-    background: #fff;
-    padding: 1rem;
-    margin: 0.5rem 0;
-    border-radius: 8px;
-    border-left: 4px solid #6b4c3b;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  #loyaltyStatus {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #6b4c3b;
-    background: #f9f4f1;
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1.5rem 0;
-  }
-  @media (max-width: 600px) {
-    body { padding: 1rem; }
-    .container { padding: 1.5rem; }
-    h1 { font-size: 2rem; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pet Paradise - Pet Store Engagement App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+        url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat fixed;
+      transition: background 1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 420px;
+      width: 95vw;
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 2.5rem 2rem 2rem 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 1.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #3b2e2a;
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    .pet-emoji {
+      font-size: 2.2rem;
+      display: block;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      animation: bounce 1.5s infinite alternate;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+    label {
+      font-weight: 700;
+      color: #5a463a;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.4rem 0 1rem 0;
+      border: 1.5px solid #e0d5cf;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #f9f6f3;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+    input:focus, textarea:focus {
+      border-color: #ffb347;
+      box-shadow: 0 0 0 2px #ffe0b2;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(90deg, #ffb347 0%, #ffcc80 100%);
+      color: #3b2e2a;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(255,179,71,0.08);
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #ffcc80 0%, #ffb347 100%);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .promo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+    .promo-list li {
+      background: #fff8e1;
+      color: #7c5c3b;
+      margin-bottom: 0.7rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(255,179,71,0.07);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: background 0.3s;
+    }
+    .promo-list li:hover {
+      background: #ffe0b2;
+    }
+    .loyalty {
+      background: #e1f7fa;
+      color: #2d5a5c;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+      transition: background 0.3s;
+    }
+    .feedback-success {
+      color: #388e3c;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1.2rem; }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to The Cozy Cup Café</h1>
-    <div id="registrationSection">
-      <p>Register to receive updates and rewards:</p>
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
+    <span class="pet-emoji">🐶🐱🐾</span>
+    <h1>Welcome to Pet Paradise</h1>
+    <div id="registrationSection" class="section">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <label for="email">Your Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
       <button id="registerBtn">Register</button>
     </div>
-
-    <div id="promoSection" style="display:none;">
-      <h2>Current Promotions</h2>
-      <ul id="promoList"></ul>
-      <h2>Your Loyalty Progress</h2>
-      <p id="loyaltyStatus"></p>
-      <h2>Feedback</h2>
-      <textarea id="feedbackInput" placeholder="Share your feedback"></textarea>
+    <div id="promoSection" class="section" style="display:none;">
+      <h2 style="text-align:center; color:#ff9800;">Current Promotions</h2>
+      <ul id="promoList" class="promo-list"></ul>
+      <div class="loyalty" id="loyaltyStatus"></div>
+      <h2 style="text-align:center; color:#ff9800;">Feedback</h2>
+      <textarea id="feedbackInput" placeholder="Share your feedback or pet story!"></textarea>
       <button id="submitFeedbackBtn">Submit Feedback</button>
+      <div class="feedback-success" id="feedbackSuccess">Thank you for your feedback! 🐾</div>
     </div>
   </div>
-
   <script>
     const promotions = [
-      "Buy 1 Get 1 Free on Cappuccinos",
-      "Free Cookie with Every 5th Visit",
-      "Introducing New Vegan Options!"
+      { text: "10% off on all dog food!", emoji: "🐶" },
+      { text: "Buy 1 Get 1 Free on Cat Toys", emoji: "🐱" },
+      { text: "Free grooming session with every 5th visit!", emoji: "🛁" },
+      { text: "New arrivals: Exotic Birds!", emoji: "🦜" }
     ];
 
     const registerBtn = document.getElementById('registerBtn');
@@ -130,19 +175,26 @@
     const loyaltyStatus = document.getElementById('loyaltyStatus');
     const feedbackInput = document.getElementById('feedbackInput');
     const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+    const feedbackSuccess = document.getElementById('feedbackSuccess');
 
     function loadPromotions() {
       promoList.innerHTML = '';
       promotions.forEach(promo => {
         const li = document.createElement('li');
-        li.textContent = promo;
+        li.innerHTML = `<span>${promo.emoji}</span> ${promo.text}`;
         promoList.appendChild(li);
       });
     }
 
     function updateLoyalty() {
       let visits = parseInt(localStorage.getItem('visits') || '0');
-      loyaltyStatus.textContent = `You have visited us ${visits} time(s). Visit 5 times to earn a free treat!`;
+      let nextReward = 5 - (visits % 5);
+      loyaltyStatus.innerHTML = `🐾 You have visited us <b>${visits}</b> time(s).<br>Visit <b>${nextReward}</b> more time(s) to earn a free treat for your pet!`;
+      loyaltyStatus.style.background = visits % 5 === 0 && visits !== 0 ? '#ffe0b2' : '#e1f7fa';
+      loyaltyStatus.style.color = visits % 5 === 0 && visits !== 0 ? '#ff9800' : '#2d5a5c';
+      if (visits % 5 === 0 && visits !== 0) {
+        loyaltyStatus.innerHTML += '<br>🎉 Congratulations! You earned a free treat! 🎉';
+      }
     }
 
     registerBtn.onclick = () => {
@@ -151,7 +203,8 @@
       if (name && email) {
         localStorage.setItem('customerName', name);
         localStorage.setItem('customerEmail', email);
-        localStorage.setItem('visits', '1'); // Starting visits count
+        let visits = parseInt(localStorage.getItem('visits') || '0');
+        if (!visits) localStorage.setItem('visits', '1');
         registrationSection.style.display = 'none';
         promoSection.style.display = 'block';
         loadPromotions();
@@ -167,17 +220,27 @@
         let feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
         feedbacks.push({ name: localStorage.getItem('customerName'), feedback, date: new Date().toISOString() });
         localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
-        alert('Thank you for your feedback!');
         feedbackInput.value = '';
+        feedbackSuccess.style.display = 'block';
+        setTimeout(() => { feedbackSuccess.style.display = 'none'; }, 2000);
       } else {
         alert('Please enter your feedback before submitting.');
       }
     };
 
+    // Simulate a visit every time the user loads the app after registration
+    function incrementVisit() {
+      if (localStorage.getItem('customerName')) {
+        let visits = parseInt(localStorage.getItem('visits') || '0');
+        localStorage.setItem('visits', (visits + 1).toString());
+      }
+    }
+
     // Auto-load if already registered
     if (localStorage.getItem('customerName')) {
       registrationSection.style.display = 'none';
       promoSection.style.display = 'block';
+      incrementVisit();
       loadPromotions();
       updateLoyalty();
     }
