@@ -1346,6 +1346,62 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.4);
     }
+
+    /* Services slider scrollbar hiding */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Enhanced service card animations */
+    .flex-shrink-0.w-80.bg-white.rounded-2xl.shadow-lg.overflow-hidden:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Video card enhancements */
+    .bg-white.rounded-2xl.shadow-lg.overflow-hidden.hover\\:shadow-xl:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Gradient text enhancements */
+    .bg-gradient-to-r.from-primary-500.to-secondary-500.bg-clip-text {
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Enhanced mobile responsiveness */
+    @media (max-width: 640px) {
+      .flex-shrink-0.w-80 {
+        width: 280px;
+      }
+      
+      .text-4xl.font-bold {
+        font-size: 2rem;
+      }
+      
+      .p-6 {
+        padding: 1rem;
+      }
+      
+      .gap-8 {
+        gap: 1rem;
+      }
+      
+      .grid.md\\:grid-cols-2.lg\\:grid-cols-3 {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body class="font-inter bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
@@ -1360,8 +1416,9 @@
         <div class="hidden md:flex space-x-8">
           <a href="#home" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Home</a>
           <a href="#about" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">About Us</a>
+          <a href="#services" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Services</a>
           <a href="#gallery" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Puppy Gallery</a>
-          <a href="#videos" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Videos</a>
+          <a href="#videos" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Learn</a>
           <a href="#contact" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Contact</a>
         </div>
         <div class="flex items-center space-x-4">
@@ -1390,8 +1447,9 @@
     <div class="flex flex-col items-center justify-center h-full space-y-8">
       <a href="#home" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Home</a>
       <a href="#about" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">About Us</a>
+      <a href="#services" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Services</a>
       <a href="#gallery" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Puppy Gallery</a>
-      <a href="#videos" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Videos</a>
+      <a href="#videos" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Learn</a>
       <a href="#contact" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Contact</a>
       <button class="absolute top-4 right-4 text-3xl text-gray-800" id="closeMobileMenu">×</button>
     </div>
@@ -1476,15 +1534,93 @@
       <section id="about" class="mb-16">
         <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">About Us</h2>
         <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-gradient-to-r from-pink-50 to-pink-100 rounded-2xl p-8 shadow-lg border-2 border-pink-300">
+          <div class="bg-gradient-to-r from-pink-50 to-pink-100 rounded-2xl p-8 shadow-lg border-2 border-pink-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <div class="text-4xl mb-4">🏠</div>
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Story</h3>
             <p class="text-gray-700 leading-relaxed">Paws & Whiskers has been bringing joy to families for over 15 years. We specialize in connecting loving homes with adorable puppies, ensuring every match is perfect for both the family and the furry friend.</p>
           </div>
-          <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8 shadow-lg border-2 border-purple-300">
+          <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8 shadow-lg border-2 border-purple-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <div class="text-4xl mb-4">❤️</div>
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
             <p class="text-gray-700 leading-relaxed">We believe every puppy deserves a loving home. Our team of experts ensures all our puppies are healthy, well-socialized, and ready to become your family's newest member.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="mb-16">
+        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Our Services</h2>
+        <div class="relative">
+          <!-- Services Slider -->
+          <div id="servicesSlider" class="flex overflow-x-auto scrollbar-hide gap-6 pb-4 snap-x snap-mandatory">
+            <!-- Grooming Service -->
+            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <img src="https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Grooming Service" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <div class="text-3xl mb-3">🛁</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Professional Grooming</h3>
+                <p class="text-gray-600 mb-4">Keep your furry friend looking and feeling their best with our expert grooming services.</p>
+                <button class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Book Now</button>
+              </div>
+            </div>
+
+            <!-- Clinic Check-up -->
+            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <img src="https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Clinic Check-up" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <div class="text-3xl mb-3">🏥</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Health Check-ups</h3>
+                <p class="text-gray-600 mb-4">Regular health check-ups and vaccinations to keep your pet healthy and happy.</p>
+                <button class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Schedule</button>
+              </div>
+            </div>
+
+            <!-- Dog Food Delivery -->
+            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <img src="https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Dog Food Delivery" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <div class="text-3xl mb-3">🛒</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Food Delivery</h3>
+                <p class="text-gray-600 mb-4">Premium pet food delivered right to your doorstep. Fresh, nutritious, and convenient.</p>
+                <button class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Order Now</button>
+              </div>
+            </div>
+
+            <!-- Pet Activity Events -->
+            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <img src="https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Pet Activity Events" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <div class="text-3xl mb-3">🎉</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Activity Events</h3>
+                <p class="text-gray-600 mb-4">Join our fun pet events, training sessions, and social gatherings for pets and owners.</p>
+                <button class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Join Event</button>
+              </div>
+            </div>
+
+            <!-- Adoption -->
+            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <img src="https://images.pexels.com/photos/4587973/pexels-photo-4587973.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Adoption" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <div class="text-3xl mb-3">🏠</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Pet Adoption</h3>
+                <p class="text-gray-600 mb-4">Find your perfect companion through our adoption program. Give a loving home to pets in need.</p>
+                <button class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-pink-600 hover:to-pink-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Adopt Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Navigation -->
+          <div class="flex justify-center mt-6 space-x-2">
+            <button id="prevService" class="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <button id="nextService" class="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
           </div>
         </div>
       </section>
@@ -1520,26 +1656,77 @@
         </div>
       </section>
 
-      <!-- Videos Section -->
+      <!-- Learn About Pet Care Section -->
       <section id="videos" class="mb-16">
-        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Puppy Videos</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Learn About Pet Care</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
             <div class="aspect-video">
-              <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Puppies Playing" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="w-full h-full" src="https://www.youtube.com/embed/U7xXY_hLnwY" title="Dog Grooming Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Puppies Playing Together</h3>
-              <p class="text-gray-600">Watch these adorable puppies having fun in our play area!</p>
+              <div class="text-2xl mb-3">🛁</div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Dog Grooming Tutorial</h3>
+              <p class="text-gray-600 mb-4">Learn essential grooming techniques to keep your dog clean and healthy.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span>⏱️ 15 min</span>
+                <span class="mx-2">•</span>
+                <span>🐕 Beginner</span>
+              </div>
             </div>
           </div>
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
             <div class="aspect-video">
-              <iframe class="w-full h-full" src="https://www.youtube.com/embed/jNQXAC9IVRw" title="Puppy Training Tips" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="w-full h-full" src="https://www.youtube.com/embed/bwPjzH1a0Kc" title="Puppy Care Tips" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Puppy Training Tips</h3>
-              <p class="text-gray-600">Essential training tips for new puppy parents</p>
+              <div class="text-2xl mb-3">🐾</div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Puppy Care Essentials</h3>
+              <p class="text-gray-600 mb-4">Complete guide to caring for your new puppy from day one.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span>⏱️ 20 min</span>
+                <span class="mx-2">•</span>
+                <span>🐶 New Owners</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <div class="aspect-video">
+              <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Pet Adoption Guide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-6">
+              <div class="text-2xl mb-3">🏠</div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Pet Adoption Guide</h3>
+              <p class="text-gray-600 mb-4">Everything you need to know about adopting a pet and preparing your home.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span>⏱️ 12 min</span>
+                <span class="mx-2">•</span>
+                <span>❤️ Adoption</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Additional Resources -->
+        <div class="mt-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg border-2 border-blue-300">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">More Learning Resources</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="text-3xl mb-3">📚</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Care Guides</h4>
+              <p class="text-gray-600 text-sm">Comprehensive care guides for different breeds</p>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl mb-3">🎥</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Video Library</h4>
+              <p class="text-gray-600 text-sm">Hundreds of helpful pet care videos</p>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl mb-3">👨‍⚕️</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Expert Advice</h4>
+              <p class="text-gray-600 text-sm">Tips from our certified veterinarians</p>
             </div>
           </div>
         </div>
@@ -1779,7 +1966,18 @@
         'available': 'We currently have Golden Retrievers, Labradors, and Poodles available. Would you like to see photos?',
         'breed': 'We offer Golden Retrievers, Labradors, Poodles, and more! What\'s your lifestyle like?',
         'visit': 'Great! We\'re open Monday-Friday 9AM-7PM, Saturday 10AM-6PM, and Sunday 11AM-5PM.',
-        'training': 'We recommend starting training early with positive reinforcement. Would you like some basic tips?'
+        'training': 'We recommend starting training early with positive reinforcement. Would you like some basic tips?',
+        'adopt': 'Visit our Adoption section and click "Apply Now" to start the adoption process! 🏠',
+        'adoption': 'Our adoption process is simple! Check out our Adoption service card for details.',
+        'food': 'Yes! Check our Food Delivery section for grain-free and premium options. We deliver! 🛒',
+        'grooming': 'We offer professional grooming services! Book through our Grooming service card.',
+        'health': 'Schedule a check-up through our Health Check-ups service. We have certified vets! 🏥',
+        'events': 'Join our pet events! Check the Activity Events section for upcoming gatherings.',
+        'delivery': 'We offer food delivery right to your doorstep! Check our Food Delivery service.',
+        'services': 'We offer grooming, health check-ups, food delivery, events, and adoption services!',
+        'contact': 'Call us at (555) 123-4567 or email hello@pawsandwhiskers.com',
+        'hours': 'We\'re open Mon-Fri 9AM-7PM, Sat 10AM-6PM, Sun 11AM-5PM',
+        'location': 'We\'re located at 123 Puppy Lane, Pet City, PC 12345'
       };
 
       const lowerMessage = userMessage.toLowerCase();
@@ -1818,6 +2016,49 @@
     closeMobileMenu.addEventListener('click', () => {
       mobileMenu.classList.add('-translate-x-full');
     });
+
+    // Services Slider functionality
+    const servicesSlider = document.getElementById('servicesSlider');
+    const prevServiceBtn = document.getElementById('prevService');
+    const nextServiceBtn = document.getElementById('nextService');
+    
+    if (servicesSlider && prevServiceBtn && nextServiceBtn) {
+      const scrollAmount = 320; // Width of one card + gap
+      
+      prevServiceBtn.addEventListener('click', () => {
+        servicesSlider.scrollBy({
+          left: -scrollAmount,
+          behavior: 'smooth'
+        });
+      });
+      
+      nextServiceBtn.addEventListener('click', () => {
+        servicesSlider.scrollBy({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Touch/swipe support for mobile
+      let startX = 0;
+      let scrollLeft = 0;
+      
+      servicesSlider.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].pageX - servicesSlider.offsetLeft;
+        scrollLeft = servicesSlider.scrollLeft;
+      });
+      
+      servicesSlider.addEventListener('touchmove', (e) => {
+        if (!startX) return;
+        const x = e.touches[0].pageX - servicesSlider.offsetLeft;
+        const walk = (x - startX) * 2;
+        servicesSlider.scrollLeft = scrollLeft - walk;
+      });
+      
+      servicesSlider.addEventListener('touchend', () => {
+        startX = 0;
+      });
+    }
 
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
