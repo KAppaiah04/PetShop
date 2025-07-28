@@ -803,6 +803,17 @@
     }
 
     @media (max-width: 768px) {
+      /* Navigation adjustments */
+      .max-w-7xl.mx-auto.px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      .hidden.md\\:flex.space-x-8 {
+        display: none;
+      }
+
+      /* Hero carousel adjustments */
       .bg-gradient-to-r.from-gray-900\/95.to-gray-900\/70 {
         flex-direction: column;
         text-align: center;
@@ -834,6 +845,7 @@
         margin: 0.5rem;
       }
 
+      /* Section adjustments */
       .bg-gradient-to-r.from-yellow-50.to-yellow-100.rounded-xl.p-6 {
         padding: 1rem;
         font-size: 1rem;
@@ -852,6 +864,30 @@
         padding: 1.5rem;
       }
 
+      /* Gallery grid adjustments */
+      .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      /* Video grid adjustments */
+      .grid.md\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+      }
+
+      /* Chatbot adjustments */
+      #chatbot {
+        bottom: 1rem;
+        right: 1rem;
+        width: calc(100vw - 2rem);
+        height: 80vh;
+      }
+
+      #chatbot .w-80.h-96 {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Spin wheel adjustments */
       #spinWheel {
         width: 300px !important;
         height: 300px !important;
@@ -861,6 +897,24 @@
         width: 280px;
         padding: 1.2rem 0;
         font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .text-4xl.font-bold {
+        font-size: 2rem;
+      }
+      
+      .text-2xl.font-bold {
+        font-size: 1.5rem;
+      }
+      
+      .p-8 {
+        padding: 1rem;
+      }
+      
+      .gap-8 {
+        gap: 1rem;
       }
     }
 
@@ -1260,13 +1314,87 @@
         transform: translateX(0);
       }
     }
+
+    /* Video aspect ratio */
+    .aspect-video {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Enhanced hover effects for gallery cards */
+    .bg-white.rounded-2xl.shadow-lg.overflow-hidden:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Chatbot animations */
+    #chatbot {
+      transition: all 0.3s ease-in-out;
+    }
+
+    #chatbot.hidden {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    /* Mobile menu animations */
+    #mobileMenu {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Enhanced button hover effects */
+    .bg-primary-500.text-white.px-4.py-2.rounded-lg:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.4);
+    }
   </style>
 </head>
 <body class="font-inter bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
-  <div class="fixed top-8 right-8 z-50" id="darkModeToggle">
-    <button class="bg-white/90 backdrop-blur-md rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-white/20" id="toggleDarkBtn" title="Toggle dark mode">
-      <span class="text-2xl">🌙</span>
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <span class="text-2xl mr-3">🐾</span>
+          <h1 class="text-xl font-bold text-gray-800">Paws & Whiskers</h1>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Home</a>
+          <a href="#about" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">About Us</a>
+          <a href="#gallery" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Puppy Gallery</a>
+          <a href="#videos" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Videos</a>
+          <a href="#contact" class="text-gray-600 hover:text-primary-500 transition-colors duration-300 font-medium">Contact</a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="bg-white/90 backdrop-blur-md rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-white/20" id="toggleDarkBtn" title="Toggle dark mode">
+            <span class="text-xl">🌙</span>
+          </button>
+          <button id="chatbotToggle" class="bg-primary-500 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-primary-600">
+            <span class="text-xl">💬</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Button -->
+  <div class="md:hidden fixed top-4 left-4 z-50">
+    <button id="mobileMenuBtn" class="bg-white/90 backdrop-blur-md rounded-lg p-2 shadow-lg">
+      <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
     </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-30 bg-white/95 backdrop-blur-md transform -translate-x-full transition-transform duration-300 md:hidden">
+    <div class="flex flex-col items-center justify-center h-full space-y-8">
+      <a href="#home" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Home</a>
+      <a href="#about" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">About Us</a>
+      <a href="#gallery" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Puppy Gallery</a>
+      <a href="#videos" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Videos</a>
+      <a href="#contact" class="text-2xl font-bold text-gray-800 hover:text-primary-500 transition-colors duration-300">Contact</a>
+      <button class="absolute top-4 right-4 text-3xl text-gray-800" id="closeMobileMenu">×</button>
+    </div>
   </div>
   <div class="w-screen min-h-[500px] max-h-[650px] relative mb-12 overflow-hidden rounded-b-[40px] shadow-2xl flex items-end justify-start bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500" id="heroCarousel">
     <!-- Grooming & Spa Slide: Use a relevant pet grooming image -->
@@ -1324,21 +1452,143 @@
       <button class="bg-white/95 backdrop-blur-md rounded-full w-15 h-15 text-2xl text-primary-500 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center outline-none hover:bg-primary-500 hover:text-white hover:scale-110 active:scale-95" id="heroNext">&#8594;</button>
     </div>
   </div>
-    <div class="flex flex-row justify-center items-start w-screen min-h-screen gap-12 py-0 pb-12 relative">
+    <div class="flex flex-row justify-center items-start w-screen min-h-screen gap-12 py-0 pb-12 relative pt-20">
     <div class="flex-1 min-w-[60px] max-w-[150px] h-full bg-transparent"></div>
     <div class="flex-[2_1_800px] max-w-6xl w-full my-12 bg-white/95 rounded-3xl shadow-2xl p-12 pb-10 backdrop-blur-xl border border-white/20 animate-[slideInUp_1s_cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden">
       <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-yellow-300 rounded-t-3xl"></div>
-      <span class="text-5xl block text-center mb-6 animate-float drop-shadow-lg">🐶🐱🐾</span>
-      <h1 class="text-5xl text-center font-extrabold mb-6 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent" id="welcomeTitle">Welcome to Paws & Whiskers</h1>
-      <div class="hidden text-center text-xl mb-6 text-primary-500 font-semibold p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-500 animate-[slideInRight_0.3s_ease-out]" id="welcomeBackMsg"></div>
-      <!-- Pet of the Month -->
-      <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 mb-8 shadow-lg border-2 border-blue-300 text-center relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300"></div>
-        <h2 class="text-blue-600 text-xl mb-4 font-bold">🐾 Pet of the Month</h2>
-        <img id="petMonthImg" src="" alt="Pet of the Month" class="w-36 h-36 object-cover rounded-full shadow-xl mb-4 border-6 border-white transition-all duration-300 mx-auto hover:scale-110 hover:shadow-2xl">
-        <div class="font-bold text-lg mb-2 text-gray-800" id="petMonthName"></div>
-        <div class="text-base text-gray-600 leading-relaxed" id="petMonthDesc"></div>
-      </div>
+      
+      <!-- Home Section -->
+      <section id="home" class="mb-16">
+        <span class="text-5xl block text-center mb-6 animate-float drop-shadow-lg">🐶🐱🐾</span>
+        <h1 class="text-5xl text-center font-extrabold mb-6 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent" id="welcomeTitle">Welcome to Paws & Whiskers</h1>
+        <div class="hidden text-center text-xl mb-6 text-primary-500 font-semibold p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-500 animate-[slideInRight_0.3s_ease-out]" id="welcomeBackMsg"></div>
+              <!-- Pet of the Month -->
+        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 mb-8 shadow-lg border-2 border-blue-300 text-center relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300"></div>
+          <h2 class="text-blue-600 text-xl mb-4 font-bold">🐾 Pet of the Month</h2>
+          <img id="petMonthImg" src="" alt="Pet of the Month" class="w-36 h-36 object-cover rounded-full shadow-xl mb-4 border-6 border-white transition-all duration-300 mx-auto hover:scale-110 hover:shadow-2xl">
+          <div class="font-bold text-lg mb-2 text-gray-800" id="petMonthName"></div>
+          <div class="text-base text-gray-600 leading-relaxed" id="petMonthDesc"></div>
+        </div>
+      </section>
+
+      <!-- About Us Section -->
+      <section id="about" class="mb-16">
+        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">About Us</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-gradient-to-r from-pink-50 to-pink-100 rounded-2xl p-8 shadow-lg border-2 border-pink-300">
+            <div class="text-4xl mb-4">🏠</div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Story</h3>
+            <p class="text-gray-700 leading-relaxed">Paws & Whiskers has been bringing joy to families for over 15 years. We specialize in connecting loving homes with adorable puppies, ensuring every match is perfect for both the family and the furry friend.</p>
+          </div>
+          <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8 shadow-lg border-2 border-purple-300">
+            <div class="text-4xl mb-4">❤️</div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
+            <p class="text-gray-700 leading-relaxed">We believe every puppy deserves a loving home. Our team of experts ensures all our puppies are healthy, well-socialized, and ready to become your family's newest member.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Puppy Gallery Section -->
+      <section id="gallery" class="mb-16">
+        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Puppy Gallery</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <img src="https://images.pexels.com/photos/4587997/pexels-photo-4587997.jpeg?auto=compress&w=400&h=300&fit=crop" alt="Golden Retriever Puppy" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Golden Retriever</h3>
+              <p class="text-gray-600 mb-4">Friendly and intelligent, perfect for families</p>
+              <button class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-300">Learn More</button>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <img src="https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=400&h=300&fit=crop" alt="Labrador Puppy" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Labrador</h3>
+              <p class="text-gray-600 mb-4">Loyal and energetic companion</p>
+              <button class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-300">Learn More</button>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <img src="https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=300&fit=crop" alt="Poodle Puppy" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Poodle</h3>
+              <p class="text-gray-600 mb-4">Smart and hypoallergenic breed</p>
+              <button class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-300">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Videos Section -->
+      <section id="videos" class="mb-16">
+        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Puppy Videos</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="aspect-video">
+              <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Puppies Playing" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Puppies Playing Together</h3>
+              <p class="text-gray-600">Watch these adorable puppies having fun in our play area!</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="aspect-video">
+              <iframe class="w-full h-full" src="https://www.youtube.com/embed/jNQXAC9IVRw" title="Puppy Training Tips" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Puppy Training Tips</h3>
+              <p class="text-gray-600">Essential training tips for new puppy parents</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="mb-16">
+        <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Contact Us</h2>
+        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg border-2 border-blue-300">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-4">Get in Touch</h3>
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <span class="text-2xl mr-3">📍</span>
+                  <div>
+                    <p class="font-semibold text-gray-800">Address</p>
+                    <p class="text-gray-600">123 Puppy Lane, Pet City, PC 12345</p>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <span class="text-2xl mr-3">📞</span>
+                  <div>
+                    <p class="font-semibold text-gray-800">Phone</p>
+                    <p class="text-gray-600">(555) 123-4567</p>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <span class="text-2xl mr-3">✉️</span>
+                  <div>
+                    <p class="font-semibold text-gray-800">Email</p>
+                    <p class="text-gray-600">hello@pawsandwhiskers.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-4">Visit Us</h3>
+              <p class="text-gray-700 mb-4">Come visit our store to meet our adorable puppies in person!</p>
+              <div class="bg-white rounded-xl p-4 shadow-sm">
+                <p class="font-semibold text-gray-800 mb-2">Store Hours:</p>
+                <p class="text-gray-600">Monday - Friday: 9AM - 7PM</p>
+                <p class="text-gray-600">Saturday: 10AM - 6PM</p>
+                <p class="text-gray-600">Sunday: 11AM - 5PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <!-- Registration -->
       <div class="bg-gray-50 rounded-2xl p-8 mb-8 shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative">
         <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></div>
@@ -1406,6 +1656,48 @@
       <button onclick="document.getElementById('spinModal').className='hidden'" class="w-auto mt-6 py-4 px-10 text-lg rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold border-none cursor-pointer transition-all duration-300 hover:from-primary-600 hover:to-primary-700 hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5">Close</button>
     </div>
   </div>
+  <!-- Chatbot Interface -->
+  <div id="chatbot" class="fixed bottom-6 right-6 z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 w-80 h-96 flex flex-col">
+      <!-- Chatbot Header -->
+      <div class="bg-gradient-to-r from-primary-500 to-secondary-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
+        <div class="flex items-center">
+          <span class="text-2xl mr-3">🐕</span>
+          <div>
+            <h3 class="font-bold">Puppy Assistant</h3>
+            <p class="text-sm opacity-90">Ask me anything about puppies!</p>
+          </div>
+        </div>
+        <button id="closeChatbot" class="text-white hover:text-gray-200 transition-colors duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Chat Messages -->
+      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+        <div class="flex items-start space-x-3">
+          <div class="bg-gray-100 rounded-2xl px-4 py-2 max-w-xs">
+            <p class="text-sm text-gray-800">Hi! I'm your puppy assistant. Ask me about puppy care, availability, or anything else! 🐾</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chat Input -->
+      <div class="p-4 border-t border-gray-200">
+        <div class="flex space-x-2">
+          <input type="text" id="chatInput" placeholder="Ask me anything about puppies..." class="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+          <button id="sendMessage" class="bg-primary-500 text-white px-4 py-2 rounded-xl hover:bg-primary-600 transition-colors duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Animated Paw Prints (fixed) -->
   <canvas id="pawCanvas"></canvas>
   <script>
@@ -1436,6 +1728,112 @@
     const surveyMsg = document.getElementById('surveyMsg');
     const toggleDark = document.getElementById('toggleDark');
     const welcomeBackMsg = document.getElementById('welcomeBackMsg');
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbot = document.getElementById('chatbot');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatMessages = document.getElementById('chatMessages');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+    // Chatbot functionality
+    chatbotToggle.addEventListener('click', () => {
+      chatbot.classList.toggle('hidden');
+    });
+
+    closeChatbot.addEventListener('click', () => {
+      chatbot.classList.add('hidden');
+    });
+
+    function addMessage(message, isUser = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex items-start space-x-3';
+      
+      if (isUser) {
+        messageDiv.innerHTML = `
+          <div class="ml-auto bg-primary-500 text-white rounded-2xl px-4 py-2 max-w-xs">
+            <p class="text-sm">${message}</p>
+          </div>
+        `;
+      } else {
+        messageDiv.innerHTML = `
+          <div class="bg-gray-100 rounded-2xl px-4 py-2 max-w-xs">
+            <p class="text-sm text-gray-800">${message}</p>
+          </div>
+        `;
+      }
+      
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function handleChatbotResponse(userMessage) {
+      const responses = {
+        'hello': 'Hi there! How can I help you with puppy information today? 🐾',
+        'hi': 'Hello! Welcome to Paws & Whiskers! What would you like to know about our puppies?',
+        'puppy': 'We have many adorable puppies available! What breed are you interested in?',
+        'price': 'Our puppy prices vary by breed and range from $800-$2500. Would you like to schedule a visit?',
+        'care': 'Puppy care includes regular feeding, exercise, training, and lots of love! Need specific tips?',
+        'available': 'We currently have Golden Retrievers, Labradors, and Poodles available. Would you like to see photos?',
+        'breed': 'We offer Golden Retrievers, Labradors, Poodles, and more! What\'s your lifestyle like?',
+        'visit': 'Great! We\'re open Monday-Friday 9AM-7PM, Saturday 10AM-6PM, and Sunday 11AM-5PM.',
+        'training': 'We recommend starting training early with positive reinforcement. Would you like some basic tips?'
+      };
+
+      const lowerMessage = userMessage.toLowerCase();
+      let response = 'Thanks for your question! I\'d be happy to help you with puppy information. Feel free to ask about breeds, care, pricing, or visiting us! 🐕';
+
+      for (const [key, value] of Object.entries(responses)) {
+        if (lowerMessage.includes(key)) {
+          response = value;
+          break;
+        }
+      }
+
+      setTimeout(() => addMessage(response), 500);
+    }
+
+    sendMessage.addEventListener('click', () => {
+      const message = chatInput.value.trim();
+      if (message) {
+        addMessage(message, true);
+        chatInput.value = '';
+        handleChatbotResponse(message);
+      }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage.click();
+      }
+    });
+
+    // Mobile menu functionality
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+    });
+
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+        // Close mobile menu if open
+        mobileMenu.classList.add('-translate-x-full');
+      });
+    });
 
     // Dark mode toggle
     const toggleDarkBtn = document.getElementById('toggleDarkBtn');
