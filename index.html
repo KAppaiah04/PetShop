@@ -1401,6 +1401,60 @@
       .grid.md\\:grid-cols-2.lg\\:grid-cols-3 {
         grid-template-columns: 1fr;
       }
+      
+      /* Mobile chatbot adjustments */
+      #chatbot {
+        bottom: 5rem;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+      }
+      
+      #chatbot .w-80.h-96 {
+        width: 100%;
+        height: 80vh;
+      }
+      
+      /* Mobile slider adjustments */
+      .flex-shrink-0.w-80 {
+        width: 260px;
+      }
+      
+      .gap-6 {
+        gap: 1rem;
+      }
+    }
+
+    /* Custom scrollbar for chat messages */
+    .scrollbar-thin {
+      scrollbar-width: thin;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 3px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Enhanced shadow for chatbot toggle */
+    .shadow-2xl {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .hover\\:shadow-3xl:hover {
+      box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
     }
   </style>
 </head>
@@ -1424,9 +1478,6 @@
         <div class="flex items-center space-x-4">
           <button class="bg-white/90 backdrop-blur-md rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-white/20" id="toggleDarkBtn" title="Toggle dark mode">
             <span class="text-xl">🌙</span>
-          </button>
-          <button id="chatbotToggle" class="bg-primary-500 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-primary-600">
-            <span class="text-xl">💬</span>
           </button>
         </div>
       </div>
@@ -1454,62 +1505,35 @@
       <button class="absolute top-4 right-4 text-3xl text-gray-800" id="closeMobileMenu">×</button>
     </div>
   </div>
-  <div class="w-screen min-h-[500px] max-h-[650px] relative mb-12 overflow-hidden rounded-b-[40px] shadow-2xl flex items-end justify-start bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500" id="heroCarousel">
-    <!-- Grooming & Spa Slide: Use a relevant pet grooming image -->
-    <div class="absolute inset-0 w-screen h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-out z-10 flex items-center justify-start active:opacity-100 active:z-20" style="background-image: linear-gradient(rgba(255,236,179,0.7),rgba(255,236,179,0.7)), url('https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=1200&h=600&fit=crop');">
-      <div class="bg-gradient-to-r from-gray-900/95 to-gray-900/70 text-white p-14 pr-16 rounded-br-[40px] max-w-4xl min-w-[350px] m-0 mb-12 ml-12 shadow-xl relative text-xl flex flex-row items-center gap-12 backdrop-blur-md border border-white/10">
-        <img src="https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=400&fit=crop" alt="Grooming & Spa" class="w-60 h-60 object-cover rounded-3xl shadow-xl border-8 border-white/90 bg-white/90 flex-shrink-0 mr-12 transition-all duration-300 transform scale-100 hover:scale-105 hover:shadow-2xl">
-        <div>
-          <div class="text-5xl font-extrabold mb-5 text-white drop-shadow-lg">Grooming & Spa</div>
-          <div class="text-xl leading-relaxed text-white/90 font-normal">Pamper your pet with our luxurious grooming and spa services.</div>
+  <!-- Hero Banner Section -->
+  <div class="w-screen min-h-[400px] relative mb-8 overflow-hidden bg-gradient-to-br from-blue-400 via-purple-500 to-pink-400">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 flex items-center justify-center h-full py-16 px-4">
+      <div class="text-center text-white max-w-4xl">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+          Welcome to <span class="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">Paws & Whiskers</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-white/90 font-light">
+          Your trusted partner for all things pets 🐾
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#services" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
+            Explore Services
+          </a>
+          <a href="#gallery" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all duration-300 hover:scale-105">
+            Meet Our Pets
+          </a>
         </div>
       </div>
     </div>
-    <!-- Health Checkups Slide: Use a new, working pet/clinic image -->
-    <div class="absolute inset-0 w-screen h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-out z-10 flex items-center justify-start" style="background-image: linear-gradient(rgba(197,225,165,0.7),rgba(197,225,165,0.7)), url('https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&w=1200&h=600&fit=crop');">
-      <div class="bg-gradient-to-r from-gray-900/95 to-gray-900/70 text-white p-14 pr-16 rounded-br-[40px] max-w-4xl min-w-[350px] m-0 mb-12 ml-12 shadow-xl relative text-xl flex flex-row items-center gap-12 backdrop-blur-md border border-white/10">
-        <img src="https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&w=400&h=400&fit=crop" alt="Health Checkups" class="w-60 h-60 object-cover rounded-3xl shadow-xl border-8 border-white/90 bg-white/90 flex-shrink-0 mr-12 transition-all duration-300 transform scale-100 hover:scale-105 hover:shadow-2xl">
-        <div>
-          <div class="text-5xl font-extrabold mb-5 text-white drop-shadow-lg">Health Checkups</div>
-          <div class="text-xl leading-relaxed text-white/90 font-normal">Keep your pet healthy with regular checkups from our expert vets.</div>
-        </div>
-      </div>
-    </div>
-    <!-- Premium Pet Foods Slide -->
-    <div class="absolute inset-0 w-screen h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-out z-10 flex items-center justify-start" style="background-image: linear-gradient(rgba(255,224,178,0.7),rgba(255,224,178,0.7)), url('https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=1200&h=600&fit=crop');">
-      <div class="bg-gradient-to-r from-gray-900/95 to-gray-900/70 text-white p-14 pr-16 rounded-br-[40px] max-w-4xl min-w-[350px] m-0 mb-12 ml-12 shadow-xl relative text-xl flex flex-row items-center gap-12 backdrop-blur-md border border-white/10">
-        <img src="https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=400&h=400&fit=crop" alt="Premium Pet Foods" class="w-60 h-60 object-cover rounded-3xl shadow-xl border-8 border-white/90 bg-white/90 flex-shrink-0 mr-12 transition-all duration-300 transform scale-100 hover:scale-105 hover:shadow-2xl">
-        <div>
-          <div class="text-5xl font-extrabold mb-5 text-white drop-shadow-lg">Premium Pet Foods</div>
-          <div class="text-xl leading-relaxed text-white/90 font-normal">Discover nutritious and delicious food options for your furry friends.</div>
-        </div>
-      </div>
-    </div>
-    <!-- Fun Events Slide: Use a new, working pet event image -->
-    <div class="absolute inset-0 w-screen h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-out z-10 flex items-center justify-start" style="background-image: linear-gradient(rgba(178,235,242,0.7),rgba(178,235,242,0.7)), url('https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=1200&h=600&fit=crop');">
-      <div class="bg-gradient-to-r from-gray-900/95 to-gray-900/70 text-white p-14 pr-16 rounded-br-[40px] max-w-4xl min-w-[350px] m-0 mb-12 ml-12 shadow-xl relative text-xl flex flex-row items-center gap-12 backdrop-blur-md border border-white/10">
-        <img src="https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=400&h=400&fit=crop" alt="Fun Events" class="w-60 h-60 object-cover rounded-3xl shadow-xl border-8 border-white/90 bg-white/90 flex-shrink-0 mr-12 transition-all duration-300 transform scale-100 hover:scale-105 hover:shadow-2xl">
-        <div>
-          <div class="text-5xl font-extrabold mb-5 text-white drop-shadow-lg">Fun Events</div>
-          <div class="text-xl leading-relaxed text-white/90 font-normal">Join our exciting pet events and make new friends!</div>
-        </div>
-      </div>
-    </div>
-    <!-- Accessories & Toys Slide -->
-    <div class="absolute inset-0 w-screen h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-out z-10 flex items-center justify-start" style="background-image: linear-gradient(rgba(255,205,210,0.7),rgba(255,205,210,0.7)), url('https://images.pexels.com/photos/4587973/pexels-photo-4587973.jpeg?auto=compress&w=1200&h=600&fit=crop');">
-      <div class="bg-gradient-to-r from-gray-900/95 to-gray-900/70 text-white p-14 pr-16 rounded-br-[40px] max-w-4xl min-w-[350px] m-0 mb-12 ml-12 shadow-xl relative text-xl flex flex-row items-center gap-12 backdrop-blur-md border border-white/10">
-        <img src="https://images.pexels.com/photos/4587973/pexels-photo-4587973.jpeg?auto=compress&w=400&h=400&fit=crop" alt="Accessories & Toys" class="w-60 h-60 object-cover rounded-3xl shadow-xl border-8 border-white/90 bg-white/90 flex-shrink-0 mr-12 transition-all duration-300 transform scale-100 hover:scale-105 hover:shadow-2xl">
-        <div>
-          <div class="text-5xl font-extrabold mb-5 text-white drop-shadow-lg">Accessories & Toys</div>
-          <div class="text-xl leading-relaxed text-white/90 font-normal">Find the best toys and accessories to keep your pet happy.</div>
-        </div>
-      </div>
-    </div>
-    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10 flex gap-6">
-      <button class="bg-white/95 backdrop-blur-md rounded-full w-15 h-15 text-2xl text-primary-500 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center outline-none hover:bg-primary-500 hover:text-white hover:scale-110 active:scale-95" id="heroPrev">&#8592;</button>
-      <button class="bg-white/95 backdrop-blur-md rounded-full w-15 h-15 text-2xl text-primary-500 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center outline-none hover:bg-primary-500 hover:text-white hover:scale-110 active:scale-95" id="heroNext">&#8594;</button>
-    </div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-10 left-10 text-4xl animate-bounce">🐕</div>
+    <div class="absolute top-20 right-20 text-3xl animate-bounce" style="animation-delay: 0.5s;">🐱</div>
+    <div class="absolute bottom-20 left-20 text-3xl animate-bounce" style="animation-delay: 1s;">🐾</div>
+    <div class="absolute bottom-10 right-10 text-4xl animate-bounce" style="animation-delay: 1.5s;">🦮</div>
   </div>
+
     <div class="flex flex-row justify-center items-start w-screen min-h-screen gap-12 py-0 pb-12 relative pt-20">
     <div class="flex-1 min-w-[60px] max-w-[150px] h-full bg-transparent"></div>
     <div class="flex-[2_1_800px] max-w-6xl w-full my-12 bg-white/95 rounded-3xl shadow-2xl p-12 pb-10 backdrop-blur-xl border border-white/20 animate-[slideInUp_1s_cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden">
@@ -1550,73 +1574,82 @@
       <!-- Services Section -->
       <section id="services" class="mb-16">
         <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Our Services</h2>
-        <div class="relative">
-          <!-- Services Slider -->
-          <div id="servicesSlider" class="flex overflow-x-auto scrollbar-hide gap-6 pb-4 snap-x snap-mandatory">
-            <!-- Grooming Service -->
-            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <img src="https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Grooming Service" class="w-full h-48 object-cover">
-              <div class="p-6">
-                <div class="text-3xl mb-3">🛁</div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Professional Grooming</h3>
-                <p class="text-gray-600 mb-4">Keep your furry friend looking and feeling their best with our expert grooming services.</p>
-                <button class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Book Now</button>
+        <div class="relative group">
+          <!-- Services Slider Container -->
+          <div class="relative overflow-hidden rounded-2xl">
+            <div id="servicesSlider" class="flex gap-6 pb-4 snap-x snap-mandatory transition-transform duration-500 ease-in-out">
+              <!-- Grooming Service -->
+              <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group-hover:scale-105">
+                <img src="https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Grooming Service" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <div class="text-3xl mb-3">🛁</div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Professional Grooming</h3>
+                  <p class="text-gray-600 mb-4">Keep your furry friend looking and feeling their best with our expert grooming services.</p>
+                  <button class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Book Now</button>
+                </div>
+              </div>
+
+              <!-- Clinic Check-up -->
+              <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group-hover:scale-105">
+                <img src="https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Clinic Check-up" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <div class="text-3xl mb-3">🏥</div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Health Check-ups</h3>
+                  <p class="text-gray-600 mb-4">Regular health check-ups and vaccinations to keep your pet healthy and happy.</p>
+                  <button class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Schedule</button>
+                </div>
+              </div>
+
+              <!-- Dog Food Delivery -->
+              <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group-hover:scale-105">
+                <img src="https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Dog Food Delivery" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <div class="text-3xl mb-3">🛒</div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Food Delivery</h3>
+                  <p class="text-gray-600 mb-4">Premium pet food delivered right to your doorstep. Fresh, nutritious, and convenient.</p>
+                  <button class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Order Now</button>
+                </div>
+              </div>
+
+              <!-- Pet Activity Events -->
+              <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group-hover:scale-105">
+                <img src="https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Pet Activity Events" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <div class="text-3xl mb-3">🎉</div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Activity Events</h3>
+                  <p class="text-gray-600 mb-4">Join our fun pet events, training sessions, and social gatherings for pets and owners.</p>
+                  <button class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Join Event</button>
+                </div>
+              </div>
+
+              <!-- Adoption -->
+              <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group-hover:scale-105">
+                <img src="https://images.pexels.com/photos/4587973/pexels-photo-4587973.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Adoption" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <div class="text-3xl mb-3">🏠</div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Pet Adoption</h3>
+                  <p class="text-gray-600 mb-4">Find your perfect companion through our adoption program. Give a loving home to pets in need.</p>
+                  <button class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-pink-600 hover:to-pink-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Adopt Now</button>
+                </div>
               </div>
             </div>
 
-            <!-- Clinic Check-up -->
-            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <img src="https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Clinic Check-up" class="w-full h-48 object-cover">
-              <div class="p-6">
-                <div class="text-3xl mb-3">🏥</div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Health Check-ups</h3>
-                <p class="text-gray-600 mb-4">Regular health check-ups and vaccinations to keep your pet healthy and happy.</p>
-                <button class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Schedule</button>
-              </div>
-            </div>
-
-            <!-- Dog Food Delivery -->
-            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <img src="https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Dog Food Delivery" class="w-full h-48 object-cover">
-              <div class="p-6">
-                <div class="text-3xl mb-3">🛒</div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Food Delivery</h3>
-                <p class="text-gray-600 mb-4">Premium pet food delivered right to your doorstep. Fresh, nutritious, and convenient.</p>
-                <button class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Order Now</button>
-              </div>
-            </div>
-
-            <!-- Pet Activity Events -->
-            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <img src="https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Pet Activity Events" class="w-full h-48 object-cover">
-              <div class="p-6">
-                <div class="text-3xl mb-3">🎉</div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Activity Events</h3>
-                <p class="text-gray-600 mb-4">Join our fun pet events, training sessions, and social gatherings for pets and owners.</p>
-                <button class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Join Event</button>
-              </div>
-            </div>
-
-            <!-- Adoption -->
-            <div class="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg overflow-hidden snap-start hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <img src="https://images.pexels.com/photos/4587973/pexels-photo-4587973.jpeg?auto=compress&w=400&h=250&fit=crop" alt="Adoption" class="w-full h-48 object-cover">
-              <div class="p-6">
-                <div class="text-3xl mb-3">🏠</div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Pet Adoption</h3>
-                <p class="text-gray-600 mb-4">Find your perfect companion through our adoption program. Give a loving home to pets in need.</p>
-                <button class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-pink-600 hover:to-pink-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">Adopt Now</button>
-              </div>
-            </div>
+            <!-- Gradient Overlays for Smooth Edges -->
+            <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
           </div>
 
-          <!-- Slider Navigation -->
-          <div class="flex justify-center mt-6 space-x-2">
-            <button id="prevService" class="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+          <!-- Enhanced Slider Navigation -->
+          <div class="flex justify-center mt-8 space-x-4">
+            <button id="prevService" class="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200">
               <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
               </svg>
             </button>
-            <button id="nextService" class="bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+            <div class="flex space-x-2" id="sliderDots">
+              <!-- Dots will be generated by JavaScript -->
+            </div>
+            <button id="nextService" class="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200">
               <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
@@ -1843,19 +1876,29 @@
       <button onclick="document.getElementById('spinModal').className='hidden'" class="w-auto mt-6 py-4 px-10 text-lg rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold border-none cursor-pointer transition-all duration-300 hover:from-primary-600 hover:to-primary-700 hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5">Close</button>
     </div>
   </div>
-  <!-- Chatbot Interface -->
-  <div id="chatbot" class="fixed bottom-6 right-6 z-50 hidden">
-    <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 w-80 h-96 flex flex-col">
+  <!-- Enhanced Chatbot Toggle Button -->
+  <button id="chatbotToggle" class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 hover:rotate-12 group">
+    <div class="flex items-center space-x-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+      </svg>
+      <span class="font-semibold text-sm hidden sm:block group-hover:scale-105 transition-transform duration-300">Ask Us</span>
+    </div>
+  </button>
+
+  <!-- Enhanced Chatbot Interface -->
+  <div id="chatbot" class="fixed bottom-24 right-6 z-50 hidden transform transition-all duration-300 scale-95 opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 w-80 h-96 flex flex-col backdrop-blur-sm">
       <!-- Chatbot Header -->
       <div class="bg-gradient-to-r from-primary-500 to-secondary-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
         <div class="flex items-center">
-          <span class="text-2xl mr-3">🐕</span>
+          <span class="text-2xl mr-3 animate-bounce">🐕</span>
           <div>
             <h3 class="font-bold">Puppy Assistant</h3>
             <p class="text-sm opacity-90">Ask me anything about puppies!</p>
           </div>
         </div>
-        <button id="closeChatbot" class="text-white hover:text-gray-200 transition-colors duration-300">
+        <button id="closeChatbot" class="text-white hover:text-gray-200 transition-colors duration-300 hover:scale-110">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
@@ -1863,19 +1906,19 @@
       </div>
       
       <!-- Chat Messages -->
-      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
         <div class="flex items-start space-x-3">
-          <div class="bg-gray-100 rounded-2xl px-4 py-2 max-w-xs">
-            <p class="text-sm text-gray-800">Hi! I'm your puppy assistant. Ask me about puppy care, availability, or anything else! 🐾</p>
+          <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl px-4 py-3 max-w-xs shadow-sm">
+            <p class="text-sm text-gray-800 font-medium">Hi! I'm your puppy assistant. Ask me about puppy care, availability, or anything else! 🐾</p>
           </div>
         </div>
       </div>
       
       <!-- Chat Input -->
-      <div class="p-4 border-t border-gray-200">
+      <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
         <div class="flex space-x-2">
-          <input type="text" id="chatInput" placeholder="Ask me anything about puppies..." class="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-          <button id="sendMessage" class="bg-primary-500 text-white px-4 py-2 rounded-xl hover:bg-primary-600 transition-colors duration-300">
+          <input type="text" id="chatInput" placeholder="Ask me anything about puppies..." class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-gray-800 placeholder-gray-500">
+          <button id="sendMessage" class="bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-3 rounded-xl hover:from-primary-600 hover:to-secondary-600 transition-all duration-300 hover:scale-105 shadow-lg">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
             </svg>
@@ -1925,13 +1968,28 @@
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMobileMenu = document.getElementById('closeMobileMenu');
 
-    // Chatbot functionality
+    // Enhanced Chatbot functionality
     chatbotToggle.addEventListener('click', () => {
-      chatbot.classList.toggle('hidden');
+      const isHidden = chatbot.classList.contains('hidden');
+      if (isHidden) {
+        chatbot.classList.remove('hidden');
+        setTimeout(() => {
+          chatbot.classList.remove('scale-95', 'opacity-0');
+          chatbot.classList.add('scale-100', 'opacity-100');
+        }, 10);
+      } else {
+        chatbot.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          chatbot.classList.add('hidden');
+        }, 300);
+      }
     });
 
     closeChatbot.addEventListener('click', () => {
-      chatbot.classList.add('hidden');
+      chatbot.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        chatbot.classList.add('hidden');
+      }, 300);
     });
 
     function addMessage(message, isUser = false) {
@@ -2017,26 +2075,72 @@
       mobileMenu.classList.add('-translate-x-full');
     });
 
-    // Services Slider functionality
+    // Enhanced Services Slider functionality
     const servicesSlider = document.getElementById('servicesSlider');
     const prevServiceBtn = document.getElementById('prevService');
     const nextServiceBtn = document.getElementById('nextService');
+    const sliderDots = document.getElementById('sliderDots');
     
     if (servicesSlider && prevServiceBtn && nextServiceBtn) {
-      const scrollAmount = 320; // Width of one card + gap
+      const cards = servicesSlider.querySelectorAll('.flex-shrink-0');
+      const cardWidth = 320; // Width of one card + gap
+      let currentIndex = 0;
+      let autoScrollInterval;
       
-      prevServiceBtn.addEventListener('click', () => {
-        servicesSlider.scrollBy({
-          left: -scrollAmount,
+      // Generate dots
+      cards.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${index === 0 ? 'bg-primary-500' : 'bg-gray-300'}`;
+        dot.addEventListener('click', () => goToSlide(index));
+        sliderDots.appendChild(dot);
+      });
+      
+      function updateDots() {
+        const dots = sliderDots.querySelectorAll('button');
+        dots.forEach((dot, index) => {
+          dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-primary-500' : 'bg-gray-300'}`;
+        });
+      }
+      
+      function goToSlide(index) {
+        currentIndex = index;
+        servicesSlider.scrollTo({
+          left: index * cardWidth,
           behavior: 'smooth'
         });
+        updateDots();
+      }
+      
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % cards.length;
+        goToSlide(currentIndex);
+      }
+      
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+        goToSlide(currentIndex);
+      }
+      
+      // Auto-scroll functionality
+      function startAutoScroll() {
+        autoScrollInterval = setInterval(nextSlide, 4000);
+      }
+      
+      function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+      }
+      
+      // Event listeners
+      prevServiceBtn.addEventListener('click', () => {
+        stopAutoScroll();
+        prevSlide();
+        startAutoScroll();
       });
       
       nextServiceBtn.addEventListener('click', () => {
-        servicesSlider.scrollBy({
-          left: scrollAmount,
-          behavior: 'smooth'
-        });
+        stopAutoScroll();
+        nextSlide();
+        startAutoScroll();
       });
       
       // Touch/swipe support for mobile
@@ -2046,6 +2150,7 @@
       servicesSlider.addEventListener('touchstart', (e) => {
         startX = e.touches[0].pageX - servicesSlider.offsetLeft;
         scrollLeft = servicesSlider.scrollLeft;
+        stopAutoScroll();
       });
       
       servicesSlider.addEventListener('touchmove', (e) => {
@@ -2057,7 +2162,19 @@
       
       servicesSlider.addEventListener('touchend', () => {
         startX = 0;
+        // Calculate current slide based on scroll position
+        const scrollPosition = servicesSlider.scrollLeft;
+        currentIndex = Math.round(scrollPosition / cardWidth);
+        updateDots();
+        startAutoScroll();
       });
+      
+      // Pause auto-scroll on hover
+      servicesSlider.addEventListener('mouseenter', stopAutoScroll);
+      servicesSlider.addEventListener('mouseleave', startAutoScroll);
+      
+      // Start auto-scroll
+      startAutoScroll();
     }
 
     // Smooth scrolling for navigation links
