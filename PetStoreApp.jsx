@@ -71,7 +71,7 @@ const PetStoreApp = () => {
     return () => clearInterval(interval);
   }, [services.length]);
 
-  // Chatbot responses
+  // Enhanced chatbot responses
   const getBotResponse = (message) => {
     const lowerMessage = message.toLowerCase();
     
@@ -85,8 +85,12 @@ const PetStoreApp = () => {
       return "Our services range from $25 for basic check-ups to $150 for comprehensive grooming packages. Would you like a detailed price list?";
     } else if (lowerMessage.includes('adopt') || lowerMessage.includes('puppy')) {
       return "We have several adorable puppies available for adoption! Visit our adoption section to see all available pets and start the application process.";
+    } else if (lowerMessage.includes('food') || lowerMessage.includes('delivery')) {
+      return "We offer premium pet food delivery service! Fresh, nutritious food delivered right to your doorstep. Orders over $50 get free delivery.";
+    } else if (lowerMessage.includes('event') || lowerMessage.includes('activity')) {
+      return "Join our fun pet events! We host training sessions, pet socials, and adoption events every month. Check our events calendar for upcoming activities.";
     } else {
-      return "I'm here to help with any pet-related questions! You can ask about grooming, daycare, vet appointments, adoption, or pricing.";
+      return "I'm here to help with any pet-related questions! You can ask about grooming, daycare, vet appointments, adoption, pricing, food delivery, or events.";
     }
   };
 
@@ -113,27 +117,29 @@ const PetStoreApp = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 text-gray-900'}`}>
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 ${isDarkMode ? 'bg-gray-800/95' : 'bg-white/95'} backdrop-blur-md shadow-lg border-b border-gray-200`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 ${isDarkMode ? 'bg-gray-800/95' : 'bg-white/95'} backdrop-blur-md shadow-lg border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <span className="text-2xl mr-3">🐾</span>
-              <h1 className="text-xl font-bold">Paws & Whiskers</h1>
+              <h1 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Paws & Whiskers</h1>
             </div>
             <div className="flex items-center space-x-4">
               <button 
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className={`p-2 rounded-full ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-600'} hover:scale-110 transition-all duration-300`}
+                className={`p-2 rounded-full ${isDarkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} hover:scale-110 transition-all duration-300`}
               >
                 {isDarkMode ? '☀️' : '🌙'}
               </button>
               <button 
                 onClick={() => setIsChatOpen(!isChatOpen)}
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-2 rounded-full hover:scale-110 transition-all duration-300 shadow-lg"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 rounded-full hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                💬
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -174,7 +180,73 @@ const PetStoreApp = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* Services Carousel */}
+        {/* Pet of the Month Section */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            Pet of the Month
+          </h2>
+          <div className={`rounded-2xl p-8 shadow-lg border-2 ${isDarkMode ? 'bg-gray-800/50 border-gray-600' : 'bg-gradient-to-r from-blue-50 to-purple-50 border-blue-300'} text-center relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
+            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-400 to-pink-400`}></div>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <img 
+                  src={petOfTheMonth.image} 
+                  alt={petOfTheMonth.name} 
+                  className="w-48 h-48 object-cover rounded-full shadow-xl mb-4 border-4 border-white transition-all duration-300 mx-auto hover:scale-110 hover:shadow-2xl"
+                />
+              </div>
+              <div>
+                <h3 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-blue-300' : 'text-blue-600'}`}>{petOfTheMonth.name}</h3>
+                <p className={`text-lg mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{petOfTheMonth.breed} • {petOfTheMonth.age}</p>
+                <p className={`leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{petOfTheMonth.description}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Learn About Pet Care Video Section */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            Learn About Pet Care
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className={`rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${isDarkMode ? 'bg-gray-800/50' : 'bg-white'}`}>
+              <div className="aspect-video">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/V4LnorVVxfw" 
+                  title="Navigating Pet Care: Daycare Tips and Veterinary Insights"
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="p-6">
+                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Navigating Pet Care: Daycare Tips and Veterinary Insights</h3>
+                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Essential tips for pet daycare and veterinary care from industry experts.</p>
+              </div>
+            </div>
+            
+            <div className={`rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${isDarkMode ? 'bg-gray-800/50' : 'bg-white'}`}>
+              <div className="aspect-video">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/bwPjzH1a0Kc" 
+                  title="South Side Shop: Keeping Your Pet Healthy, Happy and Pampered"
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="p-6">
+                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>South Side Shop: Keeping Your Pet Healthy, Happy and Pampered</h3>
+                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Comprehensive guide to keeping your pets healthy, happy, and well-groomed.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Enhanced Services Carousel */}
         <section id="services" className="mb-16">
           <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
             Our Services
@@ -185,7 +257,7 @@ const PetStoreApp = () => {
                 {services.map((service, index) => (
                   <div key={service.id} className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
                     <motion.div 
-                      className={`bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}
+                      className={`rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}
                       whileHover={{ scale: 1.05 }}
                     >
                       <img src={service.image} alt={service.title} className="w-full h-48 object-cover" />
@@ -206,37 +278,43 @@ const PetStoreApp = () => {
                 ))}
               </div>
               
-              {/* Gradient Overlays */}
-              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+              {/* Enhanced Gradient Overlays */}
+              <div className={`absolute left-0 top-0 bottom-0 w-16 pointer-events-none z-10 ${isDarkMode ? 'bg-gradient-to-r from-gray-800 to-transparent' : 'bg-gradient-to-r from-white to-transparent'}`}></div>
+              <div className={`absolute right-0 top-0 bottom-0 w-16 pointer-events-none z-10 ${isDarkMode ? 'bg-gradient-to-l from-gray-800 to-transparent' : 'bg-gradient-to-l from-white to-transparent'}`}></div>
             </div>
 
-            {/* Navigation Arrows */}
+            {/* Enhanced Navigation Arrows */}
             <button 
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200"
+              className={`absolute left-4 top-1/2 transform -translate-y-1/2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border ${
+                isDarkMode ? 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+              }`}
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
               </svg>
             </button>
             <button 
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200"
+              className={`absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border ${
+                isDarkMode ? 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+              }`}
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </button>
 
-            {/* Dots */}
+            {/* Enhanced Dots */}
             <div className="flex justify-center mt-6 space-x-2">
               {services.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? 'bg-blue-500' : 'bg-gray-300'
+                    index === currentSlide 
+                      ? 'bg-blue-500' 
+                      : isDarkMode ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                 />
               ))}
@@ -244,58 +322,13 @@ const PetStoreApp = () => {
           </div>
         </section>
 
-        {/* Pet of the Month */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-            Pet of the Month
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg border-2 border-blue-300 text-center relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300"></div>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <img 
-                  src={petOfTheMonth.image} 
-                  alt={petOfTheMonth.name} 
-                  className="w-48 h-48 object-cover rounded-full shadow-xl mb-4 border-6 border-white transition-all duration-300 mx-auto hover:scale-110 hover:shadow-2xl"
-                />
-              </div>
-              <div>
-                <h3 className="text-3xl font-bold text-blue-600 mb-2">{petOfTheMonth.name}</h3>
-                <p className="text-lg text-gray-600 mb-2">{petOfTheMonth.breed} • {petOfTheMonth.age}</p>
-                <p className="text-gray-700 leading-relaxed">{petOfTheMonth.description}</p>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* YouTube Video */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-            Learn About Pet Care
-          </h2>
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-            <div className="aspect-video">
-              <iframe 
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/V4LnorVVxfw" 
-                title="Pet Care Tips"
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Essential Pet Care Tips</h3>
-              <p className="text-gray-600">Learn the basics of pet care, grooming, and health maintenance from our expert veterinarians.</p>
-            </div>
-          </div>
-        </section>
       </div>
 
-      {/* Floating Chatbot Button */}
+      {/* Enhanced Floating Chatbot Button */}
       <button 
         onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 group"
       >
         <div className="flex items-center space-x-2">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -305,19 +338,19 @@ const PetStoreApp = () => {
         </div>
       </button>
 
-      {/* Chat Window */}
+      {/* Enhanced Chat Window */}
       <AnimatePresence>
         {isChatOpen && (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed bottom-24 right-6 z-50 w-80 h-96 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
+            className={`fixed bottom-24 right-6 z-50 w-80 h-96 rounded-2xl shadow-2xl border flex flex-col ${isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'}`}
           >
             {/* Chat Header */}
             <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center">
-                <span className="text-2xl mr-3 animate-bounce">🐕</span>
+                <span className="text-2xl mr-3">🐕</span>
                 <div>
                   <h3 className="font-bold">Pet Assistant</h3>
                   <p className="text-sm opacity-90">Ask me anything!</p>
@@ -334,22 +367,22 @@ const PetStoreApp = () => {
             </div>
             
             {/* Chat Messages */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-thin">
               {chatMessages.map((message) => (
                 <div key={message.id} className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}>
-                  <div className={`max-w-xs px-4 py-2 rounded-2xl ${
+                  <div className={`max-w-xs px-4 py-3 rounded-2xl ${
                     message.isBot 
-                      ? 'bg-gradient-to-r from-blue-50 to-blue-100 text-gray-800' 
+                      ? `${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-gradient-to-r from-blue-50 to-blue-100 text-gray-800'}` 
                       : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
                   }`}>
-                    <p className="text-sm">{message.text}</p>
+                    <p className="text-sm leading-relaxed">{message.text}</p>
                   </div>
                 </div>
               ))}
             </div>
             
-            {/* Chat Input */}
-            <ChatInput onSendMessage={handleSendMessage} isDarkMode={isDarkMode} />
+            {/* Enhanced Chat Input */}
+            <EnhancedChatInput onSendMessage={handleSendMessage} isDarkMode={isDarkMode} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -357,7 +390,52 @@ const PetStoreApp = () => {
   );
 };
 
-// Chat Input Component
+// Enhanced Chat Input Component
+const EnhancedChatInput = ({ onSendMessage, isDarkMode }) => {
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (message.trim()) {
+      onSendMessage(message);
+      setMessage('');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={`p-4 border-t rounded-b-2xl ${isDarkMode ? 'border-gray-600 bg-gray-700' : 'border-gray-200 bg-gray-50'}`}>
+      <div className="flex space-x-2">
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Ask me anything about pets..."
+          className={`flex-1 px-4 py-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-base min-h-[50px] ${
+            isDarkMode 
+              ? 'bg-gray-600 border-gray-500 text-gray-200 placeholder-gray-400' 
+              : 'bg-white border-gray-300 text-gray-800 placeholder-gray-500'
+          }`}
+          rows="2"
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
+        />
+        <button 
+          type="submit"
+          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center min-h-[50px]"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+  );
+};
+
+// Original Chat Input Component (keeping for compatibility)
 const ChatInput = ({ onSendMessage, isDarkMode }) => {
   const [message, setMessage] = useState('');
 
