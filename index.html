@@ -2371,29 +2371,16 @@
       border-radius: 0 0 28px 28px;
     }
 
-    #chatbot-input {
-      flex: 1;
-      font-size: 16px;
-      padding: 0.9rem 1.1rem;
-      border-radius: 18px;
-      border: 1px solid #cfd8dc;
-      margin-right: 0.8rem;
-     
-      },
-      {
-        bg: 'https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=1400&h=600&fit=crop',
-        title: 'Fun Events',
-        desc: 'Pet birthday parties, training workshops, and adoption drives. Join our community and celebrate your pets!',
-        img: 'https://images.pexels.com/photos/4588057/pexels-photo-4588057.jpeg?auto=compress&w=400&h=400&fit=crop'
-      },
-      {
-        bg: 'https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=1400&h=600&fit=crop',
-        title: 'Accessories & Toys',
-        desc: 'Toys, beds, leashes, and more for every pet personality. Shop our curated collection!',
-        img: 'https://images.pexels.com/photos/4588040/pexels-photo-4588040.jpeg?auto=compress&w=400&h=400&fit=crop'
-      }
-    ];
-    const heroCarousel = document.getElementById('heroCarousel');
+        #chatbot-input {
+          flex: 1;
+          font-size: 16px;
+          padding: 0.9rem 1.1rem;
+          border-radius: 18px;
+          border: 1px solid #cfd8dc;
+          margin-right: 0.8rem;
+        }
+    </style>
+    <script>
     let heroIdx = 0;
     function createHeroSlides() {
       heroSlides.forEach((slide, i) => {
@@ -2666,6 +2653,7 @@
       loadGoodFeedbacks();
     };
     window.addEventListener('DOMContentLoaded', loadGoodFeedbacks);
+    </script>
   </script>
 </body>
 </html>
