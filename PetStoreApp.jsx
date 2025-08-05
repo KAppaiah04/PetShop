@@ -214,33 +214,48 @@ const PetStoreApp = () => {
               <div className="aspect-video">
                 <iframe 
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/V4LnorVVxfw" 
-                  title="Navigating Pet Care: Daycare Tips and Veterinary Insights"
+                  src="https://www.youtube.com/embed/AoM9tis3t2c" 
+                  title="How to Care for Your Pet"
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowFullScreen
                 ></iframe>
               </div>
               <div className="p-6">
-                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Navigating Pet Care: Daycare Tips and Veterinary Insights</h3>
-                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Essential tips for pet daycare and veterinary care from industry experts.</p>
+                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>How to Care for Your Pet</h3>
+                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Learn the basics of pet care, grooming, and health from experts.</p>
               </div>
             </div>
-            
             <div className={`rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${isDarkMode ? 'bg-gray-800/50' : 'bg-white'}`}>
               <div className="aspect-video">
                 <iframe 
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/bwPjzH1a0Kc" 
-                  title="South Side Shop: Keeping Your Pet Healthy, Happy and Pampered"
+                  src="https://www.youtube.com/embed/qhKJPktZmgg" 
+                  title="Training Your Pet at Home"
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowFullScreen
                 ></iframe>
               </div>
               <div className="p-6">
-                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>South Side Shop: Keeping Your Pet Healthy, Happy and Pampered</h3>
-                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Comprehensive guide to keeping your pets healthy, happy, and well-groomed.</p>
+                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Training Your Pet at Home</h3>
+                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Step-by-step guide to basic pet training for a happy home.</p>
+              </div>
+            </div>
+            <div className={`rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${isDarkMode ? 'bg-gray-800/50' : 'bg-white'}`}>
+              <div className="aspect-video">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/74IOM2FgOX0" 
+                  title="Feeding Guide for Puppies"
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="p-6">
+                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Feeding Guide for Puppies</h3>
+                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Essential tips for feeding puppies and young pets.</p>
               </div>
             </div>
           </div>
@@ -476,4 +491,4 @@ const ChatInput = ({ onSendMessage, isDarkMode }) => {
   );
 };
 
-export default PetStoreApp; 
+export default PetStoreApp;

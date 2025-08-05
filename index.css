@@ -142,4 +142,103 @@ textarea:focus {
   .text-gray-300 {
     color: #d1d5db;
   }
-} 
+}
+
+/* Chatbot UI Enhancements */
+#chatbot-container {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 420px;
+  height: 540px;
+  background: #e8f0fe;
+  border-radius: 28px;
+  box-shadow: 0 8px 32px #0002;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  #chatbot-container {
+    width: 98vw;
+    height: 70vh;
+    right: 1vw;
+    bottom: 1vw;
+    border-radius: 18px;
+  }
+}
+
+#chatbot-messages {
+  flex: 1;
+  padding: 1.2rem 1.5rem;
+  overflow-y: auto;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+#chatbot-form {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(255,255,255,0.7);
+  border-radius: 0 0 28px 28px;
+}
+
+#chatbot-input {
+  flex: 1;
+  font-size: 16px;
+  padding: 0.9rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid #cfd8dc;
+  margin-right: 0.8rem;
+  background: #f7fafc;
+  outline: none;
+  min-width: 0;
+  transition: font-size 0.2s;
+}
+
+#chatbot-input::placeholder {
+  color: #888;
+  font-size: 15px;
+}
+
+#chatbot-form button {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  font-size: 16px;
+  padding: 0.9rem 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Remove shake animation from Ask Us button */
+#chatbot-form button:hover, #chatbot-form button:active {
+  background: #2563eb;
+  /* No transform or animation */
+}
+
+/* Chat bubbles */
+.chatbot-bubble {
+  max-width: 80%;
+  margin-bottom: 1.1rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 22px;
+  background: #E6F0FA;
+  color: #2d3748;
+  font-size: 16px;
+  box-shadow: 0 2px 8px #0001;
+  align-self: flex-start;
+  margin-left: 0;
+}
+
+.chatbot-bubble.user {
+  background: #FFF9EC;
+  align-self: flex-end;
+  margin-left: auto;
+}
