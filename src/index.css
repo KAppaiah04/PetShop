@@ -1,1 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ...existing code from index.css... */
