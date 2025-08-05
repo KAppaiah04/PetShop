@@ -12,12 +12,14 @@
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #ffe4e6 100%);
       color: #333;
+      overflow-x: hidden;
     }
     header {
       background: #a78bfa;
       color: #fff;
       padding: 2rem 0 1rem 0;
       text-align: center;
+      position: relative;
     }
     nav {
       margin: 1rem 0;
@@ -30,22 +32,47 @@
     }
     .hero {
       text-align: center;
-      margin: 3rem 0;
+      margin: 3rem 0 2rem 0;
+      position: relative;
     }
-    .hero img {
+    .emoji {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: float 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .emoji1 { left: 10%; top: 0; animation-delay: 0s; }
+    .emoji2 { left: 80%; top: 10px; animation-delay: 1s; }
+    .emoji3 { left: 50%; top: 40px; animation-delay: 2s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .cta-btn {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.75rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 700;
       margin-top: 2rem;
-      border-radius: 50%;
-      background: #fff;
+      cursor: pointer;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      width: 120px;
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover {
+      transform: scale(1.08);
+      background: #a78bfa;
     }
     .carousel {
       display: flex;
-      overflow-x: auto;
+      overflow: hidden;
       gap: 2rem;
       padding: 2rem 0;
       justify-content: center;
-      scroll-snap-type: x mandatory;
+      position: relative;
+      max-width: 100vw;
     }
     .carousel-card {
       background: #fff;
@@ -55,22 +82,78 @@
       min-width: 250px;
       max-width: 300px;
       text-align: center;
-      scroll-snap-align: start;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .carousel-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(124,58,237,0.15);
+    }
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .carousel-arrow {
+      background: #fff;
+      border: 2px solid #a78bfa;
+      color: #7c3aed;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s;
+    }
+    .carousel-arrow:hover {
+      background: #a78bfa;
+      color: #fff;
+    }
+    .carousel-dots {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .carousel-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #d1d5db;
+      margin: 0 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active {
+      background: #7c3aed;
     }
     .pet-month {
-      background: #f3e8ff;
+      background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%);
       border-radius: 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 2rem;
       margin: 2rem auto;
       max-width: 400px;
       text-align: center;
+      transition: box-shadow 0.3s;
     }
     .pet-month img {
       width: 120px;
       border-radius: 1rem;
       margin-bottom: 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .pet-month:hover img {
+      transform: scale(1.08);
     }
     .video-section {
       text-align: center;
@@ -94,22 +177,30 @@
       padding: 1rem 2rem;
       max-width: 300px;
       z-index: 100;
-      display: none; /* Static HTML can't show/hide, but you can style it */
+      font-size: 0.95rem;
+      display: block;
     }
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-    .feature {
+    .chatbot-top {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
       background: #fff;
       border-radius: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 1rem 2rem;
       max-width: 300px;
-      text-align: center;
+      z-index: 101;
+      font-size: 0.95rem;
+      display: block;
+    }
+    .chatbot h3 {
+      margin-top: 0;
+    }
+    .chatbot ul {
+      padding-left: 1rem;
+    }
+    .chatbot li {
+      margin-bottom: 0.5rem;
     }
     footer {
       text-align: center;
@@ -123,7 +214,7 @@
         flex-direction: column;
         align-items: center;
       }
-      .chatbot {
+      .chatbot, .chatbot-top {
         right: 1rem;
         left: 1rem;
         max-width: none;
@@ -141,8 +232,12 @@
     </nav>
   </header>
   <section class="hero">
+    <span class="emoji emoji1">🐶</span>
+    <span class="emoji emoji2">🐱</span>
+    <span class="emoji emoji3">🐾</span>
     <h2>Welcome to Your Trusted Pet Store!</h2>
     <p>Find everything your furry friends need, from food and toys to grooming and care.</p>
+    <button class="cta-btn" onclick="window.location='#services'">Shop Now</button>
   </section>
   <section class="carousel" id="services">
     <div class="carousel-card">
@@ -161,7 +256,12 @@
       <h3>Expert Advice</h3>
       <p>Talk to our staff for tips on pet care and training.</p>
     </div>
+    <div class="carousel-nav">
+      <span class="carousel-arrow" onclick="prevSlide()">&#8592;</span>
+      <span class="carousel-arrow" onclick="nextSlide()">&#8594;</span>
+    </div>
   </section>
+  <div class="carousel-dots" id="carousel-dots"></div>
   <section class="pet-month">
     <h2>Pet of the Month</h2>
     <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=facearea&w=256&h=256&facepad=2" alt="Pet of the Month">
@@ -181,6 +281,18 @@
     <h2>Contact</h2>
     <p>Email: info@pawswhiskers.com | Phone: (555) 123-4567</p>
   </section>
+  <div class="chatbot-top">
+    <h3>Chatbot</h3>
+    <p>Ask us about grooming, daycare, vet appointments, prices, or adoption!</p>
+    <ul>
+      <li>"What grooming services do you offer?"</li>
+      <li>"What are your daycare timings?"</li>
+      <li>"How can I book a vet appointment?"</li>
+      <li>"What are your prices?"</li>
+      <li>"Do you have puppies for adoption?"</li>
+    </ul>
+    <p><em>(Interactive chatbot available in React version)</em></p>
+  </div>
   <div class="chatbot">
     <h3>Chatbot</h3>
     <p>Ask us about grooming, daycare, vet appointments, prices, or adoption!</p>
@@ -196,5 +308,36 @@
   <footer>
     &copy; 2025 Paws & Whiskers Pet Store. All rights reserved.
   </footer>
+  <script>
+    // Carousel logic
+    const cards = document.querySelectorAll('.carousel-card');
+    let current = 0;
+    function showSlide(idx) {
+      cards.forEach((card, i) => {
+        card.style.display = (i === idx) ? 'block' : 'none';
+      });
+      updateDots(idx);
+    }
+    function nextSlide() {
+      current = (current + 1) % cards.length;
+      showSlide(current);
+    }
+    function prevSlide() {
+      current = (current - 1 + cards.length) % cards.length;
+      showSlide(current);
+    }
+    function updateDots(idx) {
+      const dots = document.getElementById('carousel-dots');
+      dots.innerHTML = '';
+      for (let i = 0; i < cards.length; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (i === idx ? ' active' : '');
+        dot.onclick = () => { current = i; showSlide(current); };
+        dots.appendChild(dot);
+      }
+    }
+    showSlide(current);
+    setInterval(nextSlide, 3000);
+  </script>
 </body>
 </html>
