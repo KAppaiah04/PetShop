@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node modules
 node_modules/
 
@@ -18,3 +19,6 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+=======
+node_modules
+>>>>>>> 997bb6b1 (updare44)
