@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paws & Whiskers Pet Store</title>
+  <link rel="icon" href="favicon.ico" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #ffe4e6 100%);
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background: #a78bfa;
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+      position: relative;
+    }
+    nav {
+      margin: 1rem 0;
+    }
+    nav a {
+      color: #7c3aed;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 700;
+    }
+    .hero {
+      text-align: center;
+      margin: 3rem 0 2rem 0;
+      position: relative;
+    }
+    .emoji {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: float 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .emoji1 { left: 10%; top: 0; animation-delay: 0s; }
+    .emoji2 { left: 80%; top: 10px; animation-delay: 1s; }
+    .emoji3 { left: 50%; top: 40px; animation-delay: 2s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .cta-btn {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.75rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover {
+      transform: scale(1.08);
+      background: #a78bfa;
+    }
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      gap: 2rem;
+      padding: 2rem 0;
+      justify-content: center;
+      position: relative;
+      max-width: 100vw;
+    }
+    .carousel-card {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+      min-width: 250px;
+      max-width: 300px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .carousel-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(124,58,237,0.15);
+    }
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .carousel-arrow {
+      background: #fff;
+      border: 2px solid #a78bfa;
+      color: #7c3aed;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s;
+    }
+    .carousel-arrow:hover {
+      background: #a78bfa;
+      color: #fff;
+    }
+    .carousel-dots {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .carousel-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #d1d5db;
+      margin: 0 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active {
+      background: #7c3aed;
+    }
+    .pet-month {
+      background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%);
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 400px;
+      text-align: center;
+      transition: box-shadow 0.3s;
+    }
+    .pet-month img {
+      width: 120px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .pet-month:hover img {
+      transform: scale(1.08);
+    }
+    .video-section {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .video-section iframe {
+      width: 100%;
+      max-width: 480px;
+      height: 270px;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: none;
+    }
+    .chatbot {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      padding: 1rem 2rem;
+      max-width: 300px;
+      z-index: 100;
+      font-size: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    #chat-box {
+      height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      background: #f9f9f9;
+      border-radius: 0.5rem;
+      flex-grow: 1;
+    }
+    #user-input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #a78bfa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Paws & Whiskers Pet Store</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <span class="emoji emoji1">🐶</span>
+    <span class="emoji emoji2">🐱</span>
+    <span class="emoji emoji3">🐾</span>
+    <h2>Welcome to Your Trusted Pet Store!</h2>
+    <p>Find everything your furry friends need, from food and toys to grooming and care.</p>
+    <button class="cta-btn" onclick="window.location='#services'">Shop Now</button>
+  </section>
+  <section class="carousel" id="services">
+    <div class="carousel-card">
+      <h3>Pet Food</h3>
+      <p>High-quality food for dogs, cats, birds, and more.</p>
+    </div>
+    <div class="carousel-card">
+      <h3>Toys & Accessories</h3>
+      <p>Fun toys, comfy beds, stylish collars, and more.</p>
+    </div>
+    <div class="carousel-card">
+      <h3>Grooming</h3>
+      <p>Professional grooming and spa services for your pets.</p>
+    </div>
+    <div class="carousel-card">
+      <h3>Expert Advice</h3>
+      <p>Talk to our staff for tips on pet care and training.</p>
+    </div>
+    <div class="carousel-nav">
+      <span class="carousel-arrow" onclick="prevSlide()">&#8592;</span>
+      <span class="carousel-arrow" onclick="nextSlide()">&#8594;</span>
+    </div>
+  </section>
+  <div class="carousel-dots" id="carousel-dots"></div>
+  <section class="pet-month">
+    <h2>Pet of the Month</h2>
+    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=facearea&w=256&h=256&facepad=2" alt="Pet of the Month" />
+    <h3>Bella</h3>
+    <p>Breed: Golden Retriever<br />Age: 3 years</p>
+    <p>Bella is a friendly, playful companion who loves everyone. She is our featured pet this month!</p>
+  </section>
+  <section class="video-section">
+    <h2>Pet Care Tips</h2>
+    <iframe src="https://www.youtube.com/embed/1Ne1hqOXKKI" allowfullscreen title="Pet Care Video"></iframe>
+  </section>
+  <section id="about" style="text-align:center;margin:3rem 0;">
+    <h2>About Us</h2>
+    <p>Paws & Whiskers is your local, family-owned pet store. We care about your pets as much as you do!</p>
+  </section>
+  <section id="contact" style="text-align:center;margin:3rem 0;">
+    <h2>Contact</h2>
+    <p>Email: info@pawswhiskers.com | Phone: (555) 123-4567</p>
+  </section>
+  <div class="chatbot" aria-label="Chatbot container">
+    <h3>Chatbot</h3>
+    <div id="chat-box" aria-live="polite" aria-atomic="false"></div>
+    <input
+      type="text"
+      id="user-input"
+      placeholder="Ask me something..."
+      aria-label="Type your question here"
+      onkeydown="if(event.key === 'Enter'){ sendMessage(); }"
+    />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const chatBox = document.getElementById("chat-box");
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Show user message
+      chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+      input.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Show loading indicator
+      chatBox.innerHTML += `<p id="loading"><em>Bot is typing...</em></p>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer REMOVED-OPENAI-KEY"
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: message }],
+            max_tokens: 150,
+            temperature: 0.7
+          }),
+        });
+
+        const data = await response.json();
+
+        // Remove loading indicator
+        const loadingEl = document.getElementById("loading");
+        if (loadingEl) loadingEl.remove();
+
+        if (data.choices && data.choices.length > 0) {
+          const botMessage = data.choices[0].message.content;
+          chatBox.innerHTML += `<p><strong>Bot:</strong> ${botMessage}</p>`;
+        } else {
+          chatBox.innerHTML += `<p><strong>Bot:</strong> Sorry, I couldn't get a response.</p>`;
+        }
+      } catch (error) {
+        const loadingEl = document.getElementById("loading");
+        if (loadingEl) loadingEl.remove();
+        chatBox.innerHTML += `<p><strong>Bot:</strong> Error communicating with the API.</p>`;
+        console.error(error);
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
