@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paws & Whiskers Pet Store</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #ffe4e6 100%);
+      color: #333;
+    }
+    header {
+      background: #a78bfa;
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+    }
+    nav {
+      margin: 1rem 0;
+    }
+    nav a {
+      color: #7c3aed;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 700;
+    }
+    .hero {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .hero img {
+      margin-top: 2rem;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 120px;
+    }
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 2rem;
+      padding: 2rem 0;
+      justify-content: center;
+      scroll-snap-type: x mandatory;
+    }
+    .carousel-card {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+      min-width: 250px;
+      max-width: 300px;
+      text-align: center;
+      scroll-snap-align: start;
+    }
+    .pet-month {
+      background: #f3e8ff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 400px;
+      text-align: center;
+    }
+    .pet-month img {
+      width: 120px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .video-section {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .video-section iframe {
+      width: 100%;
+      max-width: 480px;
+      height: 270px;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: none;
+    }
+    .chatbot {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 1rem 2rem;
+      max-width: 300px;
+      z-index: 100;
+      display: none; /* Static HTML can't show/hide, but you can style it */
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .feature {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+      max-width: 300px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      background: #ede9fe;
+      color: #7c3aed;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) {
+      .features, .carousel {
+        flex-direction: column;
+        align-items: center;
+      }
+      .chatbot {
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Paws & Whiskers Pet Store</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <h2>Welcome to Your Trusted Pet Store!</h2>
+    <p>Find everything your furry friends need, from food and toys to grooming and care.</p>
+  </section>
+  <section class="carousel" id="services">
+    <div class="carousel-card">
+      <h3>Pet Food</h3>
+      <p>High-quality food for dogs, cats, birds, and more.</p>
+    </div>
+    <div class="carousel-card">
+      <h3>Toys & Accessories</h3>
+      <p>Fun toys, comfy beds, stylish collars, and more.</p>
+    </div>
+    <div class="carousel-card">
+      <h3>Grooming</h3>
+      <p>Professional grooming and spa services for your pets.</p>
+    </div>
+    <div class="carousel-card">
+      <h3>Expert Advice</h3>
+      <p>Talk to our staff for tips on pet care and training.</p>
+    </div>
+  </section>
+  <section class="pet-month">
+    <h2>Pet of the Month</h2>
+    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=facearea&w=256&h=256&facepad=2" alt="Pet of the Month">
+    <h3>Bella</h3>
+    <p>Breed: Golden Retriever<br>Age: 3 years</p>
+    <p>Bella is a friendly, playful companion who loves everyone. She is our featured pet this month!</p>
+  </section>
+  <section class="video-section">
+    <h2>Pet Care Tips</h2>
+    <iframe src="https://www.youtube.com/embed/1Ne1hqOXKKI" allowfullscreen title="Pet Care Video"></iframe>
+  </section>
+  <section id="about" style="text-align:center;margin:3rem 0;">
+    <h2>About Us</h2>
+    <p>Paws & Whiskers is your local, family-owned pet store. We care about your pets as much as you do!</p>
+  </section>
+  <section id="contact" style="text-align:center;margin:3rem 0;">
+    <h2>Contact</h2>
+    <p>Email: info@pawswhiskers.com | Phone: (555) 123-4567</p>
+  </section>
+  <div class="chatbot">
+    <h3>Chatbot</h3>
+    <p>Ask us about grooming, daycare, vet appointments, prices, or adoption!</p>
+    <ul>
+      <li>"What grooming services do you offer?"</li>
+      <li>"What are your daycare timings?"</li>
+      <li>"How can I book a vet appointment?"</li>
+      <li>"What are your prices?"</li>
+      <li>"Do you have puppies for adoption?"</li>
+    </ul>
+    <p><em>(Interactive chatbot available in React version)</em></p>
+  </div>
+  <footer>
+    &copy; 2025 Paws & Whiskers Pet Store. All rights reserved.
+  </footer>
+</body>
+</html>
