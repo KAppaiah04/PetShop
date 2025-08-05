@@ -1,9 +1,12 @@
 {
   "files": {
-    "main.js": "/PetShop/static/js/main.31d6cfe0.js",
-    "index.html": "/PetShop/index.html"
+    "main.css": "/PetShop/static/css/main.31d6cfe0.css",
+    "main.js": "/PetShop/static/js/main.e0d9e09a.js",
+    "index.html": "/PetShop/index.html",
+    "main.e0d9e09a.js.map": "/PetShop/static/js/main.e0d9e09a.js.map"
   },
   "entrypoints": [
-    "static/js/main.31d6cfe0.js"
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.e0d9e09a.js"
   ]
 }
