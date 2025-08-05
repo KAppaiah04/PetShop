@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paws & Whiskers Pet Store</title>
   <link rel="icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+  
   <style>
     body {
       margin: 0;
@@ -281,6 +282,11 @@
     <h2>Contact</h2>
     <p>Email: info@pawswhiskers.com | Phone: (555) 123-4567</p>
   </section>
+  <div id="chat-container">
+    <div id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="Ask me something..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
   <div class="chatbot-top">
     <h3>Chatbot</h3>
     <p>Ask us about grooming, daycare, vet appointments, prices, or adoption!</p>
@@ -310,7 +316,7 @@
   </footer>
   <script>
     // Carousel logic
-    const cards = document.querySelectorAll('.carousel-card');
+     const cards = document.querySelectorAll('.carousel-card');
     let current = 0;
     function showSlide(idx) {
       cards.forEach((card, i) => {
