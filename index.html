@@ -906,13 +906,28 @@ function generateHealthReport() {
   }
 }
 
-// Chatbot functions
+// --- Chatbot State & Enhanced Logic ---
+var chatbotState = {
+  lastTopic: null,
+  awaitingDetail: null,
+  petProfile: null
+};
+
+// Load pet profile into chatbot memory
+function updateChatbotPetProfile() {
+  var profile = localStorage.getItem('petProfile');
+  chatbotState.petProfile = profile ? JSON.parse(profile) : null;
+}
+
 function openChatbotModal() {
   document.getElementById('chatbot-modal').style.display = 'flex';
+  updateChatbotPetProfile();
 }
+
 function closeChatbotModal() {
   document.getElementById('chatbot-modal').style.display = 'none';
 }
+
 function sendChatbotMessage(event) {
   event.preventDefault();
   var input = document.getElementById('chatbot-input');
@@ -922,29 +937,111 @@ function sendChatbotMessage(event) {
   messages.innerHTML += `<div style='margin-bottom:0.5rem;'><strong>You:</strong> ${userMsg}</div>`;
   input.value = '';
   setTimeout(function() {
-    messages.innerHTML += `<div style='margin-bottom:1rem;'><strong>AI:</strong> ${getChatbotResponse(userMsg)}</div>`;
+    var response = getChatbotResponse(userMsg);
+    messages.innerHTML += `<div style='margin-bottom:1rem;'><strong>AI:</strong> ${response}</div>`;
     messages.scrollTop = messages.scrollHeight;
   }, 500);
 }
+
 function getChatbotResponse(msg) {
   msg = msg.toLowerCase();
-  // High-level to low-level answers
-  if (msg.includes('groom') || msg.includes('grooming')) return 'We offer professional grooming for dogs, cats, and small pets. Services include bath, haircut, nail trim, and more.';
-  if (msg.includes('clinic') || msg.includes('vet') || msg.includes('health')) return 'Our pet clinic provides checkups, vaccinations, and health consultations with experienced veterinarians.';
-  if (msg.includes('adopt') || msg.includes('adoption')) return 'We help connect loving families with pets in need of homes. Ask us about available pets for adoption!';
-  if (msg.includes('event')) return 'We host pet events like training workshops, meetups, and more for pet lovers.';
-  if (msg.includes('shop') || msg.includes('product')) return 'Browse our shop for premium pet food, accessories, toys, and more!';
-  if (msg.includes('tips') || msg.includes('care')) return 'We provide expert pet care tips. Ask about diet, exercise, or training!';
-  if (msg.includes('profile')) return 'You can create and manage your pet profile for personalized recommendations and health reports.';
-  if (msg.includes('recommend')) return 'Our AI recommends products based on your pet profile. Try adding your pet for tailored suggestions!';
-  if (msg.includes('chatbot') || msg.includes('ai')) return 'I am your AI-powered assistant, here to help with all pet shop services and questions.';
-  if (msg.includes('contact')) return 'You can reach us at info@pawsandwhiskers.com or (555) 123-4567.';
-  if (msg.includes('service')) return 'We offer grooming, clinic, adoption, events, and expert pet care tips.';
-  if (msg.includes('hello') || msg.includes('hi')) return 'Hello! How can I help you with your pet care needs today?';
-  if (msg.includes('thank')) return 'You’re welcome! Let me know if you have more questions.';
-  // Default fallback
-  return 'I can help with pet care, products, grooming, clinic, adoption, events, and more. Ask me anything!';
+  updateChatbotPetProfile();
+  // FAQ support
+  if (msg.includes('open') && msg.includes('hour')) return 'We are open 9am to 9pm, 7 days a week!';
+  if (msg.includes('payment')) return 'We accept cash, credit/debit cards, and UPI payments.';
+  if (msg.includes('deliver') || msg.includes('shipping')) return 'We offer free delivery for orders above ₹999. Standard shipping rates apply otherwise.';
+  if (msg.includes('location') || msg.includes('where')) return 'We are located at 123 Pet Lane, near City Park.';
+  if (msg.includes('return') || msg.includes('refund')) return 'You can return products within 7 days for a full refund.';
+  // Multi-turn/contextual follow-up
+  if (chatbotState.awaitingDetail === 'petType') {
+    chatbotState.awaitingDetail = null;
+    chatbotState.lastTopic = 'recommend';
+    return `Thanks! What is your pet's age?`;
+  }
+  if (chatbotState.awaitingDetail === 'petAge') {
+    chatbotState.awaitingDetail = null;
+    chatbotState.lastTopic = 'recommend';
+    return `Great! Would you like product recommendations or health tips for your pet?`;
+  }
+  // Main topics
+  if (msg.includes('groom') || msg.includes('grooming')) {
+    chatbotState.lastTopic = 'grooming';
+    return 'We offer professional grooming for dogs, cats, and small pets. Would you like to book an appointment or know about our packages?';
+  }
+  if (msg.includes('clinic') || msg.includes('vet') || msg.includes('health')) {
+    chatbotState.lastTopic = 'clinic';
+    return 'Our pet clinic provides checkups, vaccinations, and health consultations. Do you want to book a visit or ask about pet health?';
+  }
+  if (msg.includes('adopt') || msg.includes('adoption')) {
+    chatbotState.lastTopic = 'adoption';
+    return 'We help connect loving families with pets in need of homes. Would you like to see available pets or know the adoption process?';
+  }
+  if (msg.includes('event')) {
+    chatbotState.lastTopic = 'event';
+    return 'We host pet events like training workshops, meetups, and more. Interested in upcoming events or want to register?';
+  }
+  if (msg.includes('shop') || msg.includes('product')) {
+    chatbotState.lastTopic = 'shop';
+    return 'Browse our shop for premium pet food, accessories, toys, and more! Need help choosing a product?';
+  }
+  if (msg.includes('tips') || msg.includes('care')) {
+    chatbotState.lastTopic = 'tips';
+    return 'We provide expert pet care tips. Ask about diet, exercise, or training!';
+  }
+  if (msg.includes('profile')) {
+    chatbotState.lastTopic = 'profile';
+    if (chatbotState.petProfile) {
+      var pet = chatbotState.petProfile;
+      return `Your pet profile: ${pet.name}, ${pet.type}, age ${pet.age}, breed ${pet.breed}. Want a health report or recommendations?`;
+    } else {
+      return 'You can create and manage your pet profile for personalized recommendations and health reports.';
+    }
+  }
+  if (msg.includes('recommend')) {
+    chatbotState.lastTopic = 'recommend';
+    if (chatbotState.petProfile) {
+      var pet = chatbotState.petProfile;
+      if (pet.type.toLowerCase() === 'dog') return 'Recommended for dogs: Natural Dog Food, Cozy Pet Bed, Interactive Toy.';
+      if (pet.type.toLowerCase() === 'cat') return 'Recommended for cats: Premium Cat Food, Cat Scratcher.';
+      if (pet.type.toLowerCase() === 'rabbit') return 'Recommended for rabbits: Organic Rabbit Food.';
+      return 'Contact us for personalized recommendations!';
+    } else {
+      chatbotState.awaitingDetail = 'petType';
+      return 'To recommend products, please tell me your pet type.';
+    }
+  }
+  if (msg.includes('chatbot') || msg.includes('ai')) {
+    chatbotState.lastTopic = 'ai';
+    return 'I am your AI-powered assistant, here to help with all pet shop services and questions.';
+  }
+  if (msg.includes('contact')) {
+    chatbotState.lastTopic = 'contact';
+    return 'You can reach us at info@pawsandwhiskers.com or (555) 123-4567.';
+  }
+  if (msg.includes('service')) {
+    chatbotState.lastTopic = 'service';
+    return 'We offer grooming, clinic, adoption, events, and expert pet care tips.';
+  }
+  if (msg.includes('hello') || msg.includes('hi')) {
+    chatbotState.lastTopic = 'greeting';
+    var greet = chatbotState.petProfile ? `Hi ${chatbotState.petProfile.name}! How can I help you and your ${chatbotState.petProfile.type} today?` : 'Hello! How can I help you with your pet care needs today?';
+    return greet;
+  }
+  if (msg.includes('thank')) {
+    chatbotState.lastTopic = 'thanks';
+    return 'You’re welcome! Let me know if you have more questions.';
+  }
+  // Contextual follow-up based on last topic
+  if (chatbotState.lastTopic === 'grooming' && msg.includes('book')) return 'To book grooming, please call us or visit the shop. Would you like to know available slots?';
+  if (chatbotState.lastTopic === 'clinic' && msg.includes('book')) return 'To book a clinic appointment, use the "Book Appointment" button or call us. Need help with pet health?';
+  if (chatbotState.lastTopic === 'adoption' && msg.includes('see')) return 'Visit our adoption page or ask for available pets by type.';
+  if (chatbotState.lastTopic === 'event' && msg.includes('register')) return 'You can register for events online or in-store. Want details on the next event?';
+  if (chatbotState.lastTopic === 'shop' && msg.includes('help')) return 'Tell me your pet type and needs, and I’ll suggest products.';
+  // Fallback
+  chatbotState.lastTopic = null;
+  return 'I can help with pet care, products, grooming, clinic, adoption, events, FAQs, and more. Ask me anything!';
 }
+// --- End Enhanced Chatbot ---
   </script>
 </body>
 </html>
