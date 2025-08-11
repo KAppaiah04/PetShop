@@ -857,21 +857,35 @@ function savePetProfile(event) {
   var profile = { name, type, age, breed };
   localStorage.setItem('petProfile', JSON.stringify(profile));
   document.getElementById('pet-profile-success').style.display = 'block';
-  // Here you would trigger health report and AI recommendation logic
-  // Example: petShopAI.generateHealthReport(profile); petShopAI.getRecommendations(profile);
-  setTimeout(closePetProfileModal, 1500);
+  setTimeout(function() {
+    closePetProfileModal();
+    openProfileModal(); // Auto-refresh profile modal after saving
+  }, 1500);
 }
 
 function generateHealthReport() {
   var profile = localStorage.getItem('petProfile');
   var healthReport = document.getElementById('health-report');
+  var recommendations = document.createElement('div');
+  recommendations.style.marginTop = '1rem';
   if (profile) {
     var pet = JSON.parse(profile);
-    // Simple health logic (demo)
+    // Improved health logic (demo)
     var risk = 'Low';
-    if (pet.age > 10) risk = 'Medium';
-    if (pet.age > 15) risk = 'High';
-    healthReport.innerHTML = `<div style='color:#4f46e5; font-weight:700;'>Health Risk: ${risk}</div><div>Recommended checkup for ${pet.type} (${pet.breed})</div>`;
+    var tips = '';
+    if (pet.age > 10) { risk = 'Medium'; tips = 'Schedule a senior checkup.'; }
+    if (pet.age > 15) { risk = 'High'; tips = 'Frequent vet visits recommended.'; }
+    if (pet.type.toLowerCase() === 'dog') {
+      recommendations.innerHTML = `<div style='color:#6366f1; font-weight:700;'>Recommended Products for Dogs:</div><ul style='text-align:left;'><li>Natural Dog Food</li><li>Cozy Pet Bed</li><li>Interactive Toy</li></ul>`;
+    } else if (pet.type.toLowerCase() === 'cat') {
+      recommendations.innerHTML = `<div style='color:#6366f1; font-weight:700;'>Recommended Products for Cats:</div><ul style='text-align:left;'><li>Premium Cat Food</li><li>Cat Scratcher</li></ul>`;
+    } else if (pet.type.toLowerCase() === 'rabbit') {
+      recommendations.innerHTML = `<div style='color:#6366f1; font-weight:700;'>Recommended Products for Rabbits:</div><ul style='text-align:left;'><li>Organic Rabbit Food</li></ul>`;
+    } else {
+      recommendations.innerHTML = `<div style='color:#6366f1; font-weight:700;'>Recommended Products:</div><ul style='text-align:left;'><li>Contact us for personalized recommendations!</li></ul>`;
+    }
+    healthReport.innerHTML = `<div style='color:#4f46e5; font-weight:700;'>Health Risk: ${risk}</div><div>${tips}</div><div>Recommended checkup for ${pet.type} (${pet.breed})</div>`;
+    healthReport.appendChild(recommendations);
   }
 }
   </script>
