@@ -771,349 +771,21 @@
   </div>
 </footer>
 
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
+  <!-- Pet Profile Modal -->
+<div id="pet-profile-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:2rem; border-radius:1rem; max-width:400px; width:90%; box-shadow:0 2px 16px rgba(0,0,0,0.15); position:relative;">
+    <button onclick="closePetProfileModal()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    <h2 style="color:#4f46e5; margin-bottom:1rem;">Add Pet Profile</h2>
+    <form id="pet-profile-form" onsubmit="savePetProfile(event)">
+      <input type="text" id="petName" placeholder="Pet Name" required style="width:100%; margin-bottom:1rem; padding:0.5rem; border-radius:0.5rem; border:1px solid #ccc;">
+      <input type="text" id="petType" placeholder="Pet Type (Dog, Cat, etc.)" required style="width:100%; margin-bottom:1rem; padding:0.5rem; border-radius:0.5rem; border:1px solid #ccc;">
+      <input type="number" id="petAge" placeholder="Pet Age" required style="width:100%; margin-bottom:1rem; padding:0.5rem; border-radius:0.5rem; border:1px solid #ccc;">
+      <input type="text" id="petBreed" placeholder="Pet Breed" required style="width:100%; margin-bottom:1rem; padding:0.5rem; border-radius:0.5rem; border:1px solid #ccc;">
+      <button type="submit" style="background:#4f46e5; color:#fff; padding:0.7rem 1.2rem; border:none; border-radius:0.5rem; font-weight:700; width:100%;">Save Profile</button>
+    </form>
+    <div id="pet-profile-success" style="display:none; color:#10b981; margin-top:1rem; text-align:center;">Profile saved! You can now generate a health report and get recommendations.</div>
   </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
-
-  <!-- Pet Gallery Section -->
-<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
-  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
-  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
-  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
-</section>
-<!-- Blog & Community Forum at the End -->
-<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
-  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
-</section>
-<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
-  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
-  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
-  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
-  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
-</section>
-<!-- Contact Section at the very bottom -->
-<footer class="footer" id="contact">
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#tips">Pet Care Tips</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-contact">
-    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
-  </div>
-  <div class="footer-copy">
-    &copy; 2025 Paws and Whiskers. All rights reserved.
-  </div>
-  <div style="margin-top:2rem;">
-    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="es">Spanish</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-</footer>
+</div>
 
   <script>
 // Splash Screen Logic (single overlay only)
@@ -1128,6 +800,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 2500);
 });
+
+function toggleMenu() {
+  var menu = document.getElementById('navbar-menu');
+  menu.classList.toggle('active');
+}
+
+function openProfileModal() {
+  // Logic to open profile modal (if needed)
+}
+
+function openPetProfileModal() {
+  document.getElementById('pet-profile-modal').style.display = 'flex';
+}
+
+function closePetProfileModal() {
+  document.getElementById('pet-profile-modal').style.display = 'none';
+}
+
+function savePetProfile(event) {
+  event.preventDefault();
+  // Get values
+  var name = document.getElementById('petName').value;
+  var type = document.getElementById('petType').value;
+  var age = document.getElementById('petAge').value;
+  var breed = document.getElementById('petBreed').value;
+  // Save to localStorage (simple demo)
+  var profile = { name, type, age, breed };
+  localStorage.setItem('petProfile', JSON.stringify(profile));
+  document.getElementById('pet-profile-success').style.display = 'block';
+  // Here you would trigger health report and AI recommendation logic
+  // Example: petShopAI.generateHealthReport(profile); petShopAI.getRecommendations(profile);
+  setTimeout(closePetProfileModal, 1500);
+}
   </script>
 </body>
 </html>
