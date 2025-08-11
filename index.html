@@ -787,6 +787,17 @@
   </div>
 </div>
 
+<!-- My Account/Profile Modal -->
+<div id="profile-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:2rem; border-radius:1rem; max-width:400px; width:90%; box-shadow:0 2px 16px rgba(0,0,0,0.15); position:relative;">
+    <button onclick="closeProfileModal()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    <h2 style="color:#4f46e5; margin-bottom:1rem;">My Pet Profile</h2>
+    <div id="profile-content"></div>
+    <button id="generate-health-btn" style="background:#10b981; color:#fff; padding:0.7rem 1.2rem; border:none; border-radius:0.5rem; font-weight:700; width:100%; margin-top:1rem; display:none;" onclick="generateHealthReport()">Generate Health Report</button>
+    <div id="health-report" style="margin-top:1rem;"></div>
+  </div>
+</div>
+
   <script>
 // Splash Screen Logic (single overlay only)
 document.addEventListener('DOMContentLoaded', function() {
@@ -807,7 +818,24 @@ function toggleMenu() {
 }
 
 function openProfileModal() {
-  // Logic to open profile modal (if needed)
+  document.getElementById('profile-modal').style.display = 'flex';
+  var profile = localStorage.getItem('petProfile');
+  var content = document.getElementById('profile-content');
+  var healthBtn = document.getElementById('generate-health-btn');
+  var healthReport = document.getElementById('health-report');
+  healthReport.innerHTML = '';
+  if (profile) {
+    var pet = JSON.parse(profile);
+    content.innerHTML = `<strong>Name:</strong> ${pet.name}<br><strong>Type:</strong> ${pet.type}<br><strong>Age:</strong> ${pet.age}<br><strong>Breed:</strong> ${pet.breed}`;
+    healthBtn.style.display = 'block';
+  } else {
+    content.innerHTML = 'No pet profile found. Please add your pet profile.';
+    healthBtn.style.display = 'none';
+  }
+}
+
+function closeProfileModal() {
+  document.getElementById('profile-modal').style.display = 'none';
 }
 
 function openPetProfileModal() {
@@ -832,6 +860,19 @@ function savePetProfile(event) {
   // Here you would trigger health report and AI recommendation logic
   // Example: petShopAI.generateHealthReport(profile); petShopAI.getRecommendations(profile);
   setTimeout(closePetProfileModal, 1500);
+}
+
+function generateHealthReport() {
+  var profile = localStorage.getItem('petProfile');
+  var healthReport = document.getElementById('health-report');
+  if (profile) {
+    var pet = JSON.parse(profile);
+    // Simple health logic (demo)
+    var risk = 'Low';
+    if (pet.age > 10) risk = 'Medium';
+    if (pet.age > 15) risk = 'High';
+    healthReport.innerHTML = `<div style='color:#4f46e5; font-weight:700;'>Health Risk: ${risk}</div><div>Recommended checkup for ${pet.type} (${pet.breed})</div>`;
+  }
 }
   </script>
 </body>
