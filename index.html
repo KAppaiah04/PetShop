@@ -943,6 +943,7 @@ function sendChatbotMessage(event) {
   }, 500);
 }
 
+// --- Enhanced Chatbot Logic: More Natural, Specific Responses ---
 function getChatbotResponse(msg) {
   msg = msg.toLowerCase();
   updateChatbotPetProfile();
@@ -952,6 +953,38 @@ function getChatbotResponse(msg) {
   if (msg.includes('deliver') || msg.includes('shipping')) return 'We offer free delivery for orders above ₹999. Standard shipping rates apply otherwise.';
   if (msg.includes('location') || msg.includes('where')) return 'We are located at 123 Pet Lane, near City Park.';
   if (msg.includes('return') || msg.includes('refund')) return 'You can return products within 7 days for a full refund.';
+  // Appointment booking
+  if (msg.includes('appointment') || msg.includes('book') || msg.includes('schedule')) {
+    if (chatbotState.lastTopic === 'grooming') {
+      return 'To book a grooming appointment, please call us at (555) 123-4567 or use the "Book Appointment" button on our website.';
+    }
+    if (chatbotState.lastTopic === 'clinic' || msg.includes('vet')) {
+      return 'To book a clinic appointment, use the "Book Appointment" button or call us at (555) 123-4567. Would you like to know available slots?';
+    }
+    return 'What service would you like to book? Grooming, clinic, or something else?';
+  }
+  // Adoption details
+  if ((msg.includes('adopt') || msg.includes('adoption')) && (msg.includes('pet') || msg.includes('available') || msg.includes('list'))) {
+    chatbotState.lastTopic = 'adoption';
+    return 'Currently available pets for adoption: \n- Dogs: Bruno (Labrador, 2 yrs), Daisy (Beagle, 1 yr)\n- Cats: Simba (Persian, 3 yrs), Luna (Siamese, 2 yrs)\n- Rabbits: Snowy (White Rabbit, 1 yr)\nWould you like more details or start the adoption process?';
+  }
+  if (msg.includes('adopt') || msg.includes('adoption')) {
+    chatbotState.lastTopic = 'adoption';
+    return 'We help connect loving families with pets in need of homes. Ask about available pets or the adoption process!';
+  }
+  if ((msg.includes('pet') || msg.includes('available')) && chatbotState.lastTopic === 'adoption') {
+    return 'Available pets for adoption: \n- Dogs: Bruno (Labrador, 2 yrs), Daisy (Beagle, 1 yr)\n- Cats: Simba (Persian, 3 yrs), Luna (Siamese, 2 yrs)\n- Rabbits: Snowy (White Rabbit, 1 yr)\nWould you like to know more about any pet?';
+  }
+  // Product details
+  if (msg.includes('product') || msg.includes('food') || msg.includes('toy') || msg.includes('bed') || msg.includes('scratcher') || msg.includes('feeder') || msg.includes('bone')) {
+    chatbotState.lastTopic = 'shop';
+    if (msg.includes('dog')) return 'For dogs, we recommend: Natural Dog Food, Cozy Pet Bed, Interactive Toy, Dog Chew Bone.';
+    if (msg.includes('cat')) return 'For cats, we recommend: Premium Cat Food, Cat Scratcher.';
+    if (msg.includes('rabbit')) return 'For rabbits, we recommend: Organic Rabbit Food.';
+    if (msg.includes('bird')) return 'For birds, we recommend: Bird Feeder.';
+    return 'We offer premium pet food, accessories, toys, beds, and more. Ask about a specific product for details!';
+  }
+  if (msg.includes('price')) return 'Product prices are listed in our shop section. If you want the price of a specific item, just ask!';
   // Multi-turn/contextual follow-up
   if (chatbotState.awaitingDetail === 'petType') {
     chatbotState.awaitingDetail = null;
@@ -972,15 +1005,11 @@ function getChatbotResponse(msg) {
     chatbotState.lastTopic = 'clinic';
     return 'Our pet clinic provides checkups, vaccinations, and health consultations. Do you want to book a visit or ask about pet health?';
   }
-  if (msg.includes('adopt') || msg.includes('adoption')) {
-    chatbotState.lastTopic = 'adoption';
-    return 'We help connect loving families with pets in need of homes. Would you like to see available pets or know the adoption process?';
-  }
   if (msg.includes('event')) {
     chatbotState.lastTopic = 'event';
     return 'We host pet events like training workshops, meetups, and more. Interested in upcoming events or want to register?';
   }
-  if (msg.includes('shop') || msg.includes('product')) {
+  if (msg.includes('shop')) {
     chatbotState.lastTopic = 'shop';
     return 'Browse our shop for premium pet food, accessories, toys, and more! Need help choosing a product?';
   }
