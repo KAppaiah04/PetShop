@@ -3,341 +3,1131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paws & Whiskers Pet Store</title>
-  <link rel="icon" href="favicon.ico" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
-  
+  <title>Paws and Whiskers Pet Shop</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #ffe4e6 100%);
-      color: #333;
+      font-family: 'Nunito', Arial, sans-serif;
+      background: #f7f8fa;
+      color: #2d3748;
+      min-height: 100vh;
       overflow-x: hidden;
     }
-    header {
-      background: #a78bfa;
-      color: #fff;
-      padding: 2rem 0 1rem 0;
-      text-align: center;
-      position: relative;
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
-    nav {
-      margin: 1rem 0;
+    .navbar.scrolled {
+      padding: 0.8rem 2rem;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.12);
     }
-    nav a {
-      color: #7c3aed;
-      text-decoration: none;
-      margin: 0 1rem;
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
       font-weight: 700;
+      color: #4f46e5;
+      letter-spacing: 1px;
+      transition: transform 0.3s ease;
+    }
+    .navbar-logo:hover {
+      transform: scale(1.05);
+    }
+    .navbar-menu {
+      display: flex;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+    .navbar-menu a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.7rem 1.2rem;
+      border-radius: 1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .navbar-menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(79,70,229,0.1), transparent);
+      transition: left 0.4s;
+    }
+    .navbar-menu a:hover::before {
+      left: 100%;
+    }
+    .navbar-menu a:hover {
+      background: #e0e7ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79,70,229,0.2);
+    }
+    .navbar-menu a.active {
+      background: #4f46e5;
+      color: white;
+    }
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #4f46e5;
+      cursor: pointer;
+    }
+    @media (max-width: 800px) {
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 70px;
+        right: 2rem;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        z-index: 101;
+      }
+      .navbar-menu.active {
+        display: flex;
+      }
+      .navbar-toggle {
+        display: block;
+      }
     }
     .hero {
-      text-align: center;
-      margin: 3rem 0 2rem 0;
       position: relative;
-    }
-    .emoji {
-      position: absolute;
-      font-size: 2.5rem;
-      animation: float 3s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .emoji1 { left: 10%; top: 0; animation-delay: 0s; }
-    .emoji2 { left: 80%; top: 10px; animation-delay: 1s; }
-    .emoji3 { left: 50%; top: 40px; animation-delay: 2s; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-    .cta-btn {
-      background: #7c3aed;
-      color: #fff;
-      border: none;
-      border-radius: 2rem;
-      padding: 0.75rem 2rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-top: 2rem;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
-    }
-    .cta-btn:hover {
-      transform: scale(1.08);
-      background: #a78bfa;
-    }
-    .carousel {
-      display: flex;
-      overflow: hidden;
-      gap: 2rem;
-      padding: 2rem 0;
-      justify-content: center;
-      position: relative;
-      max-width: 100vw;
-    }
-    .carousel-card {
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 2rem;
-      min-width: 250px;
-      max-width: 300px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-    .carousel-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 16px rgba(124,58,237,0.15);
-    }
-    .carousel-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-    .carousel-arrow {
-      background: #fff;
-      border: 2px solid #a78bfa;
-      color: #7c3aed;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 1.5rem;
+      min-height: 400px;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      pointer-events: auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: background 0.2s;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+      overflow: hidden;
     }
-    .carousel-arrow:hover {
-      background: #a78bfa;
+    .hero-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      filter: brightness(0.7) blur(1px);
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(79,70,229,0.18);
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
       color: #fff;
-    }
-    .carousel-dots {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .carousel-dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #d1d5db;
-      margin: 0 4px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .carousel-dot.active {
-      background: #7c3aed;
-    }
-    .pet-month {
-      background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%);
-      border-radius: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 2rem;
-      margin: 2rem auto;
-      max-width: 400px;
-      text-align: center;
-      transition: box-shadow 0.3s;
     }
-    .pet-month img {
-      width: 120px;
-      border-radius: 1rem;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      padding: 2rem;
+    }
+    .hero-content h1 {
+      font-size: 2.7rem;
+      font-weight: 800;
       margin-bottom: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: transform 0.3s;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
-    .pet-month:hover img {
-      transform: scale(1.08);
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
     }
-    .video-section {
-      text-align: center;
-      margin: 3rem 0;
-    }
-    .video-section iframe {
-      width: 100%;
-      max-width: 480px;
-      height: 270px;
-      border-radius: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      border: none;
-    }
-    .chatbot {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      padding: 1rem 2rem;
-      max-width: 300px;
-      z-index: 100;
-      font-size: 0.95rem;
-      display: flex;
-      flex-direction: column;
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-    }
-    #chat-box {
-      height: 200px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 0.5rem;
-      background: #f9f9f9;
-      border-radius: 0.5rem;
-      flex-grow: 1;
-    }
-    #user-input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    button {
-      background: #7c3aed;
-      color: white;
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
+      border-radius: 2rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
-    button:hover {
-      background: #a78bfa;
+    .cta-btn.primary {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(79,70,229,0.3);
+    }
+    .cta-btn.secondary {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(79,70,229,0.4);
+    }
+    .cta-btn.secondary:hover {
+      background: rgba(255,255,255,0.3);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .cta-btn:focus {
+      outline: 3px solid rgba(79,70,229,0.5);
+      outline-offset: 2px;
+    }
+    .cta-btn:active {
+      transform: translateY(0);
+    }
+    
+    /* Enhanced Animations */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes bounce {
+      0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0,0,0);
+      }
+      40%, 43% {
+        transform: translate3d(0, -10px, 0);
+      }
+      70% {
+        transform: translate3d(0, -5px, 0);
+      }
+      90% {
+        transform: translate3d(0, -2px, 0);
+      }
+    }
+    .animate-bounce {
+      animation: bounce 2s infinite;
+    }
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 4px 20px rgba(79,70,229,0.3);
+      }
+      50% {
+        box-shadow: 0 4px 30px rgba(79,70,229,0.5);
+      }
+    }
+    
+    /* Improved Focus States for Accessibility */
+    *:focus {
+      outline: 2px solid #4f46e5;
+      outline-offset: 2px;
+    }
+    button:focus, a:focus, input:focus, select:focus {
+      outline: 3px solid rgba(79,70,229,0.5);
+      outline-offset: 2px;
+    }
+    .cta-btn:hover {
+      background: #6366f1;
+      transform: scale(1.05);
+    }
+    .products {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px rgba(79,70,229,0.07);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(79,70,229,0.1), transparent);
+      transition: left 0.5s;
+    }
+    .product-card:hover::before {
+      left: 100%;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(79,70,229,0.15);
+      transform: translateY(-8px);
+    }
+    .product-card:focus-within {
+      outline: 3px solid rgba(79,70,229,0.5);
+      outline-offset: 2px;
+    }
+    .product-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      background: #e0e7ff;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+    .product-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #4f46e5;
+      transition: color 0.3s ease;
+    }
+    .product-card:hover h3 {
+      color: #6366f1;
+    }
+    .product-card p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #2d3748;
+    }
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #16a34a;
+      margin-bottom: 1rem;
+    }
+    .product-btn {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 1.5rem;
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .product-btn:hover {
+      background: #6366f1;
+      transform: scale(1.05);
+    }
+    .tips-section {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px rgba(79,70,229,0.07);
+      text-align: center;
+    }
+    .tips-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4f46e5;
+      margin-bottom: 1.5rem;
+    }
+    .tip {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #2d3748;
+      min-height: 2.5rem;
+      transition: opacity 0.3s;
+    }
+    .tip-link {
+      display: inline-block;
+      font-size: 1rem;
+      color: #4f46e5;
+      background: #e0e7ff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 1rem;
+      text-decoration: none;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tip-link:hover {
+      background: #6366f1;
+      color: #fff;
+    }
+    .footer {
+      background: #4f46e5;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      margin-top: 4rem;
+    }
+    .footer-links {
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #e0e7ff;
+    }
+    .footer-contact {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.95rem;
+      color: #e0e7ff;
+    }
+    
+    /* Responsive horizontal layout for services */
+    @media (min-width: 600px) {
+      #services .products > div {
+        min-width: 260px;
+        max-width: 320px;
+      }
+      #services {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+    }
+    
+    /* Splash Screen Styles */
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #18181b;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s;
+    }
+    #splash-logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #e0e7ff;
+      box-shadow: 0 0 40px #4f46e5a0;
+      opacity: 0;
+      transform: scale(0.7);
+      animation: splashLogoIn 1.2s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
+    }
+    #splash-title {
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: splashTextIn 1.2s cubic-bezier(0.4,0,0.2,1) 0.7s forwards;
+      text-shadow: 0 2px 24px #4f46e5a0;
+    }
+    @keyframes splashLogoIn {
+      0% { opacity:0; transform:scale(0.7); }
+      60% { opacity:1; transform:scale(1.15); }
+      80% { transform:scale(0.95); }
+      100% { opacity:1; transform:scale(1); }
+    }
+    @keyframes splashTextIn {
+      0% { opacity:0; transform:translateY(30px); }
+      60% { opacity:1; transform:translateY(-8px); }
+      100% { opacity:1; transform:translateY(0); }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Paws & Whiskers Pet Store</h1>
-    <nav>
+  <!-- Splash Screen (single overlay, not duplicated) -->
+<div id="splash-screen" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:linear-gradient(135deg,#4f46e5,#7c3aed); z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 0.7s;">
+  <img src="Logo.png" alt="Paws and Whiskers Logo" id="splash-logo" style="width:90px; height:90px; border-radius:50%; background:#e0e7ff; box-shadow:0 0 40px #4f46e5a0; opacity:0; transform:scale(0.7); animation:splashLogoIn 1.2s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;" />
+  <h1 id="splash-title" style="color:#fff; font-size:2.2rem; font-weight:800; letter-spacing:2px; margin-top:2rem; opacity:0; animation:splashTextIn 1.2s cubic-bezier(0.4,0,0.2,1) 0.7s forwards; text-shadow:0 2px 24px #4f46e5a0;">Welcome to Paws and Whiskers</h1>
+  <div style="color:#e0e7ff; font-size:1.1rem; font-weight:600; text-align:center; max-width:320px; animation:splashTextIn 1.5s cubic-bezier(.4,0,.2,1);">AI-Powered Pet Shop & Care Platform</div>
+</div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <img src="Logo.png" alt="Paws and Whiskers Logo" style="border-radius:50%; background:#e0e7ff; width:40px; height:40px; object-fit:cover;" />
+      Paws and Whiskers
+    </div>
+    <div style="position:relative;">
+      <span id="cart-icon" style="font-size:2rem; color:#4f46e5; cursor:pointer; position:relative;">
+        🛒<span id="cart-count" style="position:absolute; top:-10px; right:-15px; background:#16a34a; color:#fff; border-radius:50%; padding:2px 8px; font-size:0.9rem; font-weight:700; min-width:24px; text-align:center;">0</span>
+      </span>
+    </div>
+    <button class="navbar-toggle" aria-label="Toggle menu" onclick="toggleMenu()">&#9776;</button>
+    <div class="navbar-menu" id="navbar-menu">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
       <a href="#about">About</a>
       <a href="#services">Services</a>
+      <a href="#tips">Pet Care Tips</a>
       <a href="#contact">Contact</a>
-    </nav>
-  </header>
-  <section class="hero">
-    <span class="emoji emoji1">🐶</span>
-    <span class="emoji emoji2">🐱</span>
-    <span class="emoji emoji3">🐾</span>
-    <h2>Welcome to Your Trusted Pet Store!</h2>
-    <p>Find everything your furry friends need, from food and toys to grooming and care.</p>
-    <button class="cta-btn" onclick="window.location='#services'">Shop Now</button>
-  </section>
-  <section class="carousel" id="services">
-    <div class="carousel-card">
-      <h3>Pet Food</h3>
-      <p>High-quality food for dogs, cats, birds, and more.</p>
+      <a href="#" onclick="openProfileModal()" style="background:#e0e7ff; color:#4f46e5;">🐾 My Account</a>
+      <a href="#" onclick="petShopAI.generateHealthReport(); switchProfileTab('health'); openPetProfileModal()" style="background:#10b981; color:#fff; margin-left:8px; border-radius:1rem; padding:0.7rem 1.2rem; font-weight:700;">📊 Generate Health Report</a>
+      <a href="#" id="visual-search-nav-btn" style="background:#e0e7ff; color:#4f46e5;">🔍 Visual Search</a>
     </div>
-    <div class="carousel-card">
-      <h3>Toys & Accessories</h3>
-      <p>Fun toys, comfy beds, stylish collars, and more.</p>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="hero" id="home">
+    <video class="hero-video-bg" autoplay muted loop playsinline>
+      <source src="yt1z.net - Puppy Love in 2 Minutes Cute Funny Puppies (1080p).mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge animate-bounce" style="display:inline-block; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); padding:0.5rem 1rem; border-radius:2rem; margin-bottom:1rem; color:white; font-size:0.9rem; font-weight:600;">
+        🤖 AI-Powered Pet Care Platform
+      </div>
+      <h1 style="animation: slideInUp 1s ease-out;">Happy Pets, Happy Homes</h1>
+      <p id="hero-description" style="animation: slideInUp 1s ease-out 0.2s both;">Discover premium pet food, accessories, and expert care tips for your furry friends.</p>
+      <div class="hero-cta-group" style="display:flex; gap:1rem; justify-content:center; margin-top:2rem; animation: slideInUp 1s ease-out 0.4s both;">
+        <a href="#shop" class="cta-btn primary" role="button" tabindex="0" aria-label="Browse our pet products">
+          🛍️ Shop Now
+        </a>
+        <button onclick="openPetProfileModal()" class="cta-btn secondary" role="button" tabindex="0" aria-label="Create your pet profile">
+          🐾 Start Pet Profile
+        </button>
+      </div>
+      <div class="hero-stats" style="display:flex; justify-content:center; gap:2rem; margin-top:2rem; animation: slideInUp 1s ease-out 0.6s both;">
+        <div class="stat-item" style="text-align:center; color:white;">
+          <div style="font-size:1.8rem; font-weight:700;">1000+</div>
+          <div style="font-size:0.9rem; opacity:0.9;">Happy Pets</div>
+        </div>
+        <div class="stat-item" style="text-align:center; color:white;">
+          <div style="font-size:1.8rem; font-weight:700;">24/7</div>
+          <div style="font-size:0.9rem; opacity:0.9;">AI Support</div>
+        </div>
+        <div class="stat-item" style="text-align:center; color:white;">
+          <div style="font-size:1.8rem; font-weight:700;">98%</div>
+          <div style="font-size:0.9rem; opacity:0.9;">Satisfaction</div>
+        </div>
+      </div>
     </div>
-    <div class="carousel-card">
-      <h3>Grooming</h3>
-      <p>Professional grooming and spa services for your pets.</p>
+  </section>
+
+  <!-- Services Section -->
+  <section class="products" id="services" style="margin-bottom:3rem;">
+    <div style="max-width:1200px; margin:0 auto; padding:0 2rem;">
+      <h2 style="color:#4f46e5; font-size:2rem; font-weight:800; margin-bottom:2rem; text-align:center;">Our Services</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2rem;">
+        <div style="background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); padding:2rem 1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <img src="Grooming.jpg" alt="Grooming" style="width:120px; height:120px; margin-bottom:1rem; border-radius:1rem; object-fit:cover; box-shadow:0 2px 8px rgba(79,70,229,0.10);" />
+          <h3 style="color:#4f46e5; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;">Grooming</h3>
+          <p style="font-size:1rem; color:#2d3748;">Professional grooming for dogs, cats, and small pets. Bath, haircut, nail trim, and more.</p>
+        </div>
+        <!-- Pet Clinic Service Card (with Appointment Booking) -->
+        <div style="background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); padding:2rem 1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <img src="Clinic.webp" alt="Pet Clinic" style="width:120px; height:120px; margin-bottom:1rem; border-radius:1rem; object-fit:cover; box-shadow:0 2px 8px rgba(79,70,229,0.10);" />
+          <h3 style="color:#4f46e5; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;">Pet Clinic</h3>
+          <p style="font-size:1rem; color:#2d3748;">Experienced veterinarians for checkups, vaccinations, and health consultations.</p>
+          <button onclick="openAppointmentModal()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700; margin-top:1rem;">Book Appointment</button>
+        </div>
+        <div style="background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); padding:2rem 1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <img src="Adoption.webp" alt="Adoption" style="width:120px; height:120px; margin-bottom:1rem; border-radius:1rem; object-fit:cover; box-shadow:0 2px 8px rgba(79,70,229,0.10);" />
+          <h3 style="color:#4f46e5; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;">Adoption</h3>
+          <p style="font-size:1rem; color:#2d3748;">Find your new best friend! We help connect loving families with pets in need of homes.</p>
+        </div>
+        <div style="background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); padding:2rem 1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <img src="petevent.jpg" alt="Pet Events" style="width:120px; height:120px; margin-bottom:1rem; border-radius:1rem; object-fit:cover; box-shadow:0 2px 8px rgba(79,70,229,0.10);" />
+          <h3 style="color:#4f46e5; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;">Pet Events</h3>
+          <p style="font-size:1rem; color:#2d3748;">Join our fun pet events: training workshops, meetups, and more for pet lovers.</p>
+        </div>
+      </div>
     </div>
-    <div class="carousel-card">
-      <h3>Expert Advice</h3>
-      <p>Talk to our staff for tips on pet care and training.</p>
+  </section>
+  <!-- Product Section -->
+  <section class="products" id="shop">
+    <div class="product-card">
+      <img src="product1.webp" alt="Natural Dog Food" />
+      <h3>Natural Dog Food</h3>
+      <p>Wholesome nutrition for all breeds. Grain-free, high protein.</p>
+      <div class="product-price">₹799</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
     </div>
-    <div class="carousel-nav">
-      <span class="carousel-arrow" onclick="prevSlide()">&#8592;</span>
-      <span class="carousel-arrow" onclick="nextSlide()">&#8594;</span>
+    <div class="product-card">
+      <img src="product2.webp" alt="Premium Cat Food" />
+      <h3>Premium Cat Food</h3>
+      <p>Delicious recipes for healthy coats and happy cats.</p>
+      <div class="product-price">₹599</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="product4.webp" alt="Organic Rabbit Food" />
+      <h3>Organic Rabbit Food</h3>
+      <p>Fresh, natural ingredients for energetic bunnies.</p>
+      <div class="product-price">₹399</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="product5.webp" alt="Cozy Pet Bed" />
+      <h3>Cozy Pet Bed</h3>
+      <p>Soft, durable, and machine-washable for ultimate comfort.</p>
+      <div class="product-price">₹999</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="product6.jpg" alt="Interactive Toy" />
+      <h3>Interactive Toy</h3>
+      <p>Keep your pets active and entertained for hours.</p>
+      <div class="product-price">₹249</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="product8.jpg" alt="Dog Chew Bone" />
+      <h3>Dog Chew Bone</h3>
+      <p>Long-lasting chew for strong teeth and healthy gums.</p>
+      <div class="product-price">₹199</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="product9.webp" alt="Cat Scratcher" />
+      <h3>Cat Scratcher</h3>
+      <p>Durable scratcher for playful and healthy cats.</p>
+      <div class="product-price">₹349</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="product3.jpg" alt="Bird Feeder" />
+      <h3>Bird Feeder</h3>
+      <p>Easy-to-use feeder for all types of pet birds.</p>
+      <div class="product-price">₹299</div>
+      <button class="product-btn" style="margin-top:1rem; width:100%;" onclick="addToCart()">Add to Cart</button>
     </div>
   </section>
-  <div class="carousel-dots" id="carousel-dots"></div>
-  <section class="pet-month">
-    <h2>Pet of the Month</h2>
-    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=facearea&w=256&h=256&facepad=2" alt="Pet of the Month" />
-    <h3>Bella</h3>
-    <p>Breed: Golden Retriever<br />Age: 3 years</p>
-    <p>Bella is a friendly, playful companion who loves everyone. She is our featured pet this month!</p>
+
+  <!-- Pet Care Tips Section -->
+  <section class="tips-section" id="tips">
+    <div class="tips-title">Pet Care Tips</div>
+    <div class="tip" id="tip-text">Feed your pet a balanced diet for optimal health.</div>
+    <a class="tip-link" id="tip-link" href="https://www.youtube.com/results?search_query=pet+care+tips" target="_blank">Watch Pet Care Tips on YouTube</a>
   </section>
-  <section class="video-section">
-    <h2>Pet Care Tips</h2>
-    <iframe src="https://www.youtube.com/embed/1Ne1hqOXKKI" allowfullscreen title="Pet Care Video"></iframe>
+
+  <!-- About Section -->
+  <section id="about" style="padding:3rem 2rem; background:#f7f8fa; margin:2rem 0;">
+    <div style="max-width:1200px; margin:0 auto;">
+      <h2 style="text-align:center; color:#4f46e5; margin-bottom:2rem; font-size:2.5rem;">About Paws and Whiskers</h2>
+      
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; margin-bottom:3rem;">
+        <div style="background:white; padding:2rem; border-radius:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <h3 style="color:#4f46e5; margin-bottom:1rem;">🏪 Our Story</h3>
+          <p style="color:#666; line-height:1.6;">
+            Founded in 2020, Paws and Whiskers began as a family-owned pet store with a simple mission: to provide the best care and products for every pet. Today, we've evolved into an AI-powered pet care platform, combining traditional pet expertise with cutting-edge technology to serve thousands of happy pets and their families.
+          </p>
+        </div>
+        
+        <div style="background:white; padding:2rem; border-radius:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <h3 style="color:#4f46e5; margin-bottom:1rem;">🤖 AI-Powered Innovation</h3>
+          <p style="color:#666; line-height:1.6;">
+            We're pioneers in AI-driven pet care, offering personalized recommendations, health risk prediction, visual product search, and intelligent pricing. Our advanced chatbot provides 24/7 assistance, while our machine learning algorithms ensure every pet gets exactly what they need.
+          </p>
+        </div>
+        
+        <div style="background:white; padding:2rem; border-radius:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <h3 style="color:#4f46e5; margin-bottom:1rem;">🏥 Comprehensive Services</h3>
+          <p style="color:#666; line-height:1.6;">
+            Beyond products, we offer professional grooming, veterinary consultations, pet adoption services, and training workshops. Our certified groomers and experienced veterinarians ensure your pets receive the highest standard of care.
+          </p>
+        </div>
+      </div>
+      
+      <div style="background:white; padding:2rem; border-radius:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:2rem;">
+        <h3 style="color:#4f46e5; margin-bottom:1.5rem; text-align:center;">🎯 Our Mission & Values</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem;">
+          <div style="text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">❤️</div>
+            <h4 style="color:#4f46e5; margin-bottom:0.5rem;">Pet-First Approach</h4>
+            <p style="color:#666; font-size:0.9rem;">Every decision prioritizes pet health, happiness, and well-being above all else.</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🔬</div>
+            <h4 style="color:#4f46e5; margin-bottom:0.5rem;">Scientific Excellence</h4>
+            <p style="color:#666; font-size:0.9rem;">Evidence-based care recommendations powered by veterinary science and AI research.</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌟</div>
+            <h4 style="color:#4f46e5; margin-bottom:0.5rem;">Personalized Experience</h4>
+            <p style="color:#666; font-size:0.9rem;">AI-driven personalization ensures every pet gets customized care and product recommendations.</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🤝</div>
+            <h4 style="color:#4f46e5; margin-bottom:0.5rem;">Community Impact</h4>
+            <p style="color:#666; font-size:0.9rem;">Supporting local animal shelters and promoting responsible pet ownership in our community.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align:center; background:linear-gradient(135deg, #4f46e5, #7c3aed); color:white; padding:2rem; border-radius:1rem;">
+        <h3 style="margin:0 0 1rem 0;">🚀 Join the Future of Pet Care</h3>
+        <p style="margin:0 0 1.5rem 0; opacity:0.9;">Experience the most advanced AI-powered pet care platform. From intelligent health predictions to personalized recommendations, we're revolutionizing how you care for your beloved pets.</p>
+        <button onclick="openPetProfileModal()" style="background:white; color:#4f46e5; border:none; padding:1rem 2rem; border-radius:0.5rem; font-weight:700; cursor:pointer;">
+          🐾 Start Your AI Pet Profile
+        </button>
+      </div>
+    </div>
   </section>
-  <section id="about" style="text-align:center;margin:3rem 0;">
-    <h2>About Us</h2>
-    <p>Paws & Whiskers is your local, family-owned pet store. We care about your pets as much as you do!</p>
-  </section>
-  <section id="contact" style="text-align:center;margin:3rem 0;">
-    <h2>Contact</h2>
-    <p>Email: info@pawswhiskers.com | Phone: (555) 123-4567</p>
-  </section>
-  <div class="chatbot" aria-label="Chatbot container">
-    <h3>Chatbot</h3>
-    <div id="chat-box" aria-live="polite" aria-atomic="false"></div>
-    <input
-      type="text"
-      id="user-input"
-      placeholder="Ask me something..."
-      aria-label="Type your question here"
-      onkeydown="if(event.key === 'Enter'){ sendMessage(); }"
-    />
-    <button onclick="sendMessage()">Send</button>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
   </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
+
+  <!-- Pet Gallery Section -->
+<section id="gallery" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Gallery</h2>
+  <input id="gallery-upload" type="file" accept="image/*" style="margin-bottom:1rem;">
+  <button onclick="uploadGalleryImage()" style="background:#4f46e5; color:#fff; border:none; padding:0.7rem 2rem; border-radius:1rem; font-weight:700;">Upload</button>
+  <div id="gallery-images" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;"></div>
+</section>
+<!-- Blog & Community Forum at the End -->
+<section id="blog" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Care Blog & Articles</h2>
+  <div id="blog-list" style="text-align:left; font-size:1.1rem;"></div>
+</section>
+<section id="forum" style="max-width:900px; margin:3rem auto; padding:2rem; background:#fff; border-radius:1.5rem; box-shadow:0 2px 12px rgba(79,70,229,0.07); text-align:center;">
+  <h2 style="color:#4f46e5; font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Pet Community Forum</h2>
+  <div id="forum-posts" style="max-height:200px; overflow-y:auto; margin-bottom:1rem; text-align:left;"></div>
+  <textarea id="forum-input" placeholder="Share your story or ask a question..." style="width:100%; margin-bottom:1rem; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;"></textarea>
+  <button onclick="postToForum()" style="width:100%; background:#4f46e5; color:#fff; border:none; padding:0.8rem; border-radius:0.5rem; font-weight:700;">Post</button>
+</section>
+<!-- Contact Section at the very bottom -->
+<footer class="footer" id="contact">
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#tips">Pet Care Tips</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-contact">
+    Email: info@pawsandwhiskers.com | Phone: (555) 123-4567
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Paws and Whiskers. All rights reserved.
+  </div>
+  <div style="margin-top:2rem;">
+    <select id="lang-select" style="padding:0.5rem 1rem; border-radius:1rem; border:1px solid #e0e7ff; font-weight:700;">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+</footer>
 
   <script>
-    async function sendMessage() {
-      const input = document.getElementById("user-input");
-      const chatBox = document.getElementById("chat-box");
-      const message = input.value.trim();
-      if (!message) return;
-
-      // Show user message
-      chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-      input.value = "";
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      // Show loading indicator
-      chatBox.innerHTML += `<p id="loading"><em>Bot is typing...</em></p>`;
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer REMOVED-OPENAI-KEY"
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: message }],
-            max_tokens: 150,
-            temperature: 0.7
-          }),
-        });
-
-        const data = await response.json();
-
-        // Remove loading indicator
-        const loadingEl = document.getElementById("loading");
-        if (loadingEl) loadingEl.remove();
-
-        if (data.choices && data.choices.length > 0) {
-          const botMessage = data.choices[0].message.content;
-          chatBox.innerHTML += `<p><strong>Bot:</strong> ${botMessage}</p>`;
-        } else {
-          chatBox.innerHTML += `<p><strong>Bot:</strong> Sorry, I couldn't get a response.</p>`;
-        }
-      } catch (error) {
-        const loadingEl = document.getElementById("loading");
-        if (loadingEl) loadingEl.remove();
-        chatBox.innerHTML += `<p><strong>Bot:</strong> Error communicating with the API.</p>`;
-        console.error(error);
-      }
-
-      chatBox.scrollTop = chatBox.scrollHeight;
+// Splash Screen Logic (single overlay only)
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var splash = document.getElementById('splash-screen');
+    if(splash) {
+      splash.style.opacity = '0';
+      setTimeout(function() {
+        splash.style.display = 'none';
+      }, 700);
     }
+  }, 2500);
+});
   </script>
 </body>
 </html>
