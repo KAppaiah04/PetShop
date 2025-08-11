@@ -798,6 +798,23 @@
   </div>
 </div>
 
+<!-- Chatbot Floating Button -->
+<div id="chatbot-btn" style="position:fixed; bottom:32px; right:32px; z-index:99999;">
+  <button onclick="openChatbotModal()" style="background:#4f46e5; color:#fff; border:none; border-radius:50%; width:64px; height:64px; font-size:2rem; box-shadow:0 4px 16px rgba(79,70,229,0.18); cursor:pointer;">💬</button>
+</div>
+<!-- Chatbot Modal -->
+<div id="chatbot-modal" style="display:none; position:fixed; bottom:0; right:0; width:350px; max-width:90vw; height:480px; background:#fff; border-radius:1rem 1rem 0 0; box-shadow:0 2px 24px rgba(79,70,229,0.18); z-index:99999; flex-direction:column;">
+  <div style="background:#4f46e5; color:#fff; padding:1rem; border-radius:1rem 1rem 0 0; font-weight:700; font-size:1.2rem; display:flex; justify-content:space-between; align-items:center;">
+    <span>PetShop AI Chatbot</span>
+    <button onclick="closeChatbotModal()" style="background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">&times;</button>
+  </div>
+  <div id="chatbot-messages" style="flex:1; padding:1rem; overflow-y:auto; font-size:1rem; background:#f7f8fa;"></div>
+  <form id="chatbot-form" onsubmit="sendChatbotMessage(event)" style="display:flex; padding:1rem; gap:0.5rem; background:#fff; border-top:1px solid #e0e7ff;">
+    <input id="chatbot-input" type="text" placeholder="Ask me anything about our services..." autocomplete="off" style="flex:1; padding:0.7rem; border-radius:0.5rem; border:1px solid #e0e7ff;">
+    <button type="submit" style="background:#4f46e5; color:#fff; border:none; border-radius:0.5rem; padding:0.7rem 1.2rem; font-weight:700;">Send</button>
+  </form>
+</div>
+
   <script>
 // Splash Screen Logic (single overlay only)
 document.addEventListener('DOMContentLoaded', function() {
@@ -887,6 +904,46 @@ function generateHealthReport() {
     healthReport.innerHTML = `<div style='color:#4f46e5; font-weight:700;'>Health Risk: ${risk}</div><div>${tips}</div><div>Recommended checkup for ${pet.type} (${pet.breed})</div>`;
     healthReport.appendChild(recommendations);
   }
+}
+
+// Chatbot functions
+function openChatbotModal() {
+  document.getElementById('chatbot-modal').style.display = 'flex';
+}
+function closeChatbotModal() {
+  document.getElementById('chatbot-modal').style.display = 'none';
+}
+function sendChatbotMessage(event) {
+  event.preventDefault();
+  var input = document.getElementById('chatbot-input');
+  var messages = document.getElementById('chatbot-messages');
+  var userMsg = input.value.trim();
+  if (!userMsg) return;
+  messages.innerHTML += `<div style='margin-bottom:0.5rem;'><strong>You:</strong> ${userMsg}</div>`;
+  input.value = '';
+  setTimeout(function() {
+    messages.innerHTML += `<div style='margin-bottom:1rem;'><strong>AI:</strong> ${getChatbotResponse(userMsg)}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }, 500);
+}
+function getChatbotResponse(msg) {
+  msg = msg.toLowerCase();
+  // High-level to low-level answers
+  if (msg.includes('groom') || msg.includes('grooming')) return 'We offer professional grooming for dogs, cats, and small pets. Services include bath, haircut, nail trim, and more.';
+  if (msg.includes('clinic') || msg.includes('vet') || msg.includes('health')) return 'Our pet clinic provides checkups, vaccinations, and health consultations with experienced veterinarians.';
+  if (msg.includes('adopt') || msg.includes('adoption')) return 'We help connect loving families with pets in need of homes. Ask us about available pets for adoption!';
+  if (msg.includes('event')) return 'We host pet events like training workshops, meetups, and more for pet lovers.';
+  if (msg.includes('shop') || msg.includes('product')) return 'Browse our shop for premium pet food, accessories, toys, and more!';
+  if (msg.includes('tips') || msg.includes('care')) return 'We provide expert pet care tips. Ask about diet, exercise, or training!';
+  if (msg.includes('profile')) return 'You can create and manage your pet profile for personalized recommendations and health reports.';
+  if (msg.includes('recommend')) return 'Our AI recommends products based on your pet profile. Try adding your pet for tailored suggestions!';
+  if (msg.includes('chatbot') || msg.includes('ai')) return 'I am your AI-powered assistant, here to help with all pet shop services and questions.';
+  if (msg.includes('contact')) return 'You can reach us at info@pawsandwhiskers.com or (555) 123-4567.';
+  if (msg.includes('service')) return 'We offer grooming, clinic, adoption, events, and expert pet care tips.';
+  if (msg.includes('hello') || msg.includes('hi')) return 'Hello! How can I help you with your pet care needs today?';
+  if (msg.includes('thank')) return 'You’re welcome! Let me know if you have more questions.';
+  // Default fallback
+  return 'I can help with pet care, products, grooming, clinic, adoption, events, and more. Ask me anything!';
 }
   </script>
 </body>
